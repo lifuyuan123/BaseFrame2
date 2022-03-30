@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="color_bg">#FAFAFA</color>
+    <color name="cl_000000">#000000</color>
+    <color name="cl_202020">#202020</color>
+    <color name="cl_F09E24">#F09E24</color>
+    <color name="cl_F0F1F2">#F0F1F2</color>
+    <color name="cl_FF3030">#FF3030</color>
+    <color name="cl_999999">#999999</color>
+    <color name="cl_333333">#333333</color>
+    <color name="cl_ED1C24">#ED1C24</color>
+    <color name="cl_373737">#373737</color>
+    <color name="cl_60FFFFFF">#99FFFFFF</color>
+    <color name="cl_1B93D0">#1B93D0</color>
+    <color name="cl_F7F8FA">#F7F8FA</color>
+    <color name="cl_EBEBEB">#EBEBEB</color>
+    <color name="cl_FF6B24">#FF6B24</color>
+    <color name="cl_414159">#414159</color>
+    <color name="cl_989898">#989898</color>
+</resources>

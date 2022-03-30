@@ -1,0 +1,114 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+}
+
+android {
+
+    compileSdkVersion rootProject.compileSdkVersion
+    defaultConfig {
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion  rootProject.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        vectorDrawables.useSupportLibrary = true
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+        //注意：RemoteMediator API 目前处于实验阶段。所有实现 RemoteMediator 的类都应使用 @OptIn(ExperimentalPagingApi::class) 注解。
+        //使用此 OptIn 注解时，请确保您已在应用的 build.gradle 文件中将 freeCompilerArgs += ["-Xopt-in=kotlin.RequiresOptIn"] 添加到 kotlinOptions 中。
+        //⚠实验性 API 日后可能会发生变化。
+        freeCompilerArgs += ["-Xopt-in=kotlin.RequiresOptIn"]
+    }
+
+    buildFeatures {
+        dataBinding = true
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.0'
+    
+    api "androidx.core:core-ktx:$coreVersion"
+    api "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
+    api "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    //paging
+    api "androidx.paging:paging-runtime-ktx:$pagingVersion"
+
+    //协程
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines"
+
+    //生命周期辅助ktx
+    api "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"
+    api "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
+    api "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"
+    api "androidx.fragment:fragment-ktx:$fragment_ktx"
+    //防止livedata数据倒灌
+    api "com.kunminx.arch:unpeek-livedata:$unpeeklivedata"
+
+    //room
+    api "androidx.room:room-runtime:$roomVersion"
+    api "androidx.room:room-ktx:$roomVersion"
+
+    //屏幕适配
+    api "com.github.JessYanCoding:AndroidAutoSize:$androidAutoSize"
+
+    // retrofit gson  okhttp
+    api "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    api "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    api "com.squareup.okhttp3:logging-interceptor:$okhttpLoggingInterceptorVersion"
+
+    //单activity
+    api "com.github.weikaiyun.SFragmentation:fragmentation:$fragmentation"
+
+    //gson容错
+    api "com.github.getActivity:GsonFactory:$gsonFactory"
+    //日志打印
+    api "com.jakewharton.timber:timber:$timber"
+    //状态栏
+    api "com.gyf.immersionbar:immersionbar:$immersionbar"
+
+    //glide
+    api "com.github.bumptech.glide:glide:$glide"
+    kapt  "com.github.bumptech.glide:compiler:$glide"
+    api "com.github.bumptech.glide:okhttp3-integration:$glide"
+
+    //socket
+    api("io.socket:socket.io-client:$ioSocket") {
+        exclude group: 'org.json', module: 'json'
+    }
+
+    //anko-commons
+    api "org.jetbrains.anko:anko-commons:$ankoCommons"
+
+    //圆角处理
+    api "com.github.lihangleo2:ShadowLayout:$shadowLayout"
+
+    //刷新
+    api "com.scwang.smart:refresh-layout-kernel:$smart"
+    api "com.scwang.smart:refresh-footer-classics:$smart"
+    api "com.scwang.smart:refresh-header-material:$smart"
+
+    //utils
+    api "com.blankj:utilcodex:$utilcodex"
+
+    //sharedPreferences
+    api "com.tencent:mmkv-static:$mmkv"
+
+    //lottie动画加载
+    api "com.airbnb.android:lottie:$lottie"
+
+
+}

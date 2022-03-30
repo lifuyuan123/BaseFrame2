@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="fragment"
+            type="com.example.baseframe.ui.main.MainFragment" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".ui.main.MainFragment">
+
+        <FrameLayout
+            android:id="@+id/fl_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/line"
+            android:background="#4d979797" />
+
+        <com.flyco.tablayout.CommonTabLayout
+            android:id="@+id/tab"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:background="#ffffff"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:tl_iconHeight="23dp"
+            app:tl_iconWidth="23dp"
+            app:tl_indicator_color="#2C97DE"
+            app:tl_indicator_height="0dp"
+            app:tl_textSelectColor="#2C97DE"
+            app:tl_textUnselectColor="#66000000"
+            app:tl_textsize="12sp"
+            app:tl_underline_color="#DDDDDD"
+            app:tl_underline_height="1dp"
+            tools:ignore="MissingConstraints" />
+
+    </LinearLayout>
+</layout>

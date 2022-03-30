@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <color android:color="#ffffffff"/>
+    </item>
+
+    <item
+        android:top="293dp"
+        android:bottom="453dp"
+       >
+
+        <bitmap
+            android:gravity="center"
+            android:src="@mipmap/icon_home" />
+    </item>
+
+</layer-list>
