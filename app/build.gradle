@@ -27,7 +27,7 @@ android {
         debug {
             storeFile file("../password.jks")
             storePassword "123456"
-            keyPassword "654321"
+            keyPassword "123456"
             keyAlias "key0"
             v1SigningEnabled true
             v2SigningEnabled true
@@ -35,7 +35,7 @@ android {
         release {
             storeFile file("../password.jks")
             storePassword "123456"
-            keyPassword "654321"
+            keyPassword "123456"
             keyAlias "key0"
             v1SigningEnabled true
             v2SigningEnabled true

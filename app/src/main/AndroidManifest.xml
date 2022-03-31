@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.baseframe">
+    package="com.example.baseframe" >
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- 用于进行网络定位 -->
@@ -18,7 +18,7 @@
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-    <uses-permission android:name="android.permission.VIBRATE" /><!-- 震动 -->
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:name=".app.App"
@@ -30,7 +30,7 @@
         android:resizeableActivity="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".ui.mainParent.MainParentActivity"
             android:configChanges="orientation|screenSize"
@@ -44,21 +44,20 @@
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme"
-            android:windowSoftInputMode="stateAlwaysHidden">
+            android:windowSoftInputMode="stateAlwaysHidden" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <!-- 每个app拥有自己单独的定位service -->
+        </activity> <!-- 每个app拥有自己单独的定位service -->
         <service android:name="com.amap.api.location.APSService" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
             android:exported="false"
-            android:grantUriPermissions="true">
+            android:grantUriPermissions="true" >
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/photo_path" />
@@ -90,7 +89,7 @@
             android:name="androidx.startup.InitializationProvider"
             android:authorities="${applicationId}.androidx-startup"
             android:exported="false"
-            tools:node="merge">
+            tools:node="merge" >
             <meta-data
                 android:name="com.example.baseframe.app.LitePalInitializer"
                 android:value="androidx.startup" />

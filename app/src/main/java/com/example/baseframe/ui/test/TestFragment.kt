@@ -19,14 +19,12 @@ import com.lfy.baselibrary.ui.view.StatusPager
 import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener
 import com.yzq.zxinglibrary.android.CaptureActivity
-import com.yzq.zxinglibrary.bean.ZxingConfig
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
-import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.startActivityForResult
 import javax.inject.Inject
 
