@@ -15,6 +15,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import me.jessyan.retrofiturlmanager.RetrofitUrlManager
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -65,7 +66,7 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideOkHttpClient(requestInterceptor: RequestInterceptor): OkHttpClient {
-        return OkHttpClient.Builder()
+        return RetrofitUrlManager.getInstance().with(OkHttpClient.Builder())
             .addNetworkInterceptor(requestInterceptor)//日志打印拦截
             .addInterceptor(Interceptor { chain ->//请求前拦截处理
                 chain.proceed(

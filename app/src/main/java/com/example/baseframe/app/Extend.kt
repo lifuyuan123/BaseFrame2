@@ -3,6 +3,7 @@ package com.example.baseframe.app
 import android.app.Activity
 
 import android.view.animation.DecelerateInterpolator
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
 import androidx.paging.LoadState
@@ -96,6 +97,17 @@ inline fun Fragment.launchAndRepeatWithViewLifecycle(
 ) {
     viewLifecycleOwner.lifecycleScope.launch {
         viewLifecycleOwner.lifecycle.repeatOnLifecycle(state) {
+            block()
+        }
+    }
+}
+
+inline fun AppCompatActivity.launchAndRepeatWithViewLifecycle(
+    state: Lifecycle.State = Lifecycle.State.STARTED,
+    crossinline block: suspend CoroutineScope.() -> Unit
+) {
+    lifecycleScope.launch {
+        lifecycle.repeatOnLifecycle(state) {
             block()
         }
     }

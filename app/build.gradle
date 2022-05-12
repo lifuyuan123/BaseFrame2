@@ -141,8 +141,6 @@ dependencies {
     implementation "com.flyco.tablayout:FlycoTabLayout_Lib:$flycoTabLayout_Lib"
     //banner
     implementation "io.github.youth5201314:banner:$banner"
-    //定位
-    implementation "com.amap.api:location:latest.integration"
     //缩放图片
     implementation "com.github.chrisbanes:PhotoView:$PhotoView"
 

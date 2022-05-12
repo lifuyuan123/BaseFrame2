@@ -110,5 +110,7 @@ dependencies {
     //lottie动画加载
     api "com.airbnb.android:lottie:$lottie"
 
+    api "com.github.CymChad:BaseRecyclerViewAdapterHelper:$BaseRecycler"
 
+    api "com.google.android:flexbox:$flexbox"
 }

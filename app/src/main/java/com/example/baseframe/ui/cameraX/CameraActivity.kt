@@ -20,7 +20,8 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.lifecycleScope
-import com.example.baseframe.databinding.FragmentCameraBinding
+import com.example.baseframe.R
+import com.example.baseframe.databinding.ActivityCameraBinding
 import com.example.baseframe.utils.FileUtils
 import com.google.common.util.concurrent.ListenableFuture
 import com.google.zxing.BinaryBitmap
@@ -29,22 +30,19 @@ import com.google.zxing.PlanarYUVLuminanceSource
 import com.google.zxing.common.HybridBinarizer
 import com.hjq.permissions.Permission
 import com.hjq.permissions.XXPermissions
-import com.lfy.baselibrary.toast
-import dagger.hilt.android.AndroidEntryPoint
-import com.lfy.baselibrary.ui.fragment.BaseFragment
+import com.jdjinsui.gsm.app.Tags
+import com.lfy.baselibrary.ui.activity.BaseActivity
 import com.lfy.baselibrary.visible
 import com.lfy.baselibrary.vm.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import me.jessyan.autosize.AutoSizeConfig
+import org.jetbrains.anko.toast
 import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.*
 
-@AndroidEntryPoint
-class CameraFragment : BaseFragment<FragmentCameraBinding, BaseViewModel>() {
-
+class CameraActivity : BaseActivity<ActivityCameraBinding, BaseViewModel>() {
     private lateinit var cameraProviderFuture: ListenableFuture<ProcessCameraProvider>
     private lateinit var cameraProvider: ProcessCameraProvider
     private lateinit var preview: Preview
@@ -56,28 +54,23 @@ class CameraFragment : BaseFragment<FragmentCameraBinding, BaseViewModel>() {
     private var singleTapDetector: GestureDetector? = null//聚焦
     private lateinit var cameraZoomState: LiveData<ZoomState>//用于聚焦和缩放
     private lateinit var mCamera: Camera
-    private val beepManager by lazy { BeepManager(requireActivity()) }
+    private val beepManager by lazy { BeepManager(this) }
     private var isBack = true
     private var isVideo = false
     private var isFlahsOn = false
     private var isRecording = false
-    private val mSize by lazy { Size(720, 1280 )}
+    private val mSize by lazy { Size(720, 1280 ) }
     private lateinit var startActivitylaunch: ActivityResultLauncher<String>
 
-    companion object {
-        const val CODE_DATA = "CODE_DATA"
-        fun newInstance() = CameraFragment()
-    }
-
-    override fun getLayout()=com.example.baseframe.R.layout.fragment_camera
-
+    override fun getLayout() = R.layout.activity_camera
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         startActivitylaunch =
             registerForActivityResult(ActivityResultContracts.GetContent()) {
                 try {
                     //根据uri获取对应位图
-                    val scanBitmap = FileUtils.uriToBitmap(requireContext().applicationContext, it)
+                    val scanBitmap = FileUtils.uriToBitmap(applicationContext, it)
                     //转化成扫码需要的信息
                     val bitmap = BinaryBitmap(HybridBinarizer(BitmapLuminanceSource(scanBitmap)))
 
@@ -95,24 +88,18 @@ class CameraFragment : BaseFragment<FragmentCameraBinding, BaseViewModel>() {
                     beepManager.playBeepSoundAndVibrate()
 
                     //设置返回数据
-                    setFragmentResult(
+                    setResult(
                         Activity.RESULT_OK,
-                        Bundle().apply { putString(CODE_DATA, result) })
-                    pop()
+                        Intent().apply { putExtra(Tags.DATA, result) })
+                    finish()
                 } catch (e: Exception) {
                     Timber.e("解析异常 $e")
                 }
             }
     }
-
-
-    //接收回传数据
-    override fun onFragmentResult(requestCode: Int, resultCode: Int, data: Bundle?) {
-        super.onFragmentResult(requestCode, resultCode, data)
-    }
-
+    
     override fun initData(savedInstanceState: Bundle?) {
-        binding.cameraFragment = this
+        binding.cameraActivity = this
         XXPermissions.with(this)
             .permission(Permission.WRITE_EXTERNAL_STORAGE)
             .permission(Permission.READ_EXTERNAL_STORAGE)
@@ -133,7 +120,7 @@ class CameraFragment : BaseFragment<FragmentCameraBinding, BaseViewModel>() {
     @SuppressLint("ClickableViewAccessibility")
     private fun initCamera() {
         //初始化
-        cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
+        cameraProviderFuture = ProcessCameraProvider.getInstance(this)
 
         //检查 CameraProvider 可用性  能否在视图创建后成功初始化
         cameraProviderFuture.addListener(Runnable {
@@ -154,7 +141,7 @@ class CameraFragment : BaseFragment<FragmentCameraBinding, BaseViewModel>() {
             }
 
 
-        }, ContextCompat.getMainExecutor(requireContext()))
+        }, ContextCompat.getMainExecutor(this))
     }
 
     /**
@@ -246,7 +233,7 @@ class CameraFragment : BaseFragment<FragmentCameraBinding, BaseViewModel>() {
      */
     private fun singleTapForFocus(event: MotionEvent) {
         if (singleTapDetector == null) {
-            singleTapDetector = GestureDetector(requireContext(),
+            singleTapDetector = GestureDetector(this,
                 object : GestureDetector.SimpleOnGestureListener() {
                     override fun onSingleTapConfirmed(e: MotionEvent?): Boolean {
                         Timber.e("singleTapForFocus  Single tap confirmed with event:$e")
@@ -286,9 +273,9 @@ class CameraFragment : BaseFragment<FragmentCameraBinding, BaseViewModel>() {
             ViewGroup.LayoutParams.WRAP_CONTENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
-        val imageView = ImageView(requireContext())
-        imageView.setImageResource(com.example.baseframe.R.drawable.ic_focus_view)
-        val offset = resources.getDimensionPixelSize(com.example.baseframe.R.dimen.tap_view_size)
+        val imageView = ImageView(this)
+        imageView.setImageResource(R.drawable.ic_focus_view)
+        val offset = resources.getDimensionPixelSize(R.dimen.tap_view_size)
         Timber.e("singleTapForFocus  showTapView offset:$offset")
         popupWindow.contentView = imageView
         popupWindow.showAsDropDown(binding.previewView, x - offset / 2, y - offset / 2)
@@ -302,7 +289,7 @@ class CameraFragment : BaseFragment<FragmentCameraBinding, BaseViewModel>() {
     private fun doubleClickZoom(event: MotionEvent?) {
         Timber.e("doubleClickZoom  doubleClickZoom event:$event")
         if (doubleClickDetector == null) {
-            doubleClickDetector = GestureDetector(requireContext(),
+            doubleClickDetector = GestureDetector(this,
                 object : GestureDetector.SimpleOnGestureListener() {
                     override fun onDoubleTap(e: MotionEvent?): Boolean {
                         Log.e("doubleClickZoom", "Double tap")
@@ -333,7 +320,7 @@ class CameraFragment : BaseFragment<FragmentCameraBinding, BaseViewModel>() {
      */
     private fun scalePreview(event: MotionEvent?) {
         if (scaleDetector == null) {
-            scaleDetector = ScaleGestureDetector(requireContext(),
+            scaleDetector = ScaleGestureDetector(this,
                 object : ScaleGestureDetector.SimpleOnScaleGestureListener() {
                     override fun onScale(detector: ScaleGestureDetector): Boolean {
                         cameraZoomState.value?.let {
@@ -378,7 +365,7 @@ class CameraFragment : BaseFragment<FragmentCameraBinding, BaseViewModel>() {
             )//文件名
             contentValues.put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg")//MediaStore对应类型名
             ImageCapture.OutputFileOptions.Builder(
-                requireActivity().contentResolver,
+                contentResolver,
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues
             ).build()
         } else {
@@ -389,7 +376,7 @@ class CameraFragment : BaseFragment<FragmentCameraBinding, BaseViewModel>() {
         Timber.e("镜像：  $isBack")
         outputFileOptions.metadata.isReversedHorizontal = !isBack
         //开始拍照
-        imageCapture.takePicture(outputFileOptions, ContextCompat.getMainExecutor(requireContext()),
+        imageCapture.takePicture(outputFileOptions, ContextCompat.getMainExecutor(this),
             object : ImageCapture.OnImageSavedCallback {
                 override fun onError(error: ImageCaptureException) {
                     Timber.e("保存失败： $error")
@@ -399,12 +386,12 @@ class CameraFragment : BaseFragment<FragmentCameraBinding, BaseViewModel>() {
                     Timber.e(
                         "保存： ${outputFileResults.savedUri}    ${
                             FileUtils.getFileAbsolutePath(
-                                requireContext().applicationContext,
+                                applicationContext,
                                 outputFileResults.savedUri
                             )
                         }"
                     )
-                    requireActivity().sendBroadcast(
+                    sendBroadcast(
                         Intent(
                             Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,
                             outputFileResults.savedUri
@@ -413,14 +400,14 @@ class CameraFragment : BaseFragment<FragmentCameraBinding, BaseViewModel>() {
 
                     //获取文件路径
                     val path = FileUtils.getFileAbsolutePath(
-                        requireContext().applicationContext,
+                        applicationContext,
                         outputFileResults.savedUri
                     )
                     //设置返回数据
-                    setFragmentResult(
+                    setResult(
                         Activity.RESULT_OK,
-                        Bundle().apply { putString(CODE_DATA, path) })
-                    pop()
+                        Intent().apply { putExtra(Tags.DATA, path) })
+                    finish()
                 }
             })
     }
@@ -433,7 +420,7 @@ class CameraFragment : BaseFragment<FragmentCameraBinding, BaseViewModel>() {
 
         isRecording = !isRecording
         binding.camera.setImageResource(
-            if (isRecording) com.example.baseframe.R.drawable.ic_capture_record_pressing else com.example.baseframe.R.drawable.ic_capture_record
+            if (isRecording) R.drawable.ic_capture_record_pressing else R.drawable.ic_capture_record
         )
         if (isRecording) {
             //文件目录设置
@@ -449,7 +436,7 @@ class CameraFragment : BaseFragment<FragmentCameraBinding, BaseViewModel>() {
                 "video/mp4"
             )//MediaStore对应类型名
             val outputFileOptions = VideoCapture.OutputFileOptions.Builder(
-                requireActivity().contentResolver,
+                contentResolver,
                 MediaStore.Video.Media.EXTERNAL_CONTENT_URI, contentValues
             ).build()
 
@@ -458,19 +445,19 @@ class CameraFragment : BaseFragment<FragmentCameraBinding, BaseViewModel>() {
                     //开始录像
                     videoCapture.startRecording(
                         outputFileOptions,
-                        ContextCompat.getMainExecutor(requireContext()),
+                        ContextCompat.getMainExecutor(this@CameraActivity),
                         object : VideoCapture.OnVideoSavedCallback {
                             override fun onVideoSaved(outputFileResults: VideoCapture.OutputFileResults) {
                                 Timber.e(
                                     "保存录像：  ${outputFileResults.savedUri}    ${
                                         FileUtils.getFileAbsolutePath(
-                                            requireContext().applicationContext,
+                                            applicationContext,
                                             outputFileResults.savedUri
                                         )
                                     }"
                                 )
 
-                                requireActivity().sendBroadcast(
+                                sendBroadcast(
                                     Intent(
                                         Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,
                                         outputFileResults.savedUri
@@ -479,14 +466,14 @@ class CameraFragment : BaseFragment<FragmentCameraBinding, BaseViewModel>() {
 
                                 //获取文件路径
                                 val path = FileUtils.getFileAbsolutePath(
-                                    requireContext().applicationContext,
+                                    applicationContext,
                                     outputFileResults.savedUri
                                 )
                                 //设置返回数据
-                                setFragmentResult(
+                                setResult(
                                     Activity.RESULT_OK,
-                                    Bundle().apply { putString(CODE_DATA, path) })
-                                pop()
+                                    Intent().apply { putExtra(Tags.DATA, path) })
+                                finish()
                             }
 
                             override fun onError(
@@ -566,10 +553,10 @@ class CameraFragment : BaseFragment<FragmentCameraBinding, BaseViewModel>() {
 
                     lifecycleScope.launchWhenResumed {
                         //设置返回数据
-                        setFragmentResult(
+                        setResult(
                             Activity.RESULT_OK,
-                            Bundle().apply { putString(CODE_DATA, result) })
-                        pop()
+                            Intent().apply { putExtra(Tags.DATA, result) })
+                        finish()
                     }
                     Timber.e("Camera   result:$result")
                 } catch (e: Exception) {
@@ -592,7 +579,7 @@ class CameraFragment : BaseFragment<FragmentCameraBinding, BaseViewModel>() {
      */
     fun flash(view: View) {
         isFlahsOn = !isFlahsOn
-        (view as ImageView).setImageResource(if (isFlahsOn) com.example.baseframe.R.drawable.ic_torch_open else com.example.baseframe.R.drawable.ic_torch_close)
+        (view as ImageView).setImageResource(if (isFlahsOn) R.drawable.ic_torch_open else R.drawable.ic_torch_close)
         mCamera?.cameraControl?.enableTorch(isFlahsOn)
     }
 
@@ -606,11 +593,9 @@ class CameraFragment : BaseFragment<FragmentCameraBinding, BaseViewModel>() {
         imageAnalysis.clearAnalyzer()
 
         binding.scan.visible(!isVideo)
-        binding.ivRecord.setImageResource(if (isVideo) com.example.baseframe.R.drawable.ic_camera else com.example.baseframe.R.drawable.ic_video)
+        binding.ivRecord.setImageResource(if (isVideo) R.drawable.ic_camera else R.drawable.ic_video)
         binding.camera.setImageResource(
-            if (isVideo) com.example.baseframe.R.drawable.ic_capture_record else com.example.baseframe.R.drawable.ic_capture
+            if (isVideo)R.drawable.ic_capture_record else R.drawable.ic_capture
         )
     }
-
-
 }

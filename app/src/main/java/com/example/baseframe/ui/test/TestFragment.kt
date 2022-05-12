@@ -10,7 +10,7 @@ import com.lfy.baselibrary.ui.fragment.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import com.example.baseframe.R
 import com.example.baseframe.app.addLoadPageListener
-import com.example.baseframe.ui.cameraX.CameraFragment
+import com.example.baseframe.ui.cameraX.CameraActivity
 import com.example.baseframe.ui.view.dialog.showImg.ShowPageImgDialog
 import com.lfy.baselibrary.loadImage
 import com.lfy.baselibrary.singleClick
@@ -25,6 +25,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.startActivityForResult
 import javax.inject.Inject
 
@@ -112,7 +113,7 @@ class TestFragment : BaseFragment<FragmentTestBinding, TestViewModel>() {
             if (arguments?.getString("data")=="2"){
                 _mActivity.startActivityForResult<CaptureActivity>(100)
             }else {
-                _mActivity.startForResult(CameraFragment.newInstance(), 100)
+                _mActivity.startActivityForResult<CameraActivity>(100)
             }
         }
     }

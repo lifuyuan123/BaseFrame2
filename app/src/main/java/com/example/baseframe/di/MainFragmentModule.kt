@@ -5,6 +5,7 @@ import com.flyco.tablayout.listener.CustomTabEntity
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ActivityComponent
 import dagger.hilt.android.components.FragmentComponent
 import javax.inject.Qualifier
 
@@ -24,7 +25,7 @@ annotation class BindUnselectedIds
 
 
 @Module
-@InstallIn(FragmentComponent::class)
+@InstallIn(ActivityComponent::class)
 object MainFragmentModule {
 
     @BindUnselectedIds

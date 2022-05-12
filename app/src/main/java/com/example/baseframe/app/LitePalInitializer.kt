@@ -3,7 +3,6 @@ package com.example.baseframe.app
 import android.app.Application
 import android.content.Context
 import androidx.startup.Initializer
-import com.amap.api.location.AMapLocationClient
 import com.example.baseframe.BuildConfig
 import com.example.baseframe.R
 import com.example.baseframe.utils.CrashHandler
@@ -47,7 +46,7 @@ class LitePalInitializer : Initializer<Unit> {
 
         //单activity初始化
         Fragmentation.builder() // 设置 栈视图 模式为 （默认）悬浮球模式   SHAKE: 摇一摇唤出  NONE：隐藏， 仅在Debug环境生效
-            .stackViewMode(Fragmentation.SHAKE)
+//            .stackViewMode(Fragmentation.SHAKE)
             .debug(BuildConfig.LOG_DEBUG) // 实际场景建议.debug(BuildConfig.DEBUG)
             .animation(
                 R.anim.public_translate_right_to_center,  //进入动画
@@ -69,10 +68,6 @@ class LitePalInitializer : Initializer<Unit> {
             //比如添加三个策略,一个打印日志,一个将日志保存本地,一个将日志上传服务器
             Timber.plant(Timber.DebugTree())
         }
-
-        //高德滴入合规检查  需要保证隐私政策合规
-        AMapLocationClient.updatePrivacyShow(context, true, true)
-        AMapLocationClient.updatePrivacyAgree(context, true)
 
         //腾讯web
         val map = HashMap<String, Any>()
