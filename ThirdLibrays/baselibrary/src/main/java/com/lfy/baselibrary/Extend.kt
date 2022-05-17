@@ -129,7 +129,7 @@ fun Context.getCurrentActivity(): Activity? {
     return ActivityManager.instance.getTopActivity()
 }
 
-fun DialogFragment.getWidthAndHeight(window: Window?): Array<Int?>? {
+fun Context.getWidthAndHeight(window: Window?): Array<Int?>? {
     if (window == null) {
         return null
     }

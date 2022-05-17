@@ -41,7 +41,7 @@ class ChoiceDialog(private val datas: MutableList<RemoteKeys>) : BaseDialogFragm
         activity?.applicationContext?.let { dip2px(it, 87f) }?.let {
             mWindow?.setLayout(
                 ViewGroup.LayoutParams.MATCH_PARENT,
-                getWidthAndHeight(mWindow)?.get(1)!! / 2
+                requireContext().getWidthAndHeight(mWindow)?.get(1)!! / 2
             )
         }
     }
@@ -52,7 +52,7 @@ class ChoiceDialog(private val datas: MutableList<RemoteKeys>) : BaseDialogFragm
         activity?.applicationContext?.let { dip2px(it, 87f) }?.let {
             mWindow?.setLayout(
                 ViewGroup.LayoutParams.MATCH_PARENT,
-                getWidthAndHeight(mWindow)?.get(1)!! / 2
+                requireContext().getWidthAndHeight(mWindow)?.get(1)!! / 2
             )
         }
     }

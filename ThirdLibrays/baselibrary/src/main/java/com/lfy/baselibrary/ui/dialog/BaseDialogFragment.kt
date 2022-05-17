@@ -47,7 +47,7 @@ abstract class BaseDialogFragment<T : ViewDataBinding> :DialogFragment() {
         //点击外部消失
         dialog!!.setCanceledOnTouchOutside(true)
         mWindow = dialog.window
-        mWidthAndHeight = getWidthAndHeight(mWindow)
+        mWidthAndHeight = requireContext().getWidthAndHeight(mWindow)
     }
 
     override fun onCreateView(
@@ -91,7 +91,7 @@ abstract class BaseDialogFragment<T : ViewDataBinding> :DialogFragment() {
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
-        mWidthAndHeight = getWidthAndHeight(mWindow)
+        mWidthAndHeight = requireContext().getWidthAndHeight(mWindow)
     }
 
     /**
