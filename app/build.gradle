@@ -49,14 +49,14 @@ android {
             zipAlignEnabled true
             debuggable true
             minifyEnabled true
-            shrinkResources true
+//            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
 
         release {
             buildConfigField "boolean", "LOG_DEBUG", "false"
             minifyEnabled true
-            shrinkResources true
+//            shrinkResources true 慎用，可能会导致第三方资源文件找不大
             zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
