@@ -48,9 +48,9 @@ suspend inline fun <T> apiCall(crossinline call: suspend CoroutineScope.() -> Ba
 
 //统一处理协程网络异常
 suspend inline fun <T> BaseViewModel.request(
-    showLoading: Boolean = true,
-    block: suspend () -> BaseBean<T>,
-    liveData: UnPeekLiveData<BaseBean<T>>
+    block: suspend () -> T,
+    liveData: UnPeekLiveData<T>,
+    showLoading: Boolean = false,
 ) {
     if (showLoading) {
         isShowLoading(true)
@@ -69,9 +69,9 @@ suspend inline fun <T> BaseViewModel.request(
 
 //带加载监听的统一协程请求
 suspend fun <T> BaseViewModel.flowRequest(
-    showLoading: Boolean = true,
-    block: suspend () -> BaseBean<T>,
-    flow: MutableSharedFlow<BaseBean<T>>
+    block: suspend () -> T,
+    flow: MutableSharedFlow<T>,
+    showLoading: Boolean = false,
 ) {
     if (showLoading) {
         isShowLoading(true)
