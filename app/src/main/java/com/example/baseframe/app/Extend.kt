@@ -128,8 +128,8 @@ fun Fragment.overScrollBounce(smart: SmartRefreshLayout) {
 }
 
 //gson转换集合实体
-fun <T> Gson.formJsons(json: String): T {
-    return GsonFactory.getSingletonGson().fromJson(json, object : TypeToken<T>() {}.type)
+fun <T> String.formJson(): T {
+    return GsonFactory.getSingletonGson().fromJson(this, object : TypeToken<T>() {}.type)
 }
 
 //Pagingadapter公共分页监听
