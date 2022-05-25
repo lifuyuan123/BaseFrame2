@@ -47,6 +47,7 @@ public final class ViewfinderView extends View {
     private int reactColor;//四个角的颜色
     private int scanLineColor;//扫描线的颜色
     private int frameLineColor = -1;//边框线的颜色
+    private boolean showLine=false;//显示line
 
 
     private List<ResultPoint> possibleResultPoints;
@@ -127,8 +128,9 @@ public final class ViewfinderView extends View {
 
     }
 
-    private void initAnimator() {
+    public void startAnimator() {
 
+        showLine=true;
         if (valueAnimator == null) {
             valueAnimator = ValueAnimator.ofInt(frame.top, frame.bottom-10);
             valueAnimator.setDuration(3000);
@@ -158,6 +160,7 @@ public final class ViewfinderView extends View {
     }
 
     public void stopAnimator() {
+        showLine=false;
         if (valueAnimator != null) {
             valueAnimator.end();
             valueAnimator.cancel();
@@ -180,7 +183,7 @@ public final class ViewfinderView extends View {
         if (frame == null || previewFrame == null) {
             return;
         }
-        initAnimator();
+//        initAnimator();
 
         int width = canvas.getWidth();
         int height = canvas.getHeight();
@@ -198,8 +201,10 @@ public final class ViewfinderView extends View {
             canvas.drawBitmap(resultBitmap, null, frame, paint);
         } else {
 
-            /*绘制扫描线*/
-            drawScanLight(canvas, frame);
+            if (showLine){
+                /*绘制扫描线*/
+                drawScanLight(canvas, frame);
+            }
 
             /*绘制闪动的点*/
             // drawPoint(canvas, frame, previewFrame);

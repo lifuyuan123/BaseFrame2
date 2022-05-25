@@ -17,16 +17,16 @@ import com.lfy.baselibrary.singleClick
  * @describe:  pagingadapter基类  封装点击事件
  */
 abstract class BasePagingDataAdapter<T : Any> :
-    PagingDataAdapter<T, RecyclerView.ViewHolder>{
-     constructor() :super(itemCallback())
+    PagingDataAdapter<T, RecyclerView.ViewHolder> {
+    constructor() : super(itemCallback())
 
-    constructor(differCallback:DiffUtil.ItemCallback<T>) :super(differCallback)
+    constructor(differCallback: DiffUtil.ItemCallback<T>) : super(differCallback)
 
-    abstract fun getLayout():Int
+    abstract fun getLayout(): Int
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-           val binding = DataBindingUtil.inflate<ViewDataBinding>(
+        val binding = DataBindingUtil.inflate<ViewDataBinding>(
             LayoutInflater.from(parent.context),
             getLayout(), parent, false
         )
@@ -54,17 +54,19 @@ abstract class BasePagingDataAdapter<T : Any> :
     }
 
 
-    inner class  ViewHolder internal constructor(private val binding: ViewDataBinding):RecyclerView.ViewHolder(binding.root),
+    inner class ViewHolder internal constructor(private val binding: ViewDataBinding) :
+        RecyclerView.ViewHolder(binding.root),
         View.OnClickListener,
-        View.OnLongClickListener{
-         private val itemHelper= ItemHelper(this)
+        View.OnLongClickListener {
+        private val itemHelper = ItemHelper(this)
         private val mPosition get() = bindingAdapterPosition
+
         init {
-            if (childId!=0) {
-                itemHelper.addChildClickOfId(childId)
+            if (!childIds.isNullOrEmpty()) {
+                itemHelper.addChildClickOfId(childIds)
             }
-            if (childLongId!=0) {
-                itemHelper.addChildLongClickOfId(childLongId)
+            if (!childLongIds.isNullOrEmpty()) {
+                itemHelper.addChildLongClickOfId(childLongIds)
             }
             itemHelper.setOnItemChildClickListener(mOnItemChildClickListenerProxy)
             itemHelper.setOnItemChildLongClickListener(mOnItemChildLongClickListenerProxy)
@@ -73,8 +75,8 @@ abstract class BasePagingDataAdapter<T : Any> :
             itemView.setOnLongClickListener(this)
         }
 
-        fun onBindViewHolder( position:Int){
-            getItem(position)?.let { bindData(binding, it,position) }
+        fun onBindViewHolder(position: Int) {
+            getItem(position)?.let { bindData(binding, it, position) }
         }
 
         override fun onClick(v: View) {
@@ -97,10 +99,11 @@ abstract class BasePagingDataAdapter<T : Any> :
      * @param helper  条目帮助类
      * @param data    对应数据
      */
-    protected abstract fun bindData(binding: ViewDataBinding, bean: T,postion:Int)
+    protected abstract fun bindData(binding: ViewDataBinding, bean: T, postion: Int)
 
 
-    class ItemHelper(private val viewHolder: BasePagingDataAdapter<*>.ViewHolder):View.OnClickListener,View.OnLongClickListener{
+    class ItemHelper(private val viewHolder: BasePagingDataAdapter<*>.ViewHolder) :
+        View.OnClickListener, View.OnLongClickListener {
 
         private val position get() = viewHolder.bindingAdapterPosition
         private lateinit var adapter: BasePagingDataAdapter<out Any>
@@ -111,11 +114,16 @@ abstract class BasePagingDataAdapter<T : Any> :
         private lateinit var mOnItemChildLongClickListener:
                     (adapter: BasePagingDataAdapter<out Any>, v: View, position: Int) -> Unit
 
-        fun addChildClickOfId(id:Int){
-            viewHolder.itemView.findViewById<View>(id).singleClick(this)
+        fun addChildClickOfId(ids: MutableList<Int>) {
+            for (id in ids){
+                viewHolder.itemView.findViewById<View>(id)?.singleClick(this)
+            }
         }
-        fun addChildLongClickOfId(id:Int){
-            viewHolder.itemView.findViewById<View>(id).setOnLongClickListener(this)
+
+        fun addChildLongClickOfId(ids: MutableList<Int>) {
+            for (id in ids){
+                viewHolder.itemView.findViewById<View>(id)?.setOnLongClickListener(this)
+            }
         }
 
         fun setRVAdapter(PagedListAdapter: BasePagingDataAdapter<out Any>) {
@@ -147,20 +155,21 @@ abstract class BasePagingDataAdapter<T : Any> :
                 mOnItemChildLongClickListener(adapter, v, position)
                 return true
             }
-          return false
+            return false
         }
 
     }
 
     //通过外部添加控件id，实现内部itemChild点击事件
-    private var  childId:Int=0
-    private var  childLongId:Int=0
+    private val childIds by lazy { mutableListOf<Int>() }
+    private val childLongIds by lazy { mutableListOf<Int>() }
 
-    fun addChildClickOfId(id: Int){
-        childId=id
+    fun addChildClickOfId( vararg id: Int) {
+        childIds.addAll(id.toMutableList())
     }
-    fun addChildLongClickOfId(id:Int){
-        childLongId=id
+
+    fun addChildLongClickOfId(vararg id: Int) {
+        childLongIds.addAll(id.toMutableList())
     }
 
 
@@ -216,7 +225,6 @@ abstract class BasePagingDataAdapter<T : Any> :
     ) {
         mOnItemChildLongClickListener = mOnItemChildLongClickListenerProxy
     }
-
 
 
     fun getData(position: Int): T? {

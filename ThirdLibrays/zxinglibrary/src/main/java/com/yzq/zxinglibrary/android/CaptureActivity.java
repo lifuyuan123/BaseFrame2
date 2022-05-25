@@ -127,6 +127,12 @@ public class CaptureActivity extends AppCompatActivity implements SurfaceHolder.
 
         viewfinderView = findViewById(R.id.viewfinder_view);
         viewfinderView.setZxingConfig(config);
+        viewfinderView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                viewfinderView.startAnimator();
+            }
+        },2000);
 
 
         backIv = findViewById(R.id.backIv);
