@@ -2,7 +2,6 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'dagger.hilt.android.plugin'
-    id 'kotlin-android-extensions'//Parcelize插件
     id 'kotlin-kapt'
 }
 
@@ -68,11 +67,6 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
         freeCompilerArgs += ["-Xopt-in=kotlin.RequiresOptIn"]
-    }
-
-    //Parcelize插件
-    androidExtensions {
-        experimental = true
     }
 
     dexOptions {
