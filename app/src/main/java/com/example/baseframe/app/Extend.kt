@@ -60,7 +60,7 @@ suspend inline fun <T> BaseViewModel.request(
         liveData.postValue(result)
     } catch (e: Exception) {
         Timber.e("接口异常:$e")
-    }finally {
+    } finally {
         if (showLoading) {
             isShowLoading(false)
         }
@@ -70,7 +70,7 @@ suspend inline fun <T> BaseViewModel.request(
 //带加载监听的统一协程请求
 suspend fun <T> BaseViewModel.flowRequest(
     block: suspend () -> T,
-    flow: MutableSharedFlow<T>,
+    flow: Flow<T>,
     showLoading: Boolean = false,
 ) {
     if (showLoading) {
@@ -78,7 +78,14 @@ suspend fun <T> BaseViewModel.flowRequest(
     }
     try {
         val response = block.invoke()
-        flow.emit(response)
+        when (flow) {
+            is MutableSharedFlow<T> -> {
+                flow.emit(response)
+            }
+            is MutableStateFlow<T> -> {
+                flow.emit(response)
+            }
+        }
     } catch (e: Exception) {
         Timber.e("接口异常:$e")
     } finally {
