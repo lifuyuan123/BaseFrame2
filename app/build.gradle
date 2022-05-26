@@ -128,8 +128,6 @@ dependencies {
     implementation "me.jessyan:retrofit-url-manager:$retrofitUrlManager"
     //腾讯web
     implementation "com.tencent.tbs.tbssdk:sdk:$tbssdk"
-    //权限请求
-    implementation "com.github.getActivity:XXPermissions:$xxPermissions"
     //图片选择
     implementation "io.github.lucksiege:pictureselector:$pictureselector"
     //hilt

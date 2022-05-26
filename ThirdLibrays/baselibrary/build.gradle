@@ -101,6 +101,9 @@ dependencies {
     api "com.scwang.smart:refresh-footer-classics:$smart"
     api "com.scwang.smart:refresh-header-material:$smart"
 
+    //权限请求
+    api "com.github.getActivity:XXPermissions:$xxPermissions"
+
     //utils
     api "com.blankj:utilcodex:$utilcodex"
 

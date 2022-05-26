@@ -31,6 +31,8 @@ import com.google.zxing.common.HybridBinarizer
 import com.hjq.permissions.Permission
 import com.hjq.permissions.XXPermissions
 import com.jdjinsui.gsm.app.Tags
+import com.lfy.baselibrary.entity.PermissType
+import com.lfy.baselibrary.permiss
 import com.lfy.baselibrary.ui.activity.BaseActivity
 import com.lfy.baselibrary.visible
 import com.lfy.baselibrary.vm.BaseViewModel
@@ -100,18 +102,9 @@ class CameraActivity : BaseActivity<ActivityCameraBinding, BaseViewModel>() {
     
     override fun initData(savedInstanceState: Bundle?) {
         binding.cameraActivity = this
-        XXPermissions.with(this)
-            .permission(Permission.WRITE_EXTERNAL_STORAGE)
-            .permission(Permission.READ_EXTERNAL_STORAGE)
-            .permission(Manifest.permission.CAMERA)
-            .permission(Manifest.permission.RECORD_AUDIO)
-            .request { _, all ->
-                if (all) {
-                    initCamera()
-                } else {
-                    toast("获取权限失败")
-                }
-            }
+        permiss(PermissType.PermissCameraWriteRecord){
+            initCamera()
+        }
     }
 
     /**

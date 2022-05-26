@@ -13,6 +13,11 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
+import com.hjq.permissions.OnPermissionCallback
+import com.hjq.permissions.Permission
+import com.hjq.permissions.XXPermissions
+import com.lfy.baselibrary.entity.PermissType
+import org.jetbrains.anko.toast
 import timber.log.Timber
 
 //土司
@@ -153,7 +158,74 @@ fun Context.dip2px(dpValue: Float): Int {
 }
 
 
+/**
+ * 获取权限快捷方式
+ */
+fun Activity.permiss(type: PermissType, block:()-> Unit) {
 
+    val permission = XXPermissions.with(this)
+
+    when (type) {
+        is PermissType.PermissLocation -> {//定位权限
+            permission
+                .permission(Permission.ACCESS_FINE_LOCATION)
+                .permission(Permission.ACCESS_COARSE_LOCATION)
+        }
+        is PermissType.PermissPhone -> {//电话权限
+            permission
+                .permission(Permission.CALL_PHONE)
+        }
+        is PermissType.PermissRecord -> {//音频权限
+            permission
+                .permission(Permission.RECORD_AUDIO)
+        }
+        is PermissType.PermissWrite -> {//读写权限
+            permission
+                .permission(Permission.READ_EXTERNAL_STORAGE)
+                .permission(Permission.WRITE_EXTERNAL_STORAGE)
+        }
+        is PermissType.PermissCamera -> {//相机权限
+            permission
+                .permission(Permission.CAMERA)
+                .permission(Permission.WRITE_EXTERNAL_STORAGE)
+        }
+        is PermissType.PermissLocationAndWrite -> {//定位加读写
+            permission
+                .permission(Permission.ACCESS_FINE_LOCATION)
+                .permission(Permission.ACCESS_COARSE_LOCATION)
+                .permission(Permission.READ_PHONE_STATE)
+                .permission(Permission.WRITE_EXTERNAL_STORAGE)
+        }
+        is PermissType.PermissCameraWriteRecord -> {//相机读写多媒体
+            permission
+                .permission(Permission.CAMERA)
+                .permission(Permission.READ_EXTERNAL_STORAGE)
+                .permission(Permission.WRITE_EXTERNAL_STORAGE)
+                .permission(Permission.RECORD_AUDIO)
+        }
+        else -> {}
+    }
+
+    permission.request(object : OnPermissionCallback {
+        override fun onGranted(permissions: List<String>, all: Boolean) {
+            if (all) {
+                block.invoke()
+            } else {
+                toast("获取部分权限成功，部分权限未正常授予")
+            }
+        }
+
+        override fun onDenied(permissions: List<String>, never: Boolean) {
+            if (never) {
+                toast("被永久拒绝授权，请手动授予权限")
+                // 如果是被永久拒绝就跳转到应用权限系统设置页面
+                XXPermissions.startPermissionActivity(this@permiss, permissions)
+            } else {
+                toast("获取所有权限失败")
+            }
+        }
+    })
+}
 
 
 
