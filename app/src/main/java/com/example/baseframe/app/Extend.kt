@@ -69,9 +69,9 @@ suspend inline fun <T> BaseViewModel.request(
 
 //带加载监听的统一协程请求
 suspend fun <T> BaseViewModel.flowRequest(
-    block: suspend () -> T,
     flow: Flow<T>,
     showLoading: Boolean = false,
+    block: suspend () -> T
 ) {
     if (showLoading) {
         isShowLoading(true)
