@@ -13,6 +13,7 @@ import android.provider.MediaStore
 import android.provider.OpenableColumns
 import androidx.annotation.RequiresApi
 import androidx.core.content.FileProvider
+import com.example.baseframe.app.App
 import com.vincent.videocompressor.VideoCompress
 import timber.log.Timber
 import java.io.*
@@ -44,6 +45,16 @@ object FileUtils {
         return file
     }
 
+    /**
+     * 首先获取sd卡的cache目录，没有则获取data私有cache目录
+     */
+    fun getDiskCachePath(context: Context?=App?.context): String? {
+        return if (Environment.MEDIA_MOUNTED == Environment.getExternalStorageState() || !Environment.isExternalStorageRemovable()) {
+            context?.externalCacheDir?.path
+        } else {
+            context?.cacheDir?.path
+        }
+    }
 
     /**
      * android9以下获取公共目录

@@ -79,7 +79,8 @@ class CrashHandler private constructor(): Thread.UncaughtExceptionHandler {
     //设置监听
     fun init(context: Context) {
         this.context = context
-        path = context?.cacheDir?.path + "/crash/"
+        val diskCachePath = FileUtils.getDiskCachePath(context)
+        path = "$diskCachePath/crash/"
         Thread.setDefaultUncaughtExceptionHandler(this)
         deleteFile()
     }
