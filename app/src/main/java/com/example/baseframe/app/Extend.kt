@@ -139,6 +139,16 @@ fun <T> String.formJson(): T {
     return GsonFactory.getSingletonGson().fromJson(this, object : TypeToken<T>() {}.type)
 }
 
+//转公共泛型object实体
+fun <T> String.formJsonFan(): BaseBean<T> {
+    return GsonFactory.getSingletonGson().fromJson(this, object : TypeToken<BaseBean<T>>() {}.type)
+}
+
+//转公共泛型集合实体
+fun <T> String.formJsonFanList(): BaseBean<List<T>> {
+    return GsonFactory.getSingletonGson().fromJson(this, object : TypeToken<BaseBean<List<T>>>() {}.type)
+}
+
 //Pagingadapter公共分页监听
 fun BasePagingDataAdapter<*>.addLoadPageListener(
     smart: SmartRefreshLayout,
