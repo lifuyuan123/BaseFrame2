@@ -30,7 +30,7 @@ buildscript {
         cachewebviewlib ="2.2.1"
         immersionbar ="3.0.0"
         xxPermissions ="13.2"
-        pictureselector ="v2.7.3-rc10"
+        pictureselector ="v3.0.9"
         shadowLayout ="3.2.1"
         startup ="1.1.0"
         flycoTabLayout_Lib ="2.1.2@aar"
@@ -49,6 +49,7 @@ buildscript {
         BaseRecycler ="3.0.4"
         flexbox ="1.1.0"
         pickerView = "4.1.9"
+        coil = "2.1.0"
     }
 
     dependencies {

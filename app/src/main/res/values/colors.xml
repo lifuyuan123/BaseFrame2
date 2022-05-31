@@ -13,6 +13,7 @@
     <color name="cl_F1E6A0">#F4D511</color>
 
     <color name="rect_color">#FFFFFF</color>
+    <color name="cl_9b9b9b">#9b9b9b</color>
     <color name="bg_color">#50000000</color>
     <color name="frame_color">#00000000</color>
     <color name="record_normal" tools:ignore="MissingDefaultResource">#A52732</color>

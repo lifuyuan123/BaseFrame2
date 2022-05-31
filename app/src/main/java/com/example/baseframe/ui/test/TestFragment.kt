@@ -5,30 +5,33 @@ import android.widget.ImageView
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.example.baseframe.databinding.FragmentTestBinding
-import com.lfy.baselibrary.ui.fragment.BaseFragment
-import dagger.hilt.android.AndroidEntryPoint
 import com.example.baseframe.R
 import com.example.baseframe.app.addLoadPageListener
+import com.example.baseframe.app.pictureSelector
+import com.example.baseframe.databinding.FragmentTestBinding
 import com.example.baseframe.ui.cameraX.CameraActivity
 import com.example.baseframe.ui.view.dialog.showImg.ShowPageImgDialog
 import com.lfy.baselibrary.loadImage
 import com.lfy.baselibrary.singleClick
 import com.lfy.baselibrary.toast
+import com.lfy.baselibrary.ui.fragment.BaseFragment
 import com.lfy.baselibrary.ui.view.StatusPager
+import com.luck.picture.lib.config.SelectModeConfig
+import com.luck.picture.lib.entity.LocalMedia
+import com.luck.picture.lib.interfaces.OnResultCallbackListener
 import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener
 import com.yzq.zxinglibrary.android.CaptureActivity
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
-import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.startActivityForResult
+import timber.log.Timber
 import javax.inject.Inject
-
 
 
 @AndroidEntryPoint
@@ -110,10 +113,23 @@ class TestFragment : BaseFragment<FragmentTestBinding, TestViewModel>() {
         getGanks()
 
         binding.tv.singleClick {
-            if (arguments?.getString("data")=="2"){
+            if (arguments?.getString("data") == "2") {
                 _mActivity.startActivityForResult<CaptureActivity>(100)
-            }else {
+            } else if (arguments?.getString("data") == "1") {
                 _mActivity.startActivityForResult<CameraActivity>(100)
+            } else {
+                // 进入相册
+                requireActivity().pictureSelector()
+                    .forResult(object : OnResultCallbackListener<LocalMedia> {
+                        override fun onResult(result: ArrayList<LocalMedia>) {
+                            Timber.e("获取数据：$result")
+                        }
+
+                        override fun onCancel() {
+
+                        }
+                    })
+
             }
         }
     }

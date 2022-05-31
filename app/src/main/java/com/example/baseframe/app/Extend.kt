@@ -1,21 +1,32 @@
 package com.example.baseframe.app
 
 import android.app.Activity
-
 import android.view.animation.DecelerateInterpolator
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
 import androidx.paging.LoadState
-import com.google.gson.Gson
+import com.example.baseframe.R
+import com.example.baseframe.entity.BaseBean
+import com.example.baseframe.utils.GlideEngine
+import com.example.baseframe.utils.ImageFileCompressEngine
+import com.example.baseframe.utils.MeSandboxFileEngine
 import com.google.gson.reflect.TypeToken
 import com.hjq.gson.factory.GsonFactory
-import com.example.baseframe.entity.BaseBean
 import com.kunminx.architecture.ui.callback.UnPeekLiveData
+import com.lfy.baselibrary.entity.Result
 import com.lfy.baselibrary.ui.adapter.BasePagingDataAdapter
 import com.lfy.baselibrary.ui.view.StatusPager
 import com.lfy.baselibrary.vm.BaseViewModel
-import com.lfy.baselibrary.entity.Result
+import com.luck.picture.lib.animators.AnimationType
+import com.luck.picture.lib.basic.PictureSelectionModel
+import com.luck.picture.lib.basic.PictureSelector
+import com.luck.picture.lib.config.SelectMimeType
+import com.luck.picture.lib.config.SelectModeConfig
+import com.luck.picture.lib.style.BottomNavBarStyle
+import com.luck.picture.lib.style.PictureSelectorStyle
+import com.luck.picture.lib.style.PictureWindowAnimationStyle
+import com.luck.picture.lib.style.SelectMainStyle
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import com.scwang.smart.refresh.layout.constant.RefreshState
 import kotlinx.coroutines.CoroutineScope
@@ -146,7 +157,8 @@ fun <T> String.formJsonFan(): BaseBean<T> {
 
 //转公共泛型集合实体
 fun <T> String.formJsonFanList(): BaseBean<List<T>> {
-    return GsonFactory.getSingletonGson().fromJson(this, object : TypeToken<BaseBean<List<T>>>() {}.type)
+    return GsonFactory.getSingletonGson()
+        .fromJson(this, object : TypeToken<BaseBean<List<T>>>() {}.type)
 }
 
 //Pagingadapter公共分页监听
@@ -204,4 +216,49 @@ fun BasePagingDataAdapter<*>.addLoadPageListener(
             }
         }
     }
+}
+
+/**
+ * 图片选择
+ */
+fun Activity.pictureSelector(): PictureSelectionModel {
+    // 进入相册
+    return PictureSelector.create(this)
+        .openGallery(SelectMimeType.ofAll())//选择类型
+        .setSelectorUIStyle(PictureSelectorStyle().apply {//入场动画
+            windowAnimationStyle = PictureWindowAnimationStyle().apply {
+                activityEnterAnimation = R.anim.public_translate_right_to_center
+                activityExitAnimation = R.anim.public_translate_center_to_right
+            }
+            selectMainStyle = SelectMainStyle().apply {
+                selectNormalTextColor = resources.getColor(R.color.cl_9b9b9b)
+                selectTextColor = resources.getColor(R.color.white)
+                selectText=getString(R.string.ps_done_front_num)
+            }
+            bottomBarStyle = BottomNavBarStyle().apply {
+                bottomPreviewNormalTextColor = resources.getColor(R.color.cl_9b9b9b)
+                bottomSelectNumTextColor = resources.getColor(R.color.white)
+                bottomPreviewNormalTextColor = resources.getColor(R.color.cl_9b9b9b)
+                bottomPreviewSelectTextColor = resources.getColor(R.color.white)
+                bottomSelectNumResources = R.drawable.shape_picture_num_bg//底部选中数量
+                bottomOriginalDrawableLeft= R.drawable.ps_original_selector//原图选中效果
+                isCompleteCountTips = false//隐藏已选中数字
+            }
+        })
+        .setImageEngine(GlideEngine.createGlideEngine())//glide加载引擎
+        .setCompressEngine(ImageFileCompressEngine())//压缩引擎
+        .setSandboxFileEngine(MeSandboxFileEngine())//自定义沙箱文件处理
+        .setSelectionMode(SelectModeConfig.MULTIPLE)//多选
+        .isOriginalControl(true)//是否原图
+        .isDisplayTimeAxis(true)//时间轴
+        .isDisplayCamera(true)//打开拍照按钮
+        .isPreviewFullScreenMode(true)//预览全屏
+        .isPreviewZoomEffect(true)//预览缩放
+        .isPreviewImage(true)//预览
+        .isPreviewVideo(true)
+        .isPreviewAudio(true)
+        .setMaxSelectNum(5)//选择最大数量
+        .setMaxVideoSelectNum(2)
+        .setRecyclerAnimationMode(AnimationType.DEFAULT_ANIMATION)
+//                    .setSelectedData(mAdapter.getData())//以选择的照片
 }
