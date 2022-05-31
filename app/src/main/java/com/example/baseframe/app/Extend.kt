@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
 import androidx.paging.LoadState
+import androidx.recyclerview.widget.RecyclerView
 import com.example.baseframe.R
 import com.example.baseframe.entity.BaseBean
 import com.example.baseframe.utils.GlideEngine
@@ -23,6 +24,8 @@ import com.luck.picture.lib.basic.PictureSelectionModel
 import com.luck.picture.lib.basic.PictureSelector
 import com.luck.picture.lib.config.SelectMimeType
 import com.luck.picture.lib.config.SelectModeConfig
+import com.luck.picture.lib.entity.LocalMedia
+import com.luck.picture.lib.interfaces.OnExternalPreviewEventListener
 import com.luck.picture.lib.style.BottomNavBarStyle
 import com.luck.picture.lib.style.PictureSelectorStyle
 import com.luck.picture.lib.style.PictureWindowAnimationStyle
@@ -59,9 +62,9 @@ suspend inline fun <T> apiCall(crossinline call: suspend CoroutineScope.() -> Ba
 
 //统一处理协程网络异常
 suspend inline fun <T> BaseViewModel.request(
-    block: suspend () -> T,
     liveData: UnPeekLiveData<T>,
     showLoading: Boolean = false,
+    block: suspend () -> T
 ) {
     if (showLoading) {
         isShowLoading(true)
@@ -233,7 +236,7 @@ fun Activity.pictureSelector(): PictureSelectionModel {
             selectMainStyle = SelectMainStyle().apply {
                 selectNormalTextColor = resources.getColor(R.color.cl_9b9b9b)
                 selectTextColor = resources.getColor(R.color.white)
-                selectText=getString(R.string.ps_done_front_num)
+                selectText = getString(R.string.ps_done_front_num)
             }
             bottomBarStyle = BottomNavBarStyle().apply {
                 bottomPreviewNormalTextColor = resources.getColor(R.color.cl_9b9b9b)
@@ -241,7 +244,7 @@ fun Activity.pictureSelector(): PictureSelectionModel {
                 bottomPreviewNormalTextColor = resources.getColor(R.color.cl_9b9b9b)
                 bottomPreviewSelectTextColor = resources.getColor(R.color.white)
                 bottomSelectNumResources = R.drawable.shape_picture_num_bg//底部选中数量
-                bottomOriginalDrawableLeft= R.drawable.ps_original_selector//原图选中效果
+                bottomOriginalDrawableLeft = R.drawable.ps_original_selector//原图选中效果
                 isCompleteCountTips = false//隐藏已选中数字
             }
         })
@@ -261,4 +264,47 @@ fun Activity.pictureSelector(): PictureSelectionModel {
         .setMaxVideoSelectNum(2)
         .setRecyclerAnimationMode(AnimationType.DEFAULT_ANIMATION)
 //                    .setSelectedData(mAdapter.getData())//以选择的照片
+}
+
+/**
+ * 预览图片视频
+ * block内处理删除逻辑
+ * adapter.remove(position)
+ * adapter.notifyItemRemoved(position)
+ */
+fun Activity.preview(position: Int, list: ArrayList<LocalMedia>, block: (position: Int) -> Unit) {
+    // 预览图片、视频、音频
+    PictureSelector.create(this)
+        .openPreview()
+        .setImageEngine(GlideEngine.createGlideEngine())
+        .setSelectorUIStyle(PictureSelectorStyle().apply {//入场动画
+            windowAnimationStyle = PictureWindowAnimationStyle().apply {
+                activityEnterAnimation = R.anim.public_translate_right_to_center
+                activityExitAnimation = R.anim.public_translate_center_to_right
+            }
+            selectMainStyle = SelectMainStyle().apply {
+                selectNormalTextColor = resources.getColor(R.color.cl_9b9b9b)
+                selectTextColor = resources.getColor(R.color.white)
+                selectText = getString(R.string.ps_done_front_num)
+            }
+            bottomBarStyle = BottomNavBarStyle().apply {
+                bottomPreviewNormalTextColor = resources.getColor(R.color.cl_9b9b9b)
+                bottomSelectNumTextColor = resources.getColor(R.color.white)
+                bottomPreviewNormalTextColor = resources.getColor(R.color.cl_9b9b9b)
+                bottomPreviewSelectTextColor = resources.getColor(R.color.white)
+                bottomSelectNumResources = R.drawable.shape_picture_num_bg//底部选中数量
+                bottomOriginalDrawableLeft = R.drawable.ps_original_selector//原图选中效果
+                isCompleteCountTips = false//隐藏已选中数字
+            }
+        })
+        .isPreviewFullScreenMode(true)
+        .setExternalPreviewEventListener(object : OnExternalPreviewEventListener {//预览界面删除数据监听
+            override fun onPreviewDelete(position: Int) {
+                block.invoke(position)
+            }
+            override fun onLongPressDownload(media: LocalMedia?): Boolean {
+                return false
+            }
+        })
+        .startActivityPreview(position, true, list)
 }

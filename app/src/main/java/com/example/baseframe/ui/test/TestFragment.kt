@@ -11,6 +11,8 @@ import com.example.baseframe.app.pictureSelector
 import com.example.baseframe.databinding.FragmentTestBinding
 import com.example.baseframe.ui.cameraX.CameraActivity
 import com.example.baseframe.ui.view.dialog.showImg.ShowPageImgDialog
+import com.example.baseframe.ui.web.WebActivity
+import com.jdjinsui.gsm.app.Tags
 import com.lfy.baselibrary.loadImage
 import com.lfy.baselibrary.singleClick
 import com.lfy.baselibrary.toast
@@ -29,6 +31,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.startActivityForResult
 import timber.log.Timber
 import javax.inject.Inject
@@ -129,7 +132,6 @@ class TestFragment : BaseFragment<FragmentTestBinding, TestViewModel>() {
 
                         }
                     })
-
             }
         }
     }
