@@ -70,16 +70,6 @@ android {
         freeCompilerArgs += ["-Xopt-in=kotlin.RequiresOptIn"]
     }
 
-    dexOptions {
-        javaMaxHeapSize "4g"
-        jumboMode = true
-        preDexLibraries = false
-        additionalParameters = [
-                '--multi-dex',//多分包
-                '--set-max-idx-number=60000'//每个包内方法数上限
-        ]
-    }
-
     buildFeatures {
         dataBinding = true
     }
