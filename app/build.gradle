@@ -127,7 +127,7 @@ dependencies {
     //切换域名
     implementation "me.jessyan:retrofit-url-manager:$retrofitUrlManager"
     //腾讯web
-    implementation "com.tencent.tbs.tbssdk:sdk:$tbssdk"
+    implementation "com.tencent.tbs:tbssdk:$tbssdk"
     //hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"

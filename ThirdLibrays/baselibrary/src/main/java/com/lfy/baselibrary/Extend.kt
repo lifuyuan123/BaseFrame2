@@ -130,20 +130,22 @@ fun Activity.hideKeyboard() {
 }
 
 //获取栈顶activity
-fun Context.getCurrentActivity(): Activity? {
+fun Context.topActivity(): Activity? {
     return ActivityManager.instance.getTopActivity()
 }
 
-fun Context.getWidthAndHeight(window: Window?): Array<Int?>? {
-    if (window == null) {
-        return null
-    }
+//获取栈顶activity
+fun Activity.topActivity(): Activity? {
+    return ActivityManager.instance.getTopActivity()
+}
+
+fun Window.getWidthAndHeight(): Array<Int?>? {
     val integer = arrayOfNulls<Int>(2)
     val dm = DisplayMetrics()
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-        window.windowManager.defaultDisplay.getRealMetrics(dm)
+        windowManager.defaultDisplay.getRealMetrics(dm)
     } else {
-        window.windowManager.defaultDisplay.getMetrics(dm)
+        windowManager.defaultDisplay.getMetrics(dm)
     }
     integer[0] = dm.widthPixels
     integer[1] = dm.heightPixels
@@ -151,7 +153,14 @@ fun Context.getWidthAndHeight(window: Window?): Array<Int?>? {
 }
 
 //dp 转 px
-fun Context.dip2px(dpValue: Float): Int {
+fun Context.dp2px(dpValue: Float): Int {
+    val scale: Float =
+        this.resources.displayMetrics.density
+    return (dpValue * scale + 0.5f).toInt()
+}
+
+//dp 转 px
+fun Activity.dp2px(dpValue: Float): Int {
     val scale: Float =
         this.resources.displayMetrics.density
     return (dpValue * scale + 0.5f).toInt()

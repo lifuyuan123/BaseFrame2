@@ -9,7 +9,7 @@ import android.view.MotionEvent
 import android.view.View
 import androidx.appcompat.widget.AppCompatEditText
 import com.example.baseframe.R
-import com.lfy.baselibrary.dip2px
+import com.lfy.baselibrary.dp2px
 
 /**
  * 自定义edittext
@@ -52,8 +52,8 @@ class ClearEditText @JvmOverloads constructor(
         mClearDrawable!!.setBounds(
             0,
             0,
-            context.dip2px(20f),
-            context.dip2px(20f)
+            context.dp2px(20f),
+            context.dp2px(20f)
         )
         //默认设置隐藏图标
         setClearIconVisible(false)

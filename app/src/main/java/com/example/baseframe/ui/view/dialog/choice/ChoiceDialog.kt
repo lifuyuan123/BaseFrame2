@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.baseframe.R
 import com.example.baseframe.databinding.DialogChoiceBinding
 import com.example.baseframe.entity.RemoteKeys
-import com.lfy.baselibrary.dip2px
+import com.lfy.baselibrary.dp2px
 import com.lfy.baselibrary.getWidthAndHeight
 import com.lfy.baselibrary.toast
 import com.lfy.baselibrary.ui.dialog.BaseDialogFragment
@@ -38,10 +38,10 @@ class ChoiceDialog(private val datas: MutableList<RemoteKeys>) : BaseDialogFragm
         super.onStart()
         mWindow?.setGravity(Gravity.BOTTOM)
         mWindow?.setWindowAnimations(com.lfy.baselibrary.R.style.public_bottom_dialog)
-        activity?.applicationContext?.let { it.dip2px( 87f) }?.let {
+        activity?.applicationContext?.let { it.dp2px( 87f) }?.let {
             mWindow?.setLayout(
                 ViewGroup.LayoutParams.MATCH_PARENT,
-                requireContext().getWidthAndHeight(mWindow)?.get(1)!! / 2
+                mWindow?.getWidthAndHeight()?.get(1)!! / 2
             )
         }
     }
@@ -49,10 +49,10 @@ class ChoiceDialog(private val datas: MutableList<RemoteKeys>) : BaseDialogFragm
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
-        activity?.applicationContext?.let { it.dip2px( 87f) }?.let {
+        activity?.applicationContext?.let { it.dp2px( 87f) }?.let {
             mWindow?.setLayout(
                 ViewGroup.LayoutParams.MATCH_PARENT,
-                requireContext().getWidthAndHeight(mWindow)?.get(1)!! / 2
+                mWindow?.getWidthAndHeight()?.get(1)!! / 2
             )
         }
     }

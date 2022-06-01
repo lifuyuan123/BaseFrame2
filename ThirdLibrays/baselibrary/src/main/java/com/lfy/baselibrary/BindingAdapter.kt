@@ -31,8 +31,8 @@ fun singleClick(view: View, clickListener: View.OnClickListener) {
 fun setViewBackground(view: View, solidColor: Int, radius: Int = 0, strokeColor: Int, strokeWidth: Int) {
     val drawable = GradientDrawable()
     drawable.setColor(solidColor)
-    drawable.cornerRadius = view.context.dip2px(radius.toFloat()).toFloat()
-    drawable.setStroke(view.context.dip2px(strokeWidth.toFloat()), strokeColor)
+    drawable.cornerRadius = view.context.dp2px(radius.toFloat()).toFloat()
+    drawable.setStroke(view.context.dp2px(strokeWidth.toFloat()), strokeColor)
     view.background = drawable
 }
 

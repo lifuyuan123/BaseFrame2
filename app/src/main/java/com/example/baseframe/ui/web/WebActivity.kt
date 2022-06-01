@@ -2,11 +2,13 @@ package com.example.baseframe.ui.web
 
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.PixelFormat
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.KeyEvent
+import android.view.WindowManager
 import android.webkit.JavascriptInterface
 import com.blankj.utilcode.util.DeviceUtils
 import com.blankj.utilcode.util.NetworkUtils
@@ -76,6 +78,7 @@ class WebActivity : BaseActivity<ActivityWebBinding, WebViewModel>() {
         mUrl = intent.getStringExtra(Tags.URL)
         //加载url
         binding.web.loadUrl(mUrl)
+        statePager.showLoading()
         Timber.e("地址url：$mUrl")
     }
 
@@ -83,15 +86,21 @@ class WebActivity : BaseActivity<ActivityWebBinding, WebViewModel>() {
      * 初始化
      */
     private fun initWeb() {
+        window?.setFormat(PixelFormat.TRANSLUCENT)
+        window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE or WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)
         binding.web.apply {
             //设置和js交互接口以及参数名
             addJavascriptInterface(JsInterface(this@WebActivity), "base")
             settings.apply {
+                //不加这句可能很多页面无法加载
+                javaScriptEnabled = true
                 //支持插件
                 pluginsEnabled = true
                 //设置自适应屏幕，两者合用
                 useWideViewPort = true //将图片调整到适合webview的大小
                 loadWithOverviewMode = true // 缩放至屏幕的大小
+                layoutAlgorithm = WebSettings.LayoutAlgorithm.NARROW_COLUMNS
+                useWideViewPort = true
                 //缩放操作
                 setSupportZoom(true) //支持缩放，默认为true。是下面那个的前提。
                 builtInZoomControls = true //设置内置的缩放控件。若为false，则该WebView不可缩放
@@ -112,8 +121,8 @@ class WebActivity : BaseActivity<ActivityWebBinding, WebViewModel>() {
                 setAppCacheMaxSize(Long.MAX_VALUE)
                 //允许http和https混合
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    settings.mixedContentMode =
-                        android.webkit.WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE
+                    mixedContentMode =
+                        WebSettings.LOAD_NO_CACHE
                 }
                 webChromeClient = object : WebChromeClient() {
                     override fun onShowFileChooser(
@@ -127,7 +136,9 @@ class WebActivity : BaseActivity<ActivityWebBinding, WebViewModel>() {
                     override fun onProgressChanged(p0: WebView?, p1: Int) {
                         Timber.e("进度$p1")
                         if (p1 > 30) {
-                            statePager.showContent()
+                            if (statePager.curState != StatusPager.VIEW_STATE_CONTENT) {
+                                statePager.showContent()
+                            }
                         }
                         super.onProgressChanged(p0, p1)
                     }
@@ -138,16 +149,9 @@ class WebActivity : BaseActivity<ActivityWebBinding, WebViewModel>() {
                         return false
                     }
 
-                    override fun onRenderProcessGone(p0: WebView?, p1: a?): Boolean {
-                        return super.onRenderProcessGone(p0, p1)
-                    }
-
                     override fun onPageStarted(p0: WebView?, p1: String?, p2: Bitmap?) {
                         super.onPageStarted(p0, p1, p2)
                         Timber.e("请求  onPageStarted")
-                        runOnUiThread {
-                            statePager.showLoading()
-                        }
                     }
 
                     override fun onPageFinished(p0: WebView?, p1: String?) {

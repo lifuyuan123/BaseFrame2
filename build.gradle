@@ -26,7 +26,7 @@ buildscript {
         gsonFactory ="5.2"
         fragmentation ="1.8.4"
         timber ="4.7.1"
-        tbssdk ="43939"
+        tbssdk ="44181"
         cachewebviewlib ="2.2.1"
         immersionbar ="3.0.0"
         xxPermissions ="13.2"

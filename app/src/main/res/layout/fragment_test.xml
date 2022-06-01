@@ -16,10 +16,10 @@
         android:orientation="vertical">
 
         <View
-            android:background="@color/colorWhite"
             android:id="@+id/status_bar_view"
             android:layout_width="match_parent"
-            android:layout_height="0dp"/>
+            android:layout_height="0dp"
+            android:background="@color/colorWhite" />
 
         <TextView
             android:id="@+id/tv"
@@ -40,7 +40,9 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:scrollbars="vertical" />
+                android:scrollbars="vertical"
+                app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+                app:spanCount="2" />
 
         </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 

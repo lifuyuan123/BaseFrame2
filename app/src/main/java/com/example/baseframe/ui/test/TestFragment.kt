@@ -140,9 +140,6 @@ class TestFragment : BaseFragment<FragmentTestBinding, TestViewModel>() {
      * 初始化adapter
      */
     private fun initAdapter() {
-
-        binding.rv.layoutManager =
-            StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         binding.fresh.setEnableLoadMore(true)
         binding.rv.adapter = adapter
         //监听加载状态 加载中  成功  失败
@@ -155,7 +152,7 @@ class TestFragment : BaseFragment<FragmentTestBinding, TestViewModel>() {
                 .distinctUntilChangedBy { it.refresh }
                 // 仅对远程刷新完成的情况作出反应，例如，NotLoading
                 .filter { it.refresh is LoadState.NotLoading }
-                .collect { binding.rv.scrollToPosition(0) }
+                .collectLatest { binding.rv.scrollToPosition(0) }
         }
     }
 

@@ -59,7 +59,7 @@ class ActivityManager private constructor(){
      *
      * @return
      */
-    fun getActivityList(): MutableList<Activity>? {
+    private fun getActivityList(): MutableList<Activity>? {
         if (mActivityList == null) {
             mActivityList = LinkedList()
         }

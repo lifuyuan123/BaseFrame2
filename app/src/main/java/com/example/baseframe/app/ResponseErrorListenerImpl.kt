@@ -2,7 +2,7 @@ package com.example.baseframe.app
 
 
 import android.content.Context
-import com.lfy.baselibrary.getCurrentActivity
+import com.lfy.baselibrary.topActivity
 import com.lfy.baselibrary.utils.print.ResponseErrorListener
 import org.jetbrains.anko.toast
 import retrofit2.HttpException
@@ -32,8 +32,8 @@ class ResponseErrorListenerImpl (private val context: Context) :
             }
             else -> t?.message
         }
-        context.applicationContext.getCurrentActivity()?.runOnUiThread {
-            msg?.let { context.applicationContext.getCurrentActivity()?.toast(it) }
+        context.applicationContext.topActivity()?.runOnUiThread {
+            msg?.let { context.applicationContext.topActivity()?.toast(it) }
         }
         Timber.e(msg)
     }
