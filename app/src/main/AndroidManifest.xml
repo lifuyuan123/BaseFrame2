@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.baseframe">
+    package="com.example.baseframe" >
     <!-- 用于进行网络定位 -->
     <uses-permission android:name="android.permission.CAMERA" /> <!-- 用于访问GPS定位 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- 用于获取运营商信息，用于支持提供运营商信息相关的接口 -->
@@ -19,12 +19,12 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.VIBRATE" /> <!-- 适配Android R包可见性 开始 -->
-    <queries package="${applicationId}">
+    <queries package="${applicationId}" >
         <intent>
-            <action android:name="android.media.action.IMAGE_CAPTURE"></action>
+            <action android:name="android.media.action.IMAGE_CAPTURE" />
         </intent>
         <intent>
-            <action android:name="android.media.action.ACTION_VIDEO_CAPTURE"></action>
+            <action android:name="android.media.action.ACTION_VIDEO_CAPTURE" />
         </intent>
     </queries>
 
@@ -38,7 +38,7 @@
         android:resizeableActivity="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".ui.web.WebActivity"
             android:configChanges="orientation|screenSize"
@@ -66,18 +66,17 @@
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme"
-            android:windowSoftInputMode="stateAlwaysHidden">
+            android:windowSoftInputMode="stateAlwaysHidden" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <!--tbs首次启动内核加载-->
+        </activity> <!-- tbs首次启动内核加载 -->
         <service
             android:name="com.tencent.smtt.export.external.DexClassLoaderProviderService"
             android:label="dexopt"
-            android:process=":dexopt"></service>
+            android:process=":dexopt" />
 
         <meta-data
             android:name="design_width_in_dp"
@@ -105,7 +104,7 @@
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
             android:exported="false"
-            android:grantUriPermissions="true">
+            android:grantUriPermissions="true" >
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/photo_path" />
@@ -115,7 +114,7 @@
             android:name="androidx.startup.InitializationProvider"
             android:authorities="${applicationId}.androidx-startup"
             android:exported="false"
-            tools:node="merge">
+            tools:node="merge" >
             <meta-data
                 android:name="com.example.baseframe.app.LitePalInitializer"
                 android:value="androidx.startup" />
