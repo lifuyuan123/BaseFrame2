@@ -32,8 +32,8 @@ class ResponseErrorListenerImpl (private val context: Context) :
             }
             else -> t?.message
         }
-        context.applicationContext.topActivity()?.runOnUiThread {
-            msg?.let { context.applicationContext.topActivity()?.toast(it) }
+        context.topActivity()?.runOnUiThread {
+            msg?.let { context.topActivity()?.toast(it) }
         }
         Timber.e(msg)
     }
