@@ -1,4 +1,4 @@
-package com.jdjinsui.gsm.app
+package com.example.baseframe.utils
 
 /**
  * @Author admin

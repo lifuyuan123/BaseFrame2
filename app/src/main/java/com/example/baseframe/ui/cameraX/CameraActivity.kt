@@ -1,6 +1,5 @@
 package com.example.baseframe.ui.cameraX
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.ContentValues
@@ -28,9 +27,7 @@ import com.google.zxing.BinaryBitmap
 import com.google.zxing.MultiFormatReader
 import com.google.zxing.PlanarYUVLuminanceSource
 import com.google.zxing.common.HybridBinarizer
-import com.hjq.permissions.Permission
-import com.hjq.permissions.XXPermissions
-import com.jdjinsui.gsm.app.Tags
+import com.example.baseframe.utils.Tags
 import com.lfy.baselibrary.entity.PermissType
 import com.lfy.baselibrary.permiss
 import com.lfy.baselibrary.ui.activity.BaseActivity
@@ -39,7 +36,6 @@ import com.lfy.baselibrary.vm.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.jetbrains.anko.toast
 import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.*

@@ -10,14 +10,12 @@ import android.util.DisplayMetrics
 import android.view.KeyEvent
 import android.view.WindowManager
 import android.webkit.JavascriptInterface
-import com.blankj.utilcode.util.DeviceUtils
-import com.blankj.utilcode.util.NetworkUtils
 import com.example.baseframe.databinding.ActivityWebBinding
 import com.lfy.baselibrary.ui.activity.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import com.example.baseframe.R
 import com.gyf.immersionbar.ImmersionBar
-import com.jdjinsui.gsm.app.Tags
+import com.example.baseframe.utils.Tags
 import com.lfy.baselibrary.ui.view.StatusPager
 import com.lfy.baselibrary.visible
 import com.tencent.mmkv.MMKV
