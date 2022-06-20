@@ -1,6 +1,7 @@
 package com.example.baseframe.api
 
 import com.example.baseframe.entity.BaseBean
+import com.example.baseframe.entity.MeiZiBean
 import retrofit2.http.*
 
 
@@ -31,5 +32,5 @@ interface Service {
     @GET("/cos.php")
     suspend fun getimg(
         @Query("return") json: String,
-    ): BaseBean<Any>
+    ): MeiZiBean
 }
