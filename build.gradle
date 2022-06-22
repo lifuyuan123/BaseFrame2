@@ -49,7 +49,6 @@ buildscript {
         BaseRecycler ="3.0.4"
         flexbox ="1.1.0"
         pickerView = "4.1.9"
-        coil = "2.1.0"
     }
 
     dependencies {
