@@ -3,6 +3,7 @@ package com.example.baseframe.app
 import android.app.Activity
 import android.view.animation.DecelerateInterpolator
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
 import androidx.paging.LoadState
@@ -234,15 +235,15 @@ fun Activity.pictureSelector(): PictureSelectionModel {
                 activityExitAnimation = R.anim.public_translate_center_to_right
             }
             selectMainStyle = SelectMainStyle().apply {
-                selectNormalTextColor = resources.getColor(R.color.cl_9b9b9b)
-                selectTextColor = resources.getColor(R.color.white)
+                selectNormalTextColor = ContextCompat.getColor(this@pictureSelector,R.color.cl_9b9b9b)
+                selectTextColor = ContextCompat.getColor(this@pictureSelector,R.color.white)
                 selectText = getString(R.string.ps_done_front_num)
             }
             bottomBarStyle = BottomNavBarStyle().apply {
-                bottomPreviewNormalTextColor = resources.getColor(R.color.cl_9b9b9b)
-                bottomSelectNumTextColor = resources.getColor(R.color.white)
-                bottomPreviewNormalTextColor = resources.getColor(R.color.cl_9b9b9b)
-                bottomPreviewSelectTextColor = resources.getColor(R.color.white)
+                bottomPreviewNormalTextColor = ContextCompat.getColor(this@pictureSelector,R.color.cl_9b9b9b)
+                bottomSelectNumTextColor = ContextCompat.getColor(this@pictureSelector,R.color.white)
+                bottomPreviewNormalTextColor = ContextCompat.getColor(this@pictureSelector,R.color.cl_9b9b9b)
+                bottomPreviewSelectTextColor = ContextCompat.getColor(this@pictureSelector,R.color.white)
                 bottomSelectNumResources = R.drawable.shape_picture_num_bg//底部选中数量
                 bottomOriginalDrawableLeft = R.drawable.ps_original_selector//原图选中效果
                 isCompleteCountTips = false//隐藏已选中数字
@@ -283,15 +284,15 @@ fun Activity.preview(position: Int, list: ArrayList<LocalMedia>, block: (positio
                 activityExitAnimation = R.anim.public_translate_center_to_right
             }
             selectMainStyle = SelectMainStyle().apply {
-                selectNormalTextColor = resources.getColor(R.color.cl_9b9b9b)
-                selectTextColor = resources.getColor(R.color.white)
+                selectNormalTextColor = ContextCompat.getColor(this@preview,R.color.cl_9b9b9b)
+                selectTextColor = ContextCompat.getColor(this@preview,R.color.white)
                 selectText = getString(R.string.ps_done_front_num)
             }
             bottomBarStyle = BottomNavBarStyle().apply {
-                bottomPreviewNormalTextColor = resources.getColor(R.color.cl_9b9b9b)
-                bottomSelectNumTextColor = resources.getColor(R.color.white)
-                bottomPreviewNormalTextColor = resources.getColor(R.color.cl_9b9b9b)
-                bottomPreviewSelectTextColor = resources.getColor(R.color.white)
+                bottomPreviewNormalTextColor = ContextCompat.getColor(this@preview,R.color.cl_9b9b9b)
+                bottomSelectNumTextColor =ContextCompat.getColor(this@preview,R.color.white)
+                bottomPreviewNormalTextColor = ContextCompat.getColor(this@preview,R.color.cl_9b9b9b)
+                bottomPreviewSelectTextColor = ContextCompat.getColor(this@preview,R.color.white)
                 bottomSelectNumResources = R.drawable.shape_picture_num_bg//底部选中数量
                 bottomOriginalDrawableLeft = R.drawable.ps_original_selector//原图选中效果
                 isCompleteCountTips = false//隐藏已选中数字

@@ -11,6 +11,7 @@ import android.view.Window
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import com.hjq.permissions.OnPermissionCallback
@@ -80,8 +81,8 @@ fun EditText.content() = this.text.toString().trim()
 
 //设置Drawable
 fun TextView.setDrawables(mipmap: Int, type: Int = 3, width: Int = 0, height: Int = 0) {
-    val drawable = this.resources.getDrawable(mipmap)
-    drawable.setBounds(
+    val drawable = ContextCompat.getDrawable(context,mipmap)
+    drawable?.setBounds(
         0,
         0,
         if (width == 0) drawable.minimumWidth else width,
