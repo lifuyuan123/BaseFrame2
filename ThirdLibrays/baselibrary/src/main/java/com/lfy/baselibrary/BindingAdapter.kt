@@ -13,9 +13,9 @@ import androidx.databinding.BindingAdapter
  */
 
 //图片加载
-@BindingAdapter("remoteUrl")
-fun remoteUrl(img: ImageView, url: String?) {
-    img.loadImage(url)
+@BindingAdapter(value = ["remoteUrl", "placeholder", "errorId"], requireAll = false)
+fun ImageView.remoteUrl(url: String?, placeholder: Int = 0, errorId: Int = R.mipmap.ic_launcher) {
+    loadImage(url, placeholder, errorId)
 }
 
 //防抖动点击事件
