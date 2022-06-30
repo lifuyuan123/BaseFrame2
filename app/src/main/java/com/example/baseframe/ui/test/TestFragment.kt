@@ -6,6 +6,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import com.example.baseframe.R
 import com.example.baseframe.app.addLoadPageListener
+import com.example.baseframe.app.launchAndRepeatWithViewLifecycle
 import com.example.baseframe.app.pictureSelector
 import com.example.baseframe.databinding.FragmentTestBinding
 import com.example.baseframe.ui.cameraX.CameraActivity
@@ -13,6 +14,7 @@ import com.example.baseframe.ui.view.dialog.showImg.ShowPageImgDialog
 import com.lfy.baselibrary.loadImage
 import com.lfy.baselibrary.singleClick
 import com.lfy.baselibrary.toast
+import com.lfy.baselibrary.ui.adapter.BaseLoadStateAdapter
 import com.lfy.baselibrary.ui.fragment.BaseFragment
 import com.lfy.baselibrary.ui.view.StatusPager
 import com.luck.picture.lib.entity.LocalMedia
@@ -140,7 +142,7 @@ class TestFragment : BaseFragment<FragmentTestBinding, TestViewModel>() {
         adapter.addLoadPageListener(binding.fresh, statePager)
 
         // 当从网络刷新列表时滚动到顶部。
-        lifecycleScope.launch {
+        launchAndRepeatWithViewLifecycle {
             adapter.loadStateFlow
                 // 仅在为RemoteMediator刷新LoadState更改时触发。
                 .distinctUntilChangedBy { it.refresh }
@@ -156,7 +158,8 @@ class TestFragment : BaseFragment<FragmentTestBinding, TestViewModel>() {
     private fun getGanks() {
         // 在创建新作业之前，请确保我们取消了之前的作业
         searchJob?.cancel()
-        searchJob = lifecycleScope.launch {
+        //注意在fragment中使用iewLifecycleOwner.lifecycleScope
+        searchJob = viewLifecycleOwner.lifecycleScope.launch {
 
             //仅从服务端获取数据
             viewModel.getGankRomete().collectLatest {
