@@ -67,6 +67,11 @@ class TestFragment : BaseFragment<FragmentTestBinding, TestViewModel>() {
         binding.fragment = this
 
         binding.tv.text = arguments?.getString("data")
+        launchAndRepeatWithViewLifecycle {
+            viewModel._flow.collectLatest {
+                Timber.e("测试数据:$it")
+            }
+        }
 
         adapter.addChildClickOfId(R.id.tvItem)
         adapter.addChildLongClickOfId(R.id.tvTitle)

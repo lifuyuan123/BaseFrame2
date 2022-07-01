@@ -62,50 +62,54 @@ suspend inline fun <T> apiCall(crossinline call: suspend CoroutineScope.() -> Ba
 }
 
 //统一处理协程网络异常
-suspend inline fun <T> BaseViewModel.request(
+fun <T> BaseViewModel.request(
     liveData: UnPeekLiveData<T>,
     showLoading: Boolean = false,
     block: suspend () -> T
 ) {
-    if (showLoading) {
-        isShowLoading(true)
-    }
-    try {
-        val result = block.invoke()
-        liveData.postValue(result)
-    } catch (e: Exception) {
-        Timber.e("接口异常:$e")
-    } finally {
+    viewModelScope.launch {
         if (showLoading) {
-            isShowLoading(false)
+            isShowLoading(true)
+        }
+        try {
+            val result = block.invoke()
+            liveData.postValue(result)
+        } catch (e: Exception) {
+            Timber.e("接口异常:$e")
+        } finally {
+            if (showLoading) {
+                isShowLoading(false)
+            }
         }
     }
 }
 
 //带加载监听的统一协程请求
-suspend fun <T> BaseViewModel.flowRequest(
+fun <T> BaseViewModel.flowRequest(
     flow: Flow<T>,
     showLoading: Boolean = false,
     block: suspend () -> T
 ) {
-    if (showLoading) {
-        isShowLoading(true)
-    }
-    try {
-        val response = block.invoke()
-        when (flow) {
-            is MutableSharedFlow<T> -> {
-                flow.emit(response)
-            }
-            is MutableStateFlow<T> -> {
-                flow.emit(response)
-            }
-        }
-    } catch (e: Exception) {
-        Timber.e("接口异常:$e")
-    } finally {
+    viewModelScope.launch {
         if (showLoading) {
-            isShowLoading(false)
+            isShowLoading(true)
+        }
+        try {
+            val response = block.invoke()
+            when (flow) {
+                is MutableSharedFlow<T> -> {
+                    flow.emit(response)
+                }
+                is MutableStateFlow<T> -> {
+                    flow.emit(response)
+                }
+            }
+        } catch (e: Exception) {
+            Timber.e("接口异常:$e")
+        } finally {
+            if (showLoading) {
+                isShowLoading(false)
+            }
         }
     }
 }

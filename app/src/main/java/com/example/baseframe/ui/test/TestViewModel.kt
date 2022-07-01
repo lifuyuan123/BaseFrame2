@@ -3,17 +3,19 @@ package com.example.baseframe.ui.test
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import com.example.baseframe.app.flowRequest
 import com.example.baseframe.entity.Bean
+import com.example.baseframe.entity.MeiZiBean
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import com.lfy.baselibrary.vm.BaseViewModel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 
 @HiltViewModel
-class TestViewModel @Inject constructor() : BaseViewModel() {
+class TestViewModel @Inject constructor(private val repository: TestRepository) : BaseViewModel() {
 
-    @Inject
-    lateinit var repository: TestRepository
     private var gankdata: Flow<PagingData<Bean>>? = null
 
     //仅仅请求服务器
@@ -22,5 +24,17 @@ class TestViewModel @Inject constructor() : BaseViewModel() {
             .cachedIn(viewModelScope)
         gankdata = newResult
         return newResult
+    }
+
+    private val flow = MutableStateFlow(MeiZiBean())
+    val _flow = flow.asStateFlow()
+    fun test() {
+        flowRequest(flow) {
+            repository.test()
+        }
+    }
+
+    init {
+        test()
     }
 }

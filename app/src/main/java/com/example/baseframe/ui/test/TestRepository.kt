@@ -59,6 +59,9 @@ class TestRepository @Inject constructor(private val service: Service) {
         ).flow
     }
 
+
+    suspend fun test()= service.getimg("jsonpro")
+
     companion object {
         const val NETWORK_PAGE_SIZE = 10
     }

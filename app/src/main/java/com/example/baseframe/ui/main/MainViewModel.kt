@@ -5,9 +5,7 @@ import javax.inject.Inject
 import com.lfy.baselibrary.vm.BaseViewModel
 
 @HiltViewModel
-class MainViewModel @Inject constructor() : BaseViewModel() {
+class MainViewModel @Inject constructor(private val repository: MainRepository) : BaseViewModel() {
 
-    @Inject
-    lateinit var repository: MainRepository
 
 }

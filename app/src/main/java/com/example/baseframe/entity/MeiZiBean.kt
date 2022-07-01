@@ -6,6 +6,6 @@ package com.example.baseframe.entity
  * @describe:
  */
 data class MeiZiBean(
-    val API_name: String,
-    val imgurls: List<String>
+    val API_name: String="",
+    val imgurls: List<String> = mutableListOf()
 )
