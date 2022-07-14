@@ -29,7 +29,7 @@ interface Service {
     @GET("/api/v2/banners")
     suspend fun getBanner(): BaseBean<MutableList<Any>>
 
-    @GET("/cos.php")
+    @GET("/cos2.php")
     suspend fun getimg(
         @Query("return") json: String,
     ): MeiZiBean
