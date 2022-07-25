@@ -23,7 +23,7 @@ buildscript {
         smart ="2.0.3"
         androidAutoSize ="v1.2.1"
         retrofitUrlManager ="1.4.0"
-        gsonFactory ="5.2"
+        gsonFactory ="6.2"
         fragmentation ="1.8.4"
         timber ="4.7.1"
         tbssdk ="44181"
