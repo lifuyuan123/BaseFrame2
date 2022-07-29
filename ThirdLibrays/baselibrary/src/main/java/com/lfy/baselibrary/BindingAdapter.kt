@@ -96,10 +96,10 @@ fun View.setViewBackground(
             context.dp2px(shape_tl_radius.toFloat()).toFloat(),
             context.dp2px(shape_tr_radius.toFloat()).toFloat(),
             context.dp2px(shape_tr_radius.toFloat()).toFloat(),
-            context.dp2px(shape_bl_radius.toFloat()).toFloat(),
-            context.dp2px(shape_bl_radius.toFloat()).toFloat(),
             context.dp2px(shape_br_radius.toFloat()).toFloat(),
             context.dp2px(shape_br_radius.toFloat()).toFloat(),
+            context.dp2px(shape_bl_radius.toFloat()).toFloat(),
+            context.dp2px(shape_bl_radius.toFloat()).toFloat(),
         )
     } else {
         drawable.cornerRadius = context.dp2px(radius.toFloat()).toFloat()
