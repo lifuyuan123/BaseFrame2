@@ -1,10 +1,9 @@
 package com.example.baseframe.ui.view.dialog.choice
 
-import androidx.databinding.ViewDataBinding
 import com.example.baseframe.R
 import com.example.baseframe.databinding.ItemChoiceProjectBinding
 import com.example.baseframe.entity.RemoteKeys
-import com.lfy.baselibrary.ui.adapter.BasePagingDataAdapter
+import com.lfy.baselibrary.ui.adapter.DataBindingBaseAdapter
 import javax.inject.Inject
 
 /**
@@ -12,13 +11,10 @@ import javax.inject.Inject
  * @Date 2021/8/5-15:56
  * @describe: 选择弹窗适配器
  */
-class ChoiceAdapter @Inject constructor() : BasePagingDataAdapter<RemoteKeys>() {
-    override fun getLayout(): Int {
-        return R.layout.item_choice_project
-    }
+class ChoiceAdapter @Inject constructor() : DataBindingBaseAdapter<RemoteKeys, ItemChoiceProjectBinding>(R.layout.item_choice_project) {
 
-    override fun bindData(binding: ViewDataBinding, data: RemoteKeys,position:Int) {
-        (binding as ItemChoiceProjectBinding).bean = data
-        binding.executePendingBindings()
+    override fun convertOfVB(binding: ItemChoiceProjectBinding?, item: RemoteKeys) {
+        binding?.bean = item
+        binding?.executePendingBindings()
     }
 }
