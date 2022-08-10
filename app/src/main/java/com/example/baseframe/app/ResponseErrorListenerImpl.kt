@@ -17,7 +17,7 @@ import java.net.UnknownHostException
  * @describe:  网络异常
  */
 
-class ResponseErrorListenerImpl (private val context: Context) :
+class ResponseErrorListenerImpl(private val context: Context) :
     ResponseErrorListener {
     override fun handleResponseError(t: Throwable?) {
         var msg = when (t) {
@@ -32,9 +32,7 @@ class ResponseErrorListenerImpl (private val context: Context) :
             }
             else -> t?.message
         }
-        context.topActivity()?.runOnUiThread {
-            msg?.let { context.topActivity()?.toast(it) }
-        }
+        toastPlus(msg)
         Timber.e(msg)
     }
 }

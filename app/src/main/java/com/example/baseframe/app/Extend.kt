@@ -66,9 +66,7 @@ suspend inline fun <T> apiCall(crossinline request: suspend CoroutineScope.() ->
             request()
         } catch (e: Throwable) {
             // 网络错误，将状态码和消息封装为 ResponseResult
-            App.context?.topActivity()?.runOnUiThread {
-                App.context?.topActivity()?.toast("${e.message}")
-            }
+            toastPlus("${e.message}")
             Timber.e("apiCall 网络异常  $e")
             null
         }
@@ -91,6 +89,7 @@ fun <T> BaseViewModel.request(
             liveData.postValue(result)
         } catch (e: Exception) {
             Timber.e("接口异常:$e")
+            toastPlus(e.toString())
         } finally {
             if (showLoading) {
                 isShowLoading(false)
@@ -121,6 +120,7 @@ fun <T> BaseViewModel.flowRequest(
             }
         } catch (e: Exception) {
             Timber.e("接口异常:$e")
+            toastPlus(e.toString())
         } finally {
             if (showLoading) {
                 isShowLoading(false)
