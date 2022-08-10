@@ -17,6 +17,7 @@ import com.google.gson.reflect.TypeToken
 import com.hjq.gson.factory.GsonFactory
 import com.kunminx.architecture.ui.callback.UnPeekLiveData
 import com.lfy.baselibrary.entity.Result
+import com.lfy.baselibrary.topActivity
 import com.lfy.baselibrary.ui.adapter.BasePagingDataAdapter
 import com.lfy.baselibrary.ui.view.StatusPager
 import com.lfy.baselibrary.vm.BaseViewModel
@@ -38,7 +39,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.jetbrains.anko.toast
 import timber.log.Timber
+import java.text.DecimalFormat
+import java.text.NumberFormat
 
 /**
  * @Author admin
@@ -46,18 +50,29 @@ import timber.log.Timber
  * @describe:扩展方法
  */
 
+/**
+ * 全局吐丝
+ */
+fun Any.toastPlus(msg: Any?) {
+    App.context?.topActivity()?.runOnUiThread {
+        App.context?.topActivity()?.toast("$msg")
+    }
+}
+
 //统一处理网络异常  retrofit + Coroutines(协程)
-suspend inline fun <T> apiCall(crossinline call: suspend CoroutineScope.() -> BaseBean<T>): Result<T> {
+suspend inline fun <T> apiCall(crossinline request: suspend CoroutineScope.() -> BaseBean<T>): BaseBean<T>? {
     return withContext(Dispatchers.IO) {
-        val res: Result<T>
-        try {
-            res = Result.Success(call().data)
+        val data = try {
+            request()
         } catch (e: Throwable) {
             // 网络错误，将状态码和消息封装为 ResponseResult
+            App.context?.topActivity()?.runOnUiThread {
+                App.context?.topActivity()?.toast("${e.message}")
+            }
             Timber.e("apiCall 网络异常  $e")
-            return@withContext Result.Error(Exception(e))
+            null
         }
-        return@withContext res
+        return@withContext data
     }
 }
 
@@ -312,4 +327,35 @@ fun Activity.preview(position: Int, list: ArrayList<LocalMedia>, block: (positio
             }
         })
         .startActivityPreview(position, true, list)
+}
+
+/**
+ * float保留小数点
+ */
+fun Float.numFormat(digit: Int = 1): String {
+    return when (digit) {
+        1 -> {
+            DecimalFormat("#.0").format(this)
+        }
+        2 -> {
+            DecimalFormat("#.00").format(this)
+        }
+        else -> {
+            this.toString()
+        }
+    }
+}
+
+/**
+ * int保留小数点
+ */
+fun Int.numFormat(digit: Int = 1): String {
+    return this.toFloat().numFormat(digit)
+}
+
+/**
+ * 去掉小数后面不必要的0
+ */
+fun Any.clearZero():String{
+    return NumberFormat.getInstance().format(this)
 }
