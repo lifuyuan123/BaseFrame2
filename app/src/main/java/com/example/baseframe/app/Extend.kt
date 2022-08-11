@@ -91,9 +91,12 @@ fun <T> BaseViewModel.request(
             liveData.postValue(result)
         } catch (e: Exception) {
             Timber.e("接口异常:$e")
+            isShowLoading(false)
             toastPlus(e.toString())
         } finally {
-            isShowLoading(false)
+            if (showLoading) {
+                isShowLoading(false)
+            }
 
         }
     }
@@ -121,9 +124,12 @@ fun <T> BaseViewModel.flowRequest(
             }
         } catch (e: Exception) {
             Timber.e("接口异常:$e")
+            isShowLoading(false)
             toastPlus(e.toString())
         } finally {
-            isShowLoading(false)
+            if (showLoading) {
+                isShowLoading(false)
+            }
         }
     }
 }
