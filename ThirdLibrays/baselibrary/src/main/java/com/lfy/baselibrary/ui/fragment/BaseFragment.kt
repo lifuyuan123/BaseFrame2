@@ -13,6 +13,7 @@ import com.lfy.baselibrary.R
 import com.lfy.baselibrary.ui.dialog.ProgresDialog
 import com.lfy.baselibrary.visible
 import com.lfy.baselibrary.vm.BaseViewModel
+import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import com.weikaiyun.fragmentation.SupportFragment
 import me.jessyan.autosize.AutoSize
 import java.lang.reflect.ParameterizedType
@@ -93,6 +94,8 @@ abstract class BaseFragment<T : ViewDataBinding, VM : BaseViewModel> : SupportFr
                 progresDialog?.show()
             }else{
                 progresDialog?.hide()
+                binding.root.findViewById<SmartRefreshLayout?>(R.id.smart)?.finishRefresh()
+                binding.root.findViewById<SmartRefreshLayout?>(R.id.smart)?.finishLoadMore()
             }
         }
     }

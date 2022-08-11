@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.RecyclerView
+import com.chad.library.adapter.base.BaseQuickAdapter
 import com.example.baseframe.R
 import com.example.baseframe.entity.BaseBean
 import com.example.baseframe.utils.GlideEngine
@@ -19,6 +20,7 @@ import com.kunminx.architecture.ui.callback.UnPeekLiveData
 import com.lfy.baselibrary.entity.Result
 import com.lfy.baselibrary.topActivity
 import com.lfy.baselibrary.ui.adapter.BasePagingDataAdapter
+import com.lfy.baselibrary.ui.adapter.DataBindingBaseAdapter
 import com.lfy.baselibrary.ui.view.StatusPager
 import com.lfy.baselibrary.vm.BaseViewModel
 import com.luck.picture.lib.animators.AnimationType
@@ -91,9 +93,8 @@ fun <T> BaseViewModel.request(
             Timber.e("接口异常:$e")
             toastPlus(e.toString())
         } finally {
-            if (showLoading) {
-                isShowLoading(false)
-            }
+            isShowLoading(false)
+
         }
     }
 }
@@ -111,10 +112,10 @@ fun <T> BaseViewModel.flowRequest(
         try {
             val response = block.invoke()
             when (flow) {
-                is MutableSharedFlow<T> -> {
+                is MutableStateFlow<T> -> {
                     flow.emit(response)
                 }
-                is MutableStateFlow<T> -> {
+                is MutableSharedFlow<T> -> {
                     flow.emit(response)
                 }
             }
@@ -122,9 +123,7 @@ fun <T> BaseViewModel.flowRequest(
             Timber.e("接口异常:$e")
             toastPlus(e.toString())
         } finally {
-            if (showLoading) {
-                isShowLoading(false)
-            }
+            isShowLoading(false)
         }
     }
 }
@@ -242,6 +241,30 @@ fun BasePagingDataAdapter<*>.addLoadPageListener(
 }
 
 /**
+ * 刷新状态设置
+ */
+fun <T> SmartRefreshLayout.freshStatus(
+    adapter: BaseQuickAdapter<T, *>,
+    data: BaseBean<MutableList<T>>
+) {
+    if (data.page_count > 1) {//加载更多
+        if (data.data.isNullOrEmpty()) {//没有数据
+            finishLoadMoreWithNoMoreData()
+        } else {
+            adapter.addData(data.data)
+            finishLoadMore()
+        }
+    } else {//刷新
+        if (data.data.isNullOrEmpty()) {//没有数据
+            adapter.setEmptyView(com.lfy.baselibrary.R.layout.state_empty)
+        }
+        adapter.setNewInstance(data.data)
+        finishRefresh()
+        resetNoMoreData()//恢复没有更多数据的原始状态
+    }
+}
+
+/**
  * 图片选择
  */
 fun Activity.pictureSelector(): PictureSelectionModel {
@@ -254,15 +277,20 @@ fun Activity.pictureSelector(): PictureSelectionModel {
                 activityExitAnimation = R.anim.public_translate_center_to_right
             }
             selectMainStyle = SelectMainStyle().apply {
-                selectNormalTextColor = ContextCompat.getColor(this@pictureSelector,R.color.cl_9b9b9b)
-                selectTextColor = ContextCompat.getColor(this@pictureSelector,R.color.white)
+                selectNormalTextColor =
+                    ContextCompat.getColor(this@pictureSelector, R.color.cl_9b9b9b)
+                selectTextColor = ContextCompat.getColor(this@pictureSelector, R.color.white)
                 selectText = getString(R.string.ps_done_front_num)
             }
             bottomBarStyle = BottomNavBarStyle().apply {
-                bottomPreviewNormalTextColor = ContextCompat.getColor(this@pictureSelector,R.color.cl_9b9b9b)
-                bottomSelectNumTextColor = ContextCompat.getColor(this@pictureSelector,R.color.white)
-                bottomPreviewNormalTextColor = ContextCompat.getColor(this@pictureSelector,R.color.cl_9b9b9b)
-                bottomPreviewSelectTextColor = ContextCompat.getColor(this@pictureSelector,R.color.white)
+                bottomPreviewNormalTextColor =
+                    ContextCompat.getColor(this@pictureSelector, R.color.cl_9b9b9b)
+                bottomSelectNumTextColor =
+                    ContextCompat.getColor(this@pictureSelector, R.color.white)
+                bottomPreviewNormalTextColor =
+                    ContextCompat.getColor(this@pictureSelector, R.color.cl_9b9b9b)
+                bottomPreviewSelectTextColor =
+                    ContextCompat.getColor(this@pictureSelector, R.color.white)
                 bottomSelectNumResources = R.drawable.shape_picture_num_bg//底部选中数量
                 bottomOriginalDrawableLeft = R.drawable.ps_original_selector//原图选中效果
                 isCompleteCountTips = false//隐藏已选中数字
@@ -303,25 +331,29 @@ fun Activity.preview(position: Int, list: ArrayList<LocalMedia>, block: (positio
                 activityExitAnimation = R.anim.public_translate_center_to_right
             }
             selectMainStyle = SelectMainStyle().apply {
-                selectNormalTextColor = ContextCompat.getColor(this@preview,R.color.cl_9b9b9b)
-                selectTextColor = ContextCompat.getColor(this@preview,R.color.white)
+                selectNormalTextColor = ContextCompat.getColor(this@preview, R.color.cl_9b9b9b)
+                selectTextColor = ContextCompat.getColor(this@preview, R.color.white)
                 selectText = getString(R.string.ps_done_front_num)
             }
             bottomBarStyle = BottomNavBarStyle().apply {
-                bottomPreviewNormalTextColor = ContextCompat.getColor(this@preview,R.color.cl_9b9b9b)
-                bottomSelectNumTextColor =ContextCompat.getColor(this@preview,R.color.white)
-                bottomPreviewNormalTextColor = ContextCompat.getColor(this@preview,R.color.cl_9b9b9b)
-                bottomPreviewSelectTextColor = ContextCompat.getColor(this@preview,R.color.white)
+                bottomPreviewNormalTextColor =
+                    ContextCompat.getColor(this@preview, R.color.cl_9b9b9b)
+                bottomSelectNumTextColor = ContextCompat.getColor(this@preview, R.color.white)
+                bottomPreviewNormalTextColor =
+                    ContextCompat.getColor(this@preview, R.color.cl_9b9b9b)
+                bottomPreviewSelectTextColor = ContextCompat.getColor(this@preview, R.color.white)
                 bottomSelectNumResources = R.drawable.shape_picture_num_bg//底部选中数量
                 bottomOriginalDrawableLeft = R.drawable.ps_original_selector//原图选中效果
                 isCompleteCountTips = false//隐藏已选中数字
             }
         })
         .isPreviewFullScreenMode(true)
-        .setExternalPreviewEventListener(object : OnExternalPreviewEventListener {//预览界面删除数据监听
+        .setExternalPreviewEventListener(object : OnExternalPreviewEventListener {
+            //预览界面删除数据监听
             override fun onPreviewDelete(position: Int) {
                 block.invoke(position)
             }
+
             override fun onLongPressDownload(media: LocalMedia?): Boolean {
                 return false
             }
@@ -356,6 +388,6 @@ fun Int.numFormat(digit: Int = 1): String {
 /**
  * 去掉小数后面不必要的0
  */
-fun Any.clearZero():String{
+fun Any.clearZero(): String {
     return NumberFormat.getInstance().format(this)
 }

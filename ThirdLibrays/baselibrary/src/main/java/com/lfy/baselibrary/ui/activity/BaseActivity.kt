@@ -10,6 +10,7 @@ import com.lfy.baselibrary.R
 import com.gyf.immersionbar.ImmersionBar
 import com.lfy.baselibrary.ui.dialog.ProgresDialog
 import com.lfy.baselibrary.vm.BaseViewModel
+import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import com.weikaiyun.fragmentation.SupportActivity
 import java.lang.reflect.ParameterizedType
 
@@ -84,6 +85,8 @@ abstract class BaseActivity<T:ViewDataBinding,VM : BaseViewModel> :SupportActivi
                 progresDialog?.show()
             }else{
                 progresDialog?.hide()
+                binding.root.findViewById<SmartRefreshLayout?>(R.id.smart)?.finishRefresh()
+                binding.root.findViewById<SmartRefreshLayout?>(R.id.smart)?.finishLoadMore()
             }
         }
     }
