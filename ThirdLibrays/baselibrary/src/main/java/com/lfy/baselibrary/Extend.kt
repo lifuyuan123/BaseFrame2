@@ -21,10 +21,6 @@ import com.lfy.baselibrary.entity.PermissType
 import org.jetbrains.anko.toast
 import timber.log.Timber
 
-//土司
-
-fun Fragment?.toast(value: String): Unit =
-    Toast.makeText(this?.activity, value, Toast.LENGTH_SHORT).show()
 
 val Float.px: Float get() = (this * Resources.getSystem().displayMetrics.density)
 val Int.px: Int get() = ((this * Resources.getSystem().displayMetrics.density).toInt())
@@ -105,7 +101,7 @@ fun TextView.setDrawables(mipmap: Int, type: Int = 3, width: Int = 0, height: In
 }
 
 //加载图片
-fun ImageView.loadImage(url: String?, placeholder: Int = 0, errorPic: Int = R.mipmap.ic_launcher) {
+fun ImageView.loadImage(url: String?, placeholder: Int = 0, errorPic: Int = R.drawable.ic_load_fail) {
     Timber.e("图片  ： $url")
     GlideApp.with(this.context)
         .load(url)

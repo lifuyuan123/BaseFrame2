@@ -11,10 +11,9 @@ import com.example.baseframe.app.pictureSelector
 import com.example.baseframe.databinding.FragmentTestBinding
 import com.example.baseframe.ui.cameraX.CameraActivity
 import com.example.baseframe.ui.view.dialog.showImg.ShowPageImgDialog
+import com.example.baseframe.utils.ToastUtils.toast
 import com.lfy.baselibrary.loadImage
 import com.lfy.baselibrary.singleClick
-import com.lfy.baselibrary.toast
-import com.lfy.baselibrary.ui.adapter.BaseLoadStateAdapter
 import com.lfy.baselibrary.ui.fragment.BaseFragment
 import com.lfy.baselibrary.ui.view.StatusPager
 import com.luck.picture.lib.entity.LocalMedia

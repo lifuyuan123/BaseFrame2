@@ -13,15 +13,23 @@ import androidx.databinding.BindingAdapter
  */
 
 //图片加载
-@BindingAdapter("remoteUrl")
-fun ImageView.remoteUrl(url: String?) {
-    loadImage(url)
+//图片加载
+@BindingAdapter(value = ["remoteUrl", "placeholder", "errorId"], requireAll = false)
+fun ImageView.remoteUrl(url: String?, placeholder: Int = 0, errorId: Int = R.drawable.ic_load_fail) {
+    loadImage(url, placeholder, errorId)
 }
 
 //防抖动点击事件
 @BindingAdapter("android:onClick")
 fun singleClick(view: View, clickListener: View.OnClickListener) {
     view.singleClick(clickListener)
+}
+
+
+//显示与隐藏
+@BindingAdapter(value = ["isVisible"])
+fun View.isVisible(isVisible:Boolean) {
+    visible(isVisible)
 }
 
 //shape等操作   requireAll:它表示是否需要每个属性都必须绑定了数据才会调用viewBackground方法

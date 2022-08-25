@@ -5,6 +5,7 @@ import android.view.animation.DecelerateInterpolator
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.*
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.RecyclerView
@@ -14,6 +15,7 @@ import com.example.baseframe.entity.BaseBean
 import com.example.baseframe.utils.GlideEngine
 import com.example.baseframe.utils.ImageFileCompressEngine
 import com.example.baseframe.utils.MeSandboxFileEngine
+import com.example.baseframe.utils.ToastUtils
 import com.google.gson.reflect.TypeToken
 import com.hjq.gson.factory.GsonFactory
 import com.kunminx.architecture.ui.callback.UnPeekLiveData
@@ -57,7 +59,7 @@ import java.text.NumberFormat
  */
 fun Any.toastPlus(msg: Any?) {
     App.context?.topActivity()?.runOnUiThread {
-        App.context?.topActivity()?.toast("$msg")
+        ToastUtils.toast(msg)
     }
 }
 

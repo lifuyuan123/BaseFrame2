@@ -26,7 +26,7 @@ import java.lang.reflect.ParameterizedType
  */
 abstract class BaseFragment<T : ViewDataBinding, VM : BaseViewModel> : SupportFragment() {
 
-    protected val progresDialog by lazy { context?.let { ProgresDialog(it) } }
+    protected val progresDialog by lazy {  ProgresDialog(requireContext()) }
     protected lateinit var binding: T
     protected lateinit var viewModel: VM
 
@@ -91,9 +91,9 @@ abstract class BaseFragment<T : ViewDataBinding, VM : BaseViewModel> : SupportFr
         //监听加载弹窗
         viewModel.loadEvent.observe(viewLifecycleOwner){
             if (it){
-                progresDialog?.show()
+                progresDialog.show()
             }else{
-                progresDialog?.hide()
+                progresDialog.hide()
                 binding.root.findViewById<SmartRefreshLayout?>(R.id.smart)?.finishRefresh()
                 binding.root.findViewById<SmartRefreshLayout?>(R.id.smart)?.finishLoadMore()
             }

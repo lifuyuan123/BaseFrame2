@@ -25,7 +25,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@+id/lin_left"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@mipmap/ic_launcher"
+            tools:src="@drawable/ic_load_fail"
             tools:visibility="visible" />
 
 
@@ -48,8 +48,7 @@
                 android:layout_marginRight="12dp"
                 android:gravity="center"
                 android:textSize="16sp"
-
-                tools:src="@mipmap/ic_launcher" />
+                tools:src="@drawable/ic_load_fail" />
         </LinearLayout>
 
 
@@ -104,7 +103,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:scaleType="fitXY"
-            android:src="@mipmap/ic_launcher"
+            android:src="@drawable/ic_load_fail"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

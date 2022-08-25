@@ -82,9 +82,9 @@ abstract class BaseActivity<T:ViewDataBinding,VM : BaseViewModel> :SupportActivi
         //监听加载弹窗
         viewModel.loadEvent.observe(this){
             if (it){
-                progresDialog?.show()
+                progresDialog.show()
             }else{
-                progresDialog?.hide()
+                progresDialog.hide()
                 binding.root.findViewById<SmartRefreshLayout?>(R.id.smart)?.finishRefresh()
                 binding.root.findViewById<SmartRefreshLayout?>(R.id.smart)?.finishLoadMore()
             }
