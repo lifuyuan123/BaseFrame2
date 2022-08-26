@@ -47,6 +47,17 @@ fun <T : View> T.singleClick(onClickListener: View.OnClickListener, time: Long =
     }
 }
 
+var lastTime: Long = 0
+
+//防抖动点击事件---------------
+fun Any.click(time: Long = 800, block: () -> Unit) {
+    val currentTimeMillis = System.currentTimeMillis()
+    if (currentTimeMillis - lastTime > time) {
+        lastTime = currentTimeMillis
+        block()
+    }
+}
+
 var <T : View> T.lastClickTime: Long
     set(value) = setTag(1766613352, value)
     get() = getTag(1766613352) as? Long ?: 0

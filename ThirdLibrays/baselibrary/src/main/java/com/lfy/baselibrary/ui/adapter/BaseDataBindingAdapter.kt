@@ -7,6 +7,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
+import com.lfy.baselibrary.click
 
 /**
  * @Author admin
@@ -38,6 +39,19 @@ abstract class DataBindingBaseAdapter<T, VB : ViewDataBinding> constructor(
      * binding暴露给实现类
      */
     abstract fun convertOfVB(binding: VB?, item: T)
+
+    override fun setOnItemClick(v: View, position: Int) {
+        click {
+            super.setOnItemClick(v, position)
+        }
+
+    }
+
+    override fun setOnItemChildClick(v: View, position: Int) {
+        click {
+            super.setOnItemChildClick(v, position)
+        }
+    }
 }
 
 class DataBindingBaseViewHolder<VB : ViewDataBinding> constructor(view: View, binding: VB? = null) :
