@@ -5,10 +5,8 @@ import android.view.animation.DecelerateInterpolator
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.*
 import androidx.paging.LoadState
-import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.example.baseframe.R
 import com.example.baseframe.entity.BaseBean
@@ -19,10 +17,8 @@ import com.example.baseframe.utils.ToastUtils
 import com.google.gson.reflect.TypeToken
 import com.hjq.gson.factory.GsonFactory
 import com.kunminx.architecture.ui.callback.UnPeekLiveData
-import com.lfy.baselibrary.entity.Result
 import com.lfy.baselibrary.topActivity
 import com.lfy.baselibrary.ui.adapter.BasePagingDataAdapter
-import com.lfy.baselibrary.ui.adapter.DataBindingBaseAdapter
 import com.lfy.baselibrary.ui.view.StatusPager
 import com.lfy.baselibrary.vm.BaseViewModel
 import com.luck.picture.lib.animators.AnimationType
@@ -43,7 +39,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.jetbrains.anko.toast
 import timber.log.Timber
 import java.text.DecimalFormat
 import java.text.NumberFormat

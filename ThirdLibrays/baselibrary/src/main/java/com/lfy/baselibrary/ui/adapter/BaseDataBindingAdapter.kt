@@ -14,24 +14,24 @@ import com.lfy.baselibrary.click
  * @Date 2022/8/3-15:14
  * @describe:适配databinding万能适配器
  */
-abstract class DataBindingBaseAdapter<T, VB : ViewDataBinding> constructor(
+abstract class BaseDataBindingAdapter<T, VB : ViewDataBinding> constructor(
     private val layoutResId: Int,
     data: MutableList<T>? = null
-) : BaseQuickAdapter<T, DataBindingBaseViewHolder<VB>>(layoutResId, data) {
+) : BaseQuickAdapter<T, BaseDataBindingViewHolder<VB>>(layoutResId, data) {
     constructor(data: MutableList<T>?) : this(0, data)
 
     override fun onCreateDefViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): DataBindingBaseViewHolder<VB> {
+    ): BaseDataBindingViewHolder<VB> {
         val binding = DataBindingUtil.inflate<ViewDataBinding>(
             LayoutInflater.from(parent.context),
             layoutResId, parent, false
         )
-        return DataBindingBaseViewHolder(binding.root, binding as VB)
+        return BaseDataBindingViewHolder(binding.root, binding as VB)
     }
 
-    override fun convert(holder: DataBindingBaseViewHolder<VB>, item: T) {
+    override fun convert(holder: BaseDataBindingViewHolder<VB>, item: T) {
         convertOfVB(holder.getBinding(), item)
     }
 
@@ -54,6 +54,6 @@ abstract class DataBindingBaseAdapter<T, VB : ViewDataBinding> constructor(
     }
 }
 
-class DataBindingBaseViewHolder<VB : ViewDataBinding> constructor(view: View, binding: VB? = null) :
+class BaseDataBindingViewHolder<VB : ViewDataBinding> constructor(view: View, binding: VB? = null) :
     BaseViewHolder(view)
 
