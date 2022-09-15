@@ -47,6 +47,9 @@ import org.jetbrains.anko.toast
 import timber.log.Timber
 import java.text.DecimalFormat
 import java.text.NumberFormat
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * @Author admin
@@ -386,6 +389,7 @@ fun Float.numFormat(digit: Int = 1): String {
     }
 }
 
+
 /**
  * int保留小数点
  */
@@ -398,4 +402,78 @@ fun Int.numFormat(digit: Int = 1): String {
  */
 fun Any.clearZero(): String {
     return NumberFormat.getInstance().format(this)
+}
+
+fun Long.getDateToString(format: String = "yyyy.MM.dd HH:mm"): String {
+    val sdf = SimpleDateFormat(format)
+    return sdf.format(Date(this))
+}
+
+fun Long.getDateNormalToString(format: String = "yyyy-MM-dd"): String {
+    val sdf = SimpleDateFormat(format)
+    return sdf.format(Date(this))
+}
+
+fun Long.getDateMonthToString(format: String = "yyyy-MM"): String {
+    val sdf = SimpleDateFormat(format)
+    return sdf.format(Date(this))
+}
+
+fun Long.getHoursTimeToString(format: String = "HH:mm"): String {
+    val sdf = SimpleDateFormat(format)
+    return sdf.format(Date(this))
+}
+
+/**
+ * 字符串转date
+ */
+fun String.getDate(format: String = "yyyy-MM-dd HH:mm:ss"): Date {
+    val sdf = SimpleDateFormat(format)
+    return sdf.parse(this)
+}
+
+fun String.getDateNormal(format: String = "yyyy-MM-dd"): Date {
+    val sdf = SimpleDateFormat(format)
+    return sdf.parse(this)
+}
+
+fun String.getDateMonth(format: String = "yyyy-MM"): Date {
+    val sdf = SimpleDateFormat(format)
+    return sdf.parse(this)
+}
+
+/**
+ * 转换时间
+ */
+fun Long.transTime(): String {
+    val d = this / (24 * 60 * 60 * 1000)
+    val h = this % (24 * 60 * 60 * 1000) / (60 * 60 * 1000)
+    var m = this % (60 * 60 * 1000) / (60 * 1000)
+
+    //四舍五入分钟数
+    if (this % (60 * 60 * 1000) % (60 * 1000) > 0) {
+        m += 1
+    }
+
+    val str = if (d.toInt() > 0) {
+        "${d}天${h}小时${m}分钟"
+    } else {
+        if (h.toInt() > 0) {
+            "${h}小时${m}分钟"
+        } else {
+            "${m}分钟"
+        }
+    }
+    return str
+}
+
+/**
+ * 转换时间  分钟
+ */
+fun Long.transTimeOfMinute(): String {
+    var minute = this / (60 * 1000)
+    if (this / 1000 % 60 > 0) {
+        minute += 1
+    }
+    return "$minute"
 }

@@ -2,9 +2,11 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryVariant">@color/white</item>
         <item name="colorOnPrimary">@color/white</item>
+        <!--colorAccent->软键盘光标颜色-->
+        <item name="colorAccent">@color/white</item>
         <item name="android:selectableItemBackground">@null</item>
         <item name="android:windowAnimationStyle">@style/public_AnimaActivity</item>
         <item name="android:selectableItemBackgroundBorderless">@null</item>
@@ -13,10 +15,13 @@
     </style>
 
     <style name="public_AnimaActivity" parent="@android:style/Animation.Activity">
-        <item name="android:activityOpenEnterAnimation">@anim/public_translate_right_to_center</item>
+        <item name="android:activityOpenEnterAnimation">@anim/public_translate_right_to_center
+        </item>
         <item name="android:activityOpenExitAnimation">@anim/public_translate_center_to_left</item>
-        <item name="android:activityCloseEnterAnimation">@anim/public_translate_left_to_center</item>
-        <item name="android:activityCloseExitAnimation">@anim/public_translate_center_to_right</item>
+        <item name="android:activityCloseEnterAnimation">@anim/public_translate_left_to_center
+        </item>
+        <item name="android:activityCloseExitAnimation">@anim/public_translate_center_to_right
+        </item>
     </style>
 
     <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -40,55 +45,55 @@
     </style>
 
     <!--pictureSelector样式-->
-<!--    <style name="PictureSelector.style" parent="AppTheme">-->
-<!--        &lt;!&ndash; Customize your theme here. &ndash;&gt;-->
-<!--        &lt;!&ndash;标题栏背景色&ndash;&gt;-->
-<!--        <item name="colorPrimary">@color/picture_color_grey</item>-->
-<!--        &lt;!&ndash;状态栏背景色&ndash;&gt;-->
-<!--        <item name="colorPrimaryDark">@color/picture_color_grey</item>-->
-<!--        &lt;!&ndash;是否改变图片列表界面状态栏字体颜色为黑色&ndash;&gt;-->
-<!--        <item name="picture.statusFontColor">false</item>-->
-<!--        &lt;!&ndash;返回键图标&ndash;&gt;-->
-<!--        <item name="picture.leftBack.icon">@mipmap/icon_close</item>-->
-<!--        &lt;!&ndash;标题下拉箭头&ndash;&gt;-->
-<!--        <item name="picture.arrow_down.icon">@drawable/picture_icon_arrow_down</item>-->
-<!--        &lt;!&ndash;标题上拉箭头&ndash;&gt;-->
-<!--        <item name="picture.arrow_up.icon">@drawable/picture_icon_arrow_up</item>-->
-<!--        &lt;!&ndash;标题文字颜色&ndash;&gt;-->
-<!--        <item name="picture.title.textColor">@color/picture_color_white</item>-->
-<!--        &lt;!&ndash;标题栏右边文字&ndash;&gt;-->
-<!--        <item name="picture.right.textColor">@color/picture_color_white</item>-->
-<!--        &lt;!&ndash;图片列表勾选样式&ndash;&gt;-->
-<!--        <item name="picture.checked.style">@drawable/picture_checkbox_selector</item>-->
-<!--        &lt;!&ndash;开启图片列表勾选数字模式&ndash;&gt;-->
-<!--        <item name="picture.style.checkNumMode">false</item>-->
-<!--        &lt;!&ndash;选择图片样式0/9&ndash;&gt;-->
-<!--        <item name="picture.style.numComplete">false</item>-->
-<!--        &lt;!&ndash;图片列表底部背景色&ndash;&gt;-->
-<!--        <item name="picture.bottom.bg">@color/picture_color_grey</item>-->
-<!--        &lt;!&ndash;图片列表预览文字颜色&ndash;&gt;-->
-<!--        <item name="picture.preview.textColor">@color/picture_color_white</item>-->
-<!--        &lt;!&ndash;图片列表已完成文字颜色&ndash;&gt;-->
-<!--        <item name="picture.complete.textColor">@color/picture_color_white</item>-->
-<!--        &lt;!&ndash;图片已选数量圆点背景色&ndash;&gt;-->
-<!--        <item name="picture.num.style">@drawable/shape_picture_num_bg</item>-->
-<!--        &lt;!&ndash;预览界面标题文字颜色&ndash;&gt;-->
-<!--        <item name="picture.ac_preview.title.textColor">@color/picture_color_white</item>-->
-<!--        &lt;!&ndash;预览界面已完成文字颜色&ndash;&gt;-->
-<!--        <item name="picture.ac_preview.complete.textColor">@color/picture_color_white</item>-->
-<!--        &lt;!&ndash;预览界面标题栏背景色&ndash;&gt;-->
-<!--        <item name="picture.ac_preview.title.bg">@color/picture_color_grey</item>-->
-<!--        &lt;!&ndash;预览界面底部背景色&ndash;&gt;-->
-<!--        <item name="picture.ac_preview.bottom.bg">@color/picture_color_grey</item>-->
-<!--        &lt;!&ndash;预览界面返回箭头&ndash;&gt;-->
-<!--        <item name="picture.preview.leftBack.icon">@mipmap/icon_close</item>-->
-<!--        &lt;!&ndash;裁剪页面标题背景色&ndash;&gt;-->
-<!--        <item name="picture.crop.toolbar.bg">@color/picture_color_grey</item>-->
-<!--        &lt;!&ndash;裁剪页面状态栏颜色&ndash;&gt;-->
-<!--        <item name="picture.crop.status.color">@color/picture_color_grey</item>-->
-<!--        &lt;!&ndash;裁剪页面标题文字颜色&ndash;&gt;-->
-<!--        <item name="picture.crop.title.color">@color/picture_color_white</item>-->
-<!--        &lt;!&ndash;相册文件夹列表选中图标&ndash;&gt;-->
-<!--        <item name="picture.folder_checked_dot">@drawable/shape_picture_num_bg</item>-->
-<!--    </style>-->
+    <!--    <style name="PictureSelector.style" parent="AppTheme">-->
+    <!--        &lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+    <!--        &lt;!&ndash;标题栏背景色&ndash;&gt;-->
+    <!--        <item name="colorPrimary">@color/picture_color_grey</item>-->
+    <!--        &lt;!&ndash;状态栏背景色&ndash;&gt;-->
+    <!--        <item name="colorPrimaryDark">@color/picture_color_grey</item>-->
+    <!--        &lt;!&ndash;是否改变图片列表界面状态栏字体颜色为黑色&ndash;&gt;-->
+    <!--        <item name="picture.statusFontColor">false</item>-->
+    <!--        &lt;!&ndash;返回键图标&ndash;&gt;-->
+    <!--        <item name="picture.leftBack.icon">@mipmap/icon_close</item>-->
+    <!--        &lt;!&ndash;标题下拉箭头&ndash;&gt;-->
+    <!--        <item name="picture.arrow_down.icon">@drawable/picture_icon_arrow_down</item>-->
+    <!--        &lt;!&ndash;标题上拉箭头&ndash;&gt;-->
+    <!--        <item name="picture.arrow_up.icon">@drawable/picture_icon_arrow_up</item>-->
+    <!--        &lt;!&ndash;标题文字颜色&ndash;&gt;-->
+    <!--        <item name="picture.title.textColor">@color/picture_color_white</item>-->
+    <!--        &lt;!&ndash;标题栏右边文字&ndash;&gt;-->
+    <!--        <item name="picture.right.textColor">@color/picture_color_white</item>-->
+    <!--        &lt;!&ndash;图片列表勾选样式&ndash;&gt;-->
+    <!--        <item name="picture.checked.style">@drawable/picture_checkbox_selector</item>-->
+    <!--        &lt;!&ndash;开启图片列表勾选数字模式&ndash;&gt;-->
+    <!--        <item name="picture.style.checkNumMode">false</item>-->
+    <!--        &lt;!&ndash;选择图片样式0/9&ndash;&gt;-->
+    <!--        <item name="picture.style.numComplete">false</item>-->
+    <!--        &lt;!&ndash;图片列表底部背景色&ndash;&gt;-->
+    <!--        <item name="picture.bottom.bg">@color/picture_color_grey</item>-->
+    <!--        &lt;!&ndash;图片列表预览文字颜色&ndash;&gt;-->
+    <!--        <item name="picture.preview.textColor">@color/picture_color_white</item>-->
+    <!--        &lt;!&ndash;图片列表已完成文字颜色&ndash;&gt;-->
+    <!--        <item name="picture.complete.textColor">@color/picture_color_white</item>-->
+    <!--        &lt;!&ndash;图片已选数量圆点背景色&ndash;&gt;-->
+    <!--        <item name="picture.num.style">@drawable/shape_picture_num_bg</item>-->
+    <!--        &lt;!&ndash;预览界面标题文字颜色&ndash;&gt;-->
+    <!--        <item name="picture.ac_preview.title.textColor">@color/picture_color_white</item>-->
+    <!--        &lt;!&ndash;预览界面已完成文字颜色&ndash;&gt;-->
+    <!--        <item name="picture.ac_preview.complete.textColor">@color/picture_color_white</item>-->
+    <!--        &lt;!&ndash;预览界面标题栏背景色&ndash;&gt;-->
+    <!--        <item name="picture.ac_preview.title.bg">@color/picture_color_grey</item>-->
+    <!--        &lt;!&ndash;预览界面底部背景色&ndash;&gt;-->
+    <!--        <item name="picture.ac_preview.bottom.bg">@color/picture_color_grey</item>-->
+    <!--        &lt;!&ndash;预览界面返回箭头&ndash;&gt;-->
+    <!--        <item name="picture.preview.leftBack.icon">@mipmap/icon_close</item>-->
+    <!--        &lt;!&ndash;裁剪页面标题背景色&ndash;&gt;-->
+    <!--        <item name="picture.crop.toolbar.bg">@color/picture_color_grey</item>-->
+    <!--        &lt;!&ndash;裁剪页面状态栏颜色&ndash;&gt;-->
+    <!--        <item name="picture.crop.status.color">@color/picture_color_grey</item>-->
+    <!--        &lt;!&ndash;裁剪页面标题文字颜色&ndash;&gt;-->
+    <!--        <item name="picture.crop.title.color">@color/picture_color_white</item>-->
+    <!--        &lt;!&ndash;相册文件夹列表选中图标&ndash;&gt;-->
+    <!--        <item name="picture.folder_checked_dot">@drawable/shape_picture_num_bg</item>-->
+    <!--    </style>-->
 </resources>
