@@ -1,5 +1,7 @@
 package com.example.baseframe.utils
 
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+
 /**
  * @Author admin
  * @Date 2021/8/6-17:22
@@ -26,4 +28,10 @@ object Tags {
     const val REQUEST = "request"
     const val RESPONSE = "response"
     const val UUID = "UUID"
+
+
+
+    val MEDIA_TYPE = "application/json;charset=utf-8".toMediaTypeOrNull()
+    val MEDIA_TYPE_PNG = "image/png".toMediaTypeOrNull()
+    val MEDIA_TYPE_VIDEO = "video/mpeg4".toMediaTypeOrNull()
 }

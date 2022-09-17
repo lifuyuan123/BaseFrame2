@@ -104,7 +104,7 @@ fun <T> BaseViewModel.request(
 
 //带加载监听的统一协程请求
 fun <T> BaseViewModel.flowRequest(
-    flow: Flow<T>,
+    flow: Flow<T>?,
     showLoading: Boolean = false,
     block: suspend () -> T
 ) {
