@@ -34,8 +34,6 @@
             app:tl_textSelectColor="#2C97DE"
             app:tl_textUnselectColor="#66000000"
             app:tl_textsize="12sp"
-            app:tl_underline_color="#DDDDDD"
-            app:tl_underline_height="1dp"
             tools:ignore="MissingConstraints" />
 
     </LinearLayout>

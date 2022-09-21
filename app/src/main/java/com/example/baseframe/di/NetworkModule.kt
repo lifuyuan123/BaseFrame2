@@ -2,7 +2,7 @@ package com.example.baseframe.di
 
 import android.content.Context
 import com.example.baseframe.BuildConfig
-import com.example.baseframe.api.Api.BASE_URL
+import com.lfy.baselibrary.Api.BASE_URL
 import com.example.baseframe.api.Service
 import com.google.gson.Gson
 import com.hjq.gson.factory.GsonFactory

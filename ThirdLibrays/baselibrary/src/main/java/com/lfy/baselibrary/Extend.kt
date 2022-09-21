@@ -26,7 +26,7 @@ val Float.px: Float get() = (this * Resources.getSystem().displayMetrics.density
 val Int.px: Int get() = ((this * Resources.getSystem().displayMetrics.density).toInt())
 
 //防抖动点击事件---------------
-inline fun <T : View> T.singleClick(time: Long = 800, crossinline block: (T) -> Unit) {
+inline fun <T : View> T.singleClick(time: Long = 500, crossinline block: (T) -> Unit) {
     setOnClickListener {
         val currentTimeMillis = System.currentTimeMillis()
         if (currentTimeMillis - lastClickTime > time || this is Checkable) {
@@ -37,7 +37,7 @@ inline fun <T : View> T.singleClick(time: Long = 800, crossinline block: (T) -> 
 }
 
 //兼容点击事件设置为this的情况
-fun <T : View> T.singleClick(onClickListener: View.OnClickListener, time: Long = 800) {
+fun <T : View> T.singleClick(onClickListener: View.OnClickListener, time: Long = 500) {
     setOnClickListener {
         val currentTimeMillis = System.currentTimeMillis()
         if (currentTimeMillis - lastClickTime > time || this is Checkable) {
@@ -50,7 +50,7 @@ fun <T : View> T.singleClick(onClickListener: View.OnClickListener, time: Long =
 var lastTime: Long = 0
 
 //防抖动点击事件---------------
-fun Any.click(time: Long = 800, block: () -> Unit) {
+fun Any.click(time: Long = 300, block: () -> Unit) {
     val currentTimeMillis = System.currentTimeMillis()
     if (currentTimeMillis - lastTime > time) {
         lastTime = currentTimeMillis

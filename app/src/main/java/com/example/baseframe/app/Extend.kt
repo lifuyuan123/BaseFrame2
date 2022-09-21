@@ -14,6 +14,7 @@ import com.example.baseframe.utils.GlideEngine
 import com.example.baseframe.utils.ImageFileCompressEngine
 import com.example.baseframe.utils.MeSandboxFileEngine
 import com.example.baseframe.utils.ToastUtils
+import com.google.gson.JsonParser
 import com.google.gson.reflect.TypeToken
 import com.hjq.gson.factory.GsonFactory
 import com.kunminx.architecture.ui.callback.UnPeekLiveData
@@ -173,20 +174,18 @@ fun Fragment.overScrollBounce(smart: SmartRefreshLayout) {
     this.activity?.overScrollBounce(smart)
 }
 
-//gson转换集合实体
-fun <T> String.formJson(): T {
-    return GsonFactory.getSingletonGson().fromJson(this, object : TypeToken<T>() {}.type)
-}
 
-//转公共泛型object实体
-fun <T> String.formJsonFan(): BaseBean<T> {
-    return GsonFactory.getSingletonGson().fromJson(this, object : TypeToken<BaseBean<T>>() {}.type)
-}
-
-//转公共泛型集合实体
-fun <T> String.formJsonFanList(): BaseBean<List<T>> {
-    return GsonFactory.getSingletonGson()
-        .fromJson(this, object : TypeToken<BaseBean<List<T>>>() {}.type)
+//gson转换集合实体 GsonFactory.getSingletonGson().fromJson<MutableList<Bean>>(this, object : TypeToken<MutableList<Bean>>() {}.type)
+inline fun <reified T> String.formJson(): MutableList<T> {
+    val list = mutableListOf<T>()
+    if (isNullOrEmpty()) {
+        return list
+    }
+    val jsonArray = JsonParser().parse(this).asJsonArray
+    for (jsonElement in jsonArray) {
+        list.add(GsonFactory.getSingletonGson().fromJson(jsonElement, T::class.java))
+    }
+    return list
 }
 
 //Pagingadapter公共分页监听
@@ -395,26 +394,18 @@ fun Int.numFormat(digit: Int = 1): String {
 /**
  * 去掉小数后面不必要的0
  */
-fun Any.clearZero(): String {
+fun Float.clearZero(): String {
     return NumberFormat.getInstance().format(this)
 }
 
-fun Long.getDateToString(format: String = "yyyy.MM.dd HH:mm"): String {
-    val sdf = SimpleDateFormat(format)
-    return sdf.format(Date(this))
+fun Double.clearZero(): String {
+    return NumberFormat.getInstance().format(this)
 }
 
-fun Long.getDateNormalToString(format: String = "yyyy-MM-dd"): String {
-    val sdf = SimpleDateFormat(format)
-    return sdf.format(Date(this))
-}
-
-fun Long.getDateMonthToString(format: String = "yyyy-MM"): String {
-    val sdf = SimpleDateFormat(format)
-    return sdf.format(Date(this))
-}
-
-fun Long.getHoursTimeToString(format: String = "HH:mm"): String {
+/**
+ * time转string
+ */
+fun Long.getDateToString(format: String = "yyyy-MM-dd HH:mm:ss"): String {
     val sdf = SimpleDateFormat(format)
     return sdf.format(Date(this))
 }
@@ -423,16 +414,6 @@ fun Long.getHoursTimeToString(format: String = "HH:mm"): String {
  * 字符串转date
  */
 fun String.getDate(format: String = "yyyy-MM-dd HH:mm:ss"): Date {
-    val sdf = SimpleDateFormat(format)
-    return sdf.parse(this)
-}
-
-fun String.getDateNormal(format: String = "yyyy-MM-dd"): Date {
-    val sdf = SimpleDateFormat(format)
-    return sdf.parse(this)
-}
-
-fun String.getDateMonth(format: String = "yyyy-MM"): Date {
     val sdf = SimpleDateFormat(format)
     return sdf.parse(this)
 }
