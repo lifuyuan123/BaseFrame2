@@ -32,13 +32,13 @@ abstract class BaseDataBindingAdapter<T, VB : ViewDataBinding> constructor(
     }
 
     override fun convert(holder: BaseDataBindingViewHolder<VB>, item: T) {
-        convertOfVB(holder.getBinding(), item)
+        convertOfVB(holder.getBinding(), holder,item)
     }
 
     /**
      * binding暴露给实现类
      */
-    abstract fun convertOfVB(binding: VB?, item: T)
+    abstract fun convertOfVB(binding: VB?,helper: BaseDataBindingViewHolder<VB>, item: T)
 
     override fun setOnItemClick(v: View, position: Int) {
         click {

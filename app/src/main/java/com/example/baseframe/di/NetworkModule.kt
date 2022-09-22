@@ -94,7 +94,7 @@ object NetworkModule {
             .baseUrl(BASE_URL)
             .client(client)
             //gson容错
-            .addConverterFactory(GsonConverterFactory.create(Gson()))
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
     }
 

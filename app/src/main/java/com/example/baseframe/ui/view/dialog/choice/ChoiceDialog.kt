@@ -11,6 +11,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.listener.OnItemLongClickListener
 import com.example.baseframe.R
 import com.example.baseframe.databinding.DialogChoiceBinding
+import com.example.baseframe.entity.ChoiceBean
 import com.example.baseframe.entity.RemoteKeys
 import com.example.baseframe.utils.ToastUtils.toast
 import com.lfy.baselibrary.dp2px
@@ -23,13 +24,17 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
- * @Author admin
- * @Date 2021/8/3-17:31
- * @describe:
+ * @Author:  admin
+ * @Date:  2022/9/22-10:12
+ * @describe:  公共弹窗选择  支持单/多选
  */
 @AndroidEntryPoint
-class ChoiceDialog(private val datas: MutableList<RemoteKeys>) :
-    BaseDialogFragment<DialogChoiceBinding>() {
+class ChoiceDialog(
+    private val choiceIds: MutableList<String> = mutableListOf(),
+    private val list: MutableList<ChoiceBean> = mutableListOf(),
+    private val title: String = "标题",
+    private val isMultiple: Boolean = false
+) : BaseDialogFragment<DialogChoiceBinding>() {
 
 
     @Inject
@@ -40,59 +45,82 @@ class ChoiceDialog(private val datas: MutableList<RemoteKeys>) :
         super.onStart()
         mWindow?.setGravity(Gravity.BOTTOM)
         mWindow?.setWindowAnimations(com.lfy.baselibrary.R.style.public_bottom_dialog)
-        activity?.applicationContext?.let { it.dp2px(87f) }?.let {
-            mWindow?.setLayout(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                mWindow?.getWidthAndHeight()?.get(1)!! / 2
-            )
-        }
+        mWindow?.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            mWindow?.getWidthAndHeight()?.get(1)!! / 3 * 2
+        )
     }
 
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
-        activity?.applicationContext?.let { it.dp2px(87f) }?.let {
-            mWindow?.setLayout(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                mWindow?.getWidthAndHeight()?.get(1)!! / 2
-            )
-        }
+        mWindow?.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            mWindow?.getWidthAndHeight()?.get(1)!! / 3 * 2
+        )
     }
 
     override fun getLayout() = R.layout.dialog_choice
 
 
     override fun initData(view: View?) {
-        binding.tvTitle.text = "标题"
-        binding.rv.layoutManager = LinearLayoutManager(activity)
+        binding.dialog = this
+        binding.tvTitle.text = title
         binding.rv.adapter = adapter
-        adapter.addChildClickViewIds(R.id.tvContent)
-        adapter.addChildLongClickViewIds(R.id.tvContent)
+
         adapter.setOnItemClickListener { _, view, position ->
-            toast(adapter.data[position].toString())
-        }
-        adapter.setOnItemLongClickListener { adapter, v, position ->
-            toast("长按item")
-            true
+            if (isMultiple) {
+                adapter.data[position].choice = !adapter.data[position].choice
 
-        }
-        adapter.setOnItemChildClickListener { adapter, v, position ->
-            toast("点击文字")
-        }
-        adapter.setOnItemChildLongClickListener { adapter, v, position ->
-            toast("长按文字")
-            true
+            } else {
+                adapter.data.forEach {
+                    it.choice = it.id == adapter.data[position].id
+                }
+            }
+            adapter.notifyDataSetChanged()
         }
 
-        getdata()
+        choiceIds.forEach {
+            list.forEach { item ->
+                item.choice = it == item.id
+            }
+        }
+
+        adapter.setNewInstance(list)
 
 
     }
 
-    private fun getdata() {
-        adapter.setNewInstance(datas)
+    /**
+     * 确认
+     */
+    fun affirm() {
+        val list = adapter.data.filter { it.choice }
+        if (list.isNotEmpty()) {
+            if (isMultiple) {
+                multipleCallBack?.onClick(list)
+            } else {
+                callBack?.onClick(list[0])
+            }
 
+            dismiss()
+        }
     }
 
+
+    //单选
+    interface CallBack {
+        fun onClick(bean: ChoiceBean)
+    }
+
+    var callBack: CallBack? = null
+
+
+    //多选
+    interface MultipleCallBack {
+        fun onClick(list: List<ChoiceBean>)
+    }
+
+    var multipleCallBack: MultipleCallBack? = null
 
 }

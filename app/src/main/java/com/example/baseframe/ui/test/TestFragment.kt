@@ -9,10 +9,14 @@ import com.example.baseframe.app.addLoadPageListener
 import com.example.baseframe.app.launchAndRepeatWithViewLifecycle
 import com.example.baseframe.app.pictureSelector
 import com.example.baseframe.databinding.FragmentTestBinding
+import com.example.baseframe.entity.ChoiceBean
+import com.example.baseframe.entity.RemoteKeys
 import com.example.baseframe.ui.cameraX.CameraActivity
+import com.example.baseframe.ui.view.dialog.choice.ChoiceDialog
 import com.example.baseframe.ui.view.dialog.showImg.ShowPageImgDialog
 import com.example.baseframe.utils.ToastUtils.toast
 import com.lfy.baselibrary.loadImage
+import com.lfy.baselibrary.showDialog
 import com.lfy.baselibrary.singleClick
 import com.lfy.baselibrary.ui.fragment.BaseFragment
 import com.lfy.baselibrary.ui.view.StatusPager
@@ -119,7 +123,28 @@ class TestFragment : BaseFragment<FragmentTestBinding, TestViewModel>() {
             if (arguments?.getString("data") == "2") {
                 _mActivity.startActivityForResult<CaptureActivity>(100)
             } else if (arguments?.getString("data") == "1") {
-                _mActivity.startActivityForResult<CameraActivity>(100)
+//                _mActivity.startActivityForResult<CameraActivity>(100)
+                val dialog=ChoiceDialog(list = mutableListOf(
+                    ChoiceBean(false,"qer","0"),
+                    ChoiceBean(false,"df","1"),
+                    ChoiceBean(false,"zxcv","2"),
+                    ChoiceBean(false,"zxc","3"),
+                    ChoiceBean(false,"sdf","4"),
+                    ChoiceBean(false,"asdfasdf","5")
+                ), isMultiple = true)
+                showDialog(dialog)
+                dialog.callBack=object :ChoiceDialog.CallBack{
+                    override fun onClick(bean: ChoiceBean) {
+                        Timber.e("选择：$bean")
+                    }
+
+                }
+                dialog.multipleCallBack=object :ChoiceDialog.MultipleCallBack{
+                    override fun onClick(list: List<ChoiceBean>) {
+                        Timber.e("选择：$list")
+                    }
+
+                }
             } else {
                 // 进入相册
                 requireActivity().pictureSelector()

@@ -5,53 +5,80 @@
 
     <data>
 
+        <variable
+            name="dialog"
+            type="com.example.baseframe.ui.view.dialog.choice.ChoiceDialog" />
     </data>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.lihang.ShadowLayout
+
+        <LinearLayout
+            shape_solidColor="@{@color/colorWhite}"
+            shape_tl_radius="@{10}"
+            shape_tr_radius="@{10}"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="bottom"
-            app:hl_cornerRadius_leftTop="10dp"
-            app:hl_cornerRadius_rightTop="10dp"
-            app:hl_layoutBackground="@color/colorWhite">
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text="标题"
+                android:textColor="@color/cl_202020"
+                android:textSize="16sp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_choice_project" />
+
 
             <LinearLayout
+                android:layout_marginBottom="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
+                android:layout_marginTop="10dp"
+                android:gravity="right"
+                android:orientation="horizontal">
 
                 <TextView
+                    shape_radius="@{30}"
+                    shape_solidColor="@{@color/cl_EBEBEB}"
+                    android:layout_width="100dp"
+                    android:layout_height="41dp"
                     android:gravity="center"
-                    android:id="@+id/tvTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_centerHorizontal="true"
-                    android:includeFontPadding="false"
-                    android:text="标题"
-                    android:textColor="@color/cl_202020"
+                    android:onClick="@{()->dialog.dismiss()}"
+                    android:text="取消"
+                    android:textColor="@color/cl_373737"
                     android:textSize="16sp" />
 
-                <androidx.core.widget.NestedScrollView
-                    android:id="@+id/nsv"
-                    android:scrollbars="vertical"
-                    android:fadeScrollbars="false"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                <TextView
+                    shape_radius="@{30}"
+                    shape_solidColor="@{@color/cl_000000}"
+                    android:layout_width="100dp"
+                    android:layout_height="41dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:gravity="center"
+                    android:onClick="@{()->dialog.affirm()}"
+                    android:text="确认"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv"
-                        tools:listitem="@layout/item_choice_project"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-                </androidx.core.widget.NestedScrollView>
             </LinearLayout>
-        </com.lihang.ShadowLayout>
-
+        </LinearLayout>
 
     </FrameLayout>
 </layout>
