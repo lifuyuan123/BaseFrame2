@@ -249,23 +249,25 @@ fun BasePagingDataAdapter<*>.addLoadPageListener(
  * 刷新状态设置
  */
 fun <T> SmartRefreshLayout.freshStatus(
-    adapter: BaseQuickAdapter<T, *>,
+    adapter: BaseQuickAdapter<T, *>?,
     data: BaseBean<MutableList<T>>
 ) {
-    if (data.page_count > 1) {//加载更多
+    if (data.isSuccess && data?.page_count != null && data?.page_count > 1) {//加载更多
         if (data.data.isNullOrEmpty()) {//没有数据
             finishLoadMoreWithNoMoreData()
         } else {
-            adapter.addData(data.data)
+            adapter?.addData(data.data)
             finishLoadMore()
         }
     } else {//刷新
         if (data.data.isNullOrEmpty()) {//没有数据
-            adapter.setEmptyView(com.lfy.baselibrary.R.layout.state_empty)
+            adapter?.setEmptyView(com.lfy.baselibrary.R.layout.state_empty)
+            finishLoadMoreWithNoMoreData()
+        } else {
+            resetNoMoreData()//恢复没有更多数据的原始状态
         }
-        adapter.setNewInstance(data.data)
+        adapter?.setNewInstance(data.data)
         finishRefresh()
-        resetNoMoreData()//恢复没有更多数据的原始状态
     }
 }
 
