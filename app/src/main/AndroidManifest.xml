@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.baseframe">
+    package="com.lfy.baseframe">
     <!-- 用于进行网络定位 -->
     <uses-permission android:name="android.permission.CAMERA" /> <!-- 用于访问GPS定位 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- 用于获取运营商信息，用于支持提供运营商信息相关的接口 -->
@@ -119,11 +119,11 @@
         <!-- app startup -->
         <provider
             android:name="androidx.startup.InitializationProvider"
-            android:authorities="com.example.baseframe.androidx-startup"
+            android:authorities="com.lfy.baseframe.androidx-startup"
             android:exported="false"
             tools:node="merge">
             <meta-data
-                android:name="com.example.baseframe.app.LitePalInitializer"
+                android:name="com.lfy.baseframe.app.LitePalInitializer"
                 android:value="androidx.startup" />
         </provider>
     </application>

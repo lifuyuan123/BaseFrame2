@@ -6,7 +6,7 @@
 
         <variable
             name="bean"
-            type="com.example.baseframe.entity.ChoiceBean" />
+            type="com.lfy.baseframe.entity.ChoiceBean" />
 
     </data>
 

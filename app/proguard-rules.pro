@@ -32,7 +32,7 @@
 
 
  #实体类不参与混淆
--keep class com.example.baseframe.entity.** { *; } #自定义控件不参与混淆
+-keep class com.lfy.baseframe.entity.** { *; } #自定义控件不参与混淆
 -keep class com.lfy.baselibrary.entity.** { *; } #自定义控件不参与混淆
 -keep class * implements android.os.Parcelable {
   public static final android.os.Parcelable$Creator *;

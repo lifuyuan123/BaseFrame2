@@ -42,7 +42,7 @@
 
         <variable
             name="activity"
-            type="com.example.baseframe.ui.main.MainActivity" />
+            type="com.lfy.baseframe.ui.main.MainActivity" />
     </data>
 
 

@@ -6,7 +6,7 @@
     <data>
         <variable
             name="cameraActivity"
-            type="com.example.baseframe.ui.cameraX.CameraActivity" />
+            type="com.lfy.baseframe.ui.cameraX.CameraActivity" />
     </data>
 
     <LinearLayout
@@ -78,7 +78,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
-            <com.example.baseframe.ui.cameraX.ViewfinderView
+            <com.lfy.baseframe.ui.cameraX.ViewfinderView
                 android:id="@+id/qrZone"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
