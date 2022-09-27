@@ -33,7 +33,7 @@ buildscript {
         pictureselector ="v3.0.9"
         shadowLayout ="3.2.1"
         startup ="1.1.0"
-        flycoTabLayout_Lib ="2.1.2@aar"
+        flycoTabLayout ="3.0.0"
         banner ="2.2.2"
         ioSocket = "2.0.1"
         ankoCommons = "0.10.8"

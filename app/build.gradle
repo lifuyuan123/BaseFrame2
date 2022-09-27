@@ -126,7 +126,7 @@ dependencies {
     //提高启动速度
     implementation "androidx.startup:startup-runtime:$startup"
     //tab
-    implementation "com.flyco.tablayout:FlycoTabLayout_Lib:$flycoTabLayout_Lib"
+    implementation "io.github.h07000223:flycoTabLayout:$flycoTabLayout"
     //banner
     implementation "io.github.youth5201314:banner:$banner"
     //缩放图片
