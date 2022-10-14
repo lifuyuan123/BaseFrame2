@@ -4,6 +4,8 @@ import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 
 /**
@@ -15,7 +17,11 @@ import androidx.databinding.BindingAdapter
 //图片加载
 //图片加载
 @BindingAdapter(value = ["remoteUrl", "placeholder", "errorId"], requireAll = false)
-fun ImageView.remoteUrl(url: String?, placeholder: Int = 0, errorId: Int = R.drawable.ic_load_fail) {
+fun ImageView.remoteUrl(
+    url: String?,
+    placeholder: Int = 0,
+    errorId: Int = R.drawable.ic_load_fail
+) {
     loadImage(url, placeholder, errorId)
 }
 
@@ -28,7 +34,7 @@ fun singleClick(view: View, clickListener: View.OnClickListener) {
 
 //显示与隐藏
 @BindingAdapter(value = ["isVisible"])
-fun View.isVisible(isVisible:Boolean) {
+fun View.isVisible(isVisible: Boolean) {
     visible(isVisible)
 }
 
@@ -114,7 +120,12 @@ fun View.setViewBackground(
     }
 
     //可设置虚线
-    drawable.setStroke(context.dp2px(strokeWidth.toFloat()), strokeColor,shape_dashWith.toFloat(),shape_dashGap.toFloat())
+    drawable.setStroke(
+        context.dp2px(strokeWidth.toFloat()),
+        strokeColor,
+        shape_dashWith.toFloat(),
+        shape_dashGap.toFloat()
+    )
     background = drawable
 }
 

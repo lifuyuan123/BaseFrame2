@@ -27,7 +27,7 @@ abstract class BaseActivity<T:ViewDataBinding,VM : BaseViewModel> :SupportActivi
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        lifecycle.addObserver(progresDialog)
         ImmersionBar.with(this)
             .navigationBarColor(R.color.color_bg)
             .statusBarDarkFont(true, 0.2f)

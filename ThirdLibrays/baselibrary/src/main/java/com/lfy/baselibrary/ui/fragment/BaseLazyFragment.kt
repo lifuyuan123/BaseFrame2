@@ -56,7 +56,7 @@ abstract class BaseLazyFragment<T : ViewDataBinding, VM : BaseViewModel> : Suppo
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         binding.lifecycleOwner = this
-
+        lifecycle.addObserver(progresDialog)
         ImmersionBar.with(this)
             .navigationBarColor(R.color.color_bg)
             .statusBarDarkFont(true, 0.2f)
