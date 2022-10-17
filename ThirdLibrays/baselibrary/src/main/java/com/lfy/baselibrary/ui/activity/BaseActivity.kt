@@ -82,14 +82,20 @@ abstract class BaseActivity<T:ViewDataBinding,VM : BaseViewModel> :SupportActivi
         //监听加载弹窗
         viewModel.loadEvent.observe(this){
             if (it){
+                loadShow()
                 progresDialog.show()
             }else{
+                loadHide()
                 progresDialog.hide()
                 binding.root.findViewById<SmartRefreshLayout?>(R.id.smart)?.finishRefresh()
                 binding.root.findViewById<SmartRefreshLayout?>(R.id.smart)?.finishLoadMore()
             }
         }
     }
+
+    open fun loadHide(){}
+
+    open fun loadShow(){}
 
     abstract fun initData(savedInstanceState: Bundle?)
 

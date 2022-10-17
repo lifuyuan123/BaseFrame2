@@ -91,14 +91,20 @@ abstract class BaseFragment<T : ViewDataBinding, VM : BaseViewModel> : SupportFr
         //监听加载弹窗
         viewModel.loadEvent.observe(viewLifecycleOwner){
             if (it){
+                loadShow()
                 progresDialog.show()
             }else{
+                loadHide()
                 progresDialog.hide()
                 binding.root.findViewById<SmartRefreshLayout?>(R.id.smart)?.finishRefresh()
                 binding.root.findViewById<SmartRefreshLayout?>(R.id.smart)?.finishLoadMore()
             }
         }
     }
+
+    open fun loadHide(){}
+
+    open fun loadShow(){}
 
     abstract fun getLayout(): Int
 
