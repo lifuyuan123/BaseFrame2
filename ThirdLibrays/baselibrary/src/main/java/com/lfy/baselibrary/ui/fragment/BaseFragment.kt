@@ -7,7 +7,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.gyf.immersionbar.ImmersionBar
 import com.lfy.baselibrary.R
 import com.lfy.baselibrary.ui.dialog.ProgresDialog
@@ -15,6 +18,8 @@ import com.lfy.baselibrary.visible
 import com.lfy.baselibrary.vm.BaseViewModel
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import com.weikaiyun.fragmentation.SupportFragment
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import me.jessyan.autosize.AutoSize
 import java.lang.reflect.ParameterizedType
 
@@ -89,15 +94,19 @@ abstract class BaseFragment<T : ViewDataBinding, VM : BaseViewModel> : SupportFr
         viewModel = ViewModelProvider(this)[viewModelClass] as VM
 
         //监听加载弹窗
-        viewModel.loadEvent.observe(viewLifecycleOwner){
-            if (it){
-                loadShow()
-                progresDialog.show()
-            }else{
-                loadHide()
-                progresDialog.hide()
-                binding.root.findViewById<SmartRefreshLayout?>(R.id.smart)?.finishRefresh()
-                binding.root.findViewById<SmartRefreshLayout?>(R.id.smart)?.finishLoadMore()
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.loadEvent.collect{
+                    if (it){
+                        progresDialog.show()
+                        loadShow()
+                    }else{
+                        loadHide()
+                        progresDialog.hide()
+                        binding.root.findViewById<SmartRefreshLayout?>(R.id.smart)?.finishRefresh()
+                        binding.root.findViewById<SmartRefreshLayout?>(R.id.smart)?.finishLoadMore()
+                    }
+                }
             }
         }
     }

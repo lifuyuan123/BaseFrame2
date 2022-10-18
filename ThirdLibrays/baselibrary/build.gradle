@@ -55,8 +55,6 @@ dependencies {
     api "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
     api "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"
     api "androidx.fragment:fragment-ktx:$fragment_ktx"
-    //防止livedata数据倒灌
-    api "com.kunminx.arch:unpeek-livedata:$unpeeklivedata"
 
     //room
     api "androidx.room:room-runtime:$roomVersion"

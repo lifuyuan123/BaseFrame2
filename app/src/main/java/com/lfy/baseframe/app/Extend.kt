@@ -15,9 +15,7 @@ import com.lfy.baseframe.utils.ImageFileCompressEngine
 import com.lfy.baseframe.utils.MeSandboxFileEngine
 import com.lfy.baseframe.utils.ToastUtils
 import com.google.gson.JsonParser
-import com.google.gson.reflect.TypeToken
 import com.hjq.gson.factory.GsonFactory
-import com.kunminx.architecture.ui.callback.UnPeekLiveData
 import com.lfy.baselibrary.topActivity
 import com.lfy.baselibrary.ui.adapter.BasePagingDataAdapter
 import com.lfy.baselibrary.ui.view.StatusPager
@@ -77,31 +75,6 @@ suspend inline fun <T> apiCall(crossinline request: suspend CoroutineScope.() ->
     }
 }
 
-//统一处理协程网络异常
-fun <T> BaseViewModel.request(
-    liveData: UnPeekLiveData<T>,
-    showLoading: Boolean = false,
-    block: suspend () -> T
-) {
-    viewModelScope.launch {
-        if (showLoading) {
-            isShowLoading(true)
-        }
-        try {
-            val result = block.invoke()
-            liveData.postValue(result)
-        } catch (e: Exception) {
-            Timber.e("接口异常:$e")
-            isShowLoading(false)
-            toastPlus(e.toString())
-        } finally {
-            if (showLoading) {
-                isShowLoading(false)
-            }
-
-        }
-    }
-}
 
 //带加载监听的统一协程请求
 fun <T> BaseViewModel.flowRequest(
