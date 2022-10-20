@@ -19,4 +19,7 @@ rootProject.name = "BaseFrame"
 include ':app',
         ':ThirdLibrays:baselibrary',
         ':ThirdLibrays:videocompressor',
-        ':ThirdLibrays:zxinglibrary'
+        ':ThirdLibrays:zxinglibrary',
+        ':ThirdLibrays:wheelview',//轮子
+        ':ThirdLibrays:pickerview',//选择器
+        ':ThirdLibrays:jzlibrary'

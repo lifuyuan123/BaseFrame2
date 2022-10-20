@@ -46,9 +46,9 @@ android {
     buildTypes {
         debug {
             buildConfigField "boolean", "LOG_DEBUG", "true"
-            zipAlignEnabled false
+            zipAlignEnabled true
             debuggable true
-            minifyEnabled false//打开后debug无效
+            minifyEnabled true//打开后debug无效
 //            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -112,6 +112,8 @@ dependencies {
     implementation project(':ThirdLibrays:baselibrary')
     implementation project(':ThirdLibrays:videocompressor')
     implementation project(':ThirdLibrays:zxinglibrary')
+    implementation project(':ThirdLibrays:pickerview')
+//    implementation project(':ThirdLibrays:jzlibrary')
 
     //圆图、图片加载
     implementation "com.makeramen:roundedimageview:$roundedimageview"
@@ -138,5 +140,10 @@ dependencies {
     implementation("androidx.camera:camera-lifecycle:${camerax_version}")
     implementation("androidx.camera:camera-view:1.0.0-alpha32")
     implementation("androidx.camera:camera-extensions:1.0.0-alpha32")
+
+    //aliyun播放器
+//    implementation "com.aliyun.sdk.android:AliyunPlayer:$aliyunPlayer-full"
+    //应用内升级
+    implementation "io.github.azhon:appupdate:$appupdate"
 
 }

@@ -48,6 +48,8 @@ buildscript {
         BaseRecycler ="3.0.4"
         flexbox ="1.1.0"
         pickerView = "4.1.9"
+        aliyunPlayer="5.4.9.1"//  5.4.2.0
+        appupdate="4.2.3"
     }
 
     dependencies {

@@ -29,6 +29,10 @@ object Tags {
     const val RESPONSE = "response"
     const val UUID = "UUID"
 
+    const val SELECT_DATE = "SELECT_DATE"
+    const val START_DATE = "START_DATE"
+    const val END_DATE = "END_DATE"
+
 
 
     val MEDIA_TYPE = "application/json;charset=utf-8".toMediaTypeOrNull()

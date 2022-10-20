@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="dialog"
+            type="com.lfy.baseframe.ui.view.dialog.updata.AppUpdataDialog" />
+
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.lihang.ShadowLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/white"
+            app:hl_cornerRadius="8dp">
+
+
+            <LinearLayout
+                android:layout_width="296dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="20dp"
+                    android:gravity="center"
+                    android:text="发现新版本"
+                    android:textColor="#FF4A4A4A"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="7.5dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="1"
+                    android:text="版本信息："
+                    android:textColor="@color/cl_202020"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tvInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="7.5dp"
+                    android:layout_marginRight="20dp"
+                    android:lineSpacingExtra="5dp"
+                    android:textColor="#FF6C6C6C"
+                    android:textSize="14sp"
+                    tools:text="1.升级信息\n2.sdfasdfdsf\n3.sdfsadf" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="7.5dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="1"
+                    android:text="更新说明："
+                    android:textColor="@color/cl_202020"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tvUpdata"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="7.5dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:lineSpacingExtra="5dp"
+                    android:textColor="#FF4A4A4A"
+                    android:textSize="14sp"
+                    tools:text="1.更新属性\n2.sdfasdfdsf\n3.sdfsadf" />
+
+                <LinearLayout
+                    android:id="@+id/linProgress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <ProgressBar
+                        android:id="@+id/progress"
+                        style="@android:style/Widget.ProgressBar.Horizontal"
+                        android:layout_width="0dp"
+                        android:layout_height="3dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="1"
+                        android:progress="20"
+                        android:progressDrawable="@drawable/progress_down_state" />
+
+                    <TextView
+                        android:id="@+id/tvProgress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="20dp"
+                        android:text="0%"
+                        android:textColor="#FF4A4A4A"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right|center"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:onClick="@{()->dialog.cancel()}"
+                        android:id="@+id/btCancel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:gravity="center"
+                        android:padding="20dp"
+                        android:text="取消"
+                        android:textColor="#999999"
+                        android:textSize="16sp" />
+
+
+                    <Button
+                        android:onClick="@{()->dialog.downLoad()}"
+                        android:id="@+id/btAffirm"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:background="@null"
+                        android:gravity="center"
+                        android:padding="20dp"
+                        android:text="确认"
+                        android:textColor="@color/cl_000000"
+                        android:textSize="16sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.lihang.ShadowLayout>
+    </FrameLayout>
+</layout>

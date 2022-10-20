@@ -121,3 +121,29 @@
 
 ################Timber#################
 -dontwarn org.jetbrains.annotations.**
+
+
+################JZPLAYER###############
+-keep class cn.jzvd.** {*; }
+#-keep public class com.srbg.wisdomtunnel.ui.view.jzplayer.JzvdStdLive {*; }
+#-keep public class com.srbg.wisdomtunnel.ui.view.jzplayer.JzvdStdLiveBase {*; }
+#-keep public class com.srbg.wisdomtunnel.utils.JZMediaAliyun {*; }
+
+-keep class tv.danmaku.ijk.media.player.** {*; }
+-dontwarn tv.danmaku.ijk.media.player.*
+-keep interface tv.danmaku.ijk.media.player.** { *; }
+################JZPLAYER###############
+
+################AliyunPlayer###############
+-keep class com.alivc.**{*;}
+-keep class com.aliyun.**{*;}
+-keep class com.cicada.**{*;}
+-dontwarn com.alivc.**
+-dontwarn com.aliyun.**
+-dontwarn com.cicada.**
+################AliyunPlayer###############
+
+########################app升级#######################
+-keep public class * extends android.app.Activity
+-keep public class * extends android.app.Service
+########################app升级#######################
