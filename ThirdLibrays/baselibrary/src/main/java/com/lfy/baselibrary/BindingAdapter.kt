@@ -41,6 +41,7 @@ fun View.isVisible(isVisible: Boolean) {
 //shape等操作   requireAll:它表示是否需要每个属性都必须绑定了数据才会调用viewBackground方法
 @BindingAdapter(
     value = [
+        "background_res",//背景色
         "shape_solidColor",//填充颜色
         "shape_radius",//圆角
         "shape_strokeColor",//描边颜色
@@ -55,12 +56,13 @@ fun View.isVisible(isVisible: Boolean) {
         "shape_tl_radius",//上左圆角
         "shape_tr_radius",//上右圆角
         "shape_bl_radius",//下左圆角
-        "shape_br_radius",//下右圆角
+        "shape_br_radius"//下右圆角
     ],
     requireAll = false
 )
 fun View.setViewBackground(
     //注意  这里的参数只能按照上面value值顺序排列  否则值对应不匹配
+    background_res: Int = 0,
     solidColor: Int = Color.TRANSPARENT,
     radius: Int = 0,
     strokeColor: Int = Color.TRANSPARENT,
@@ -127,6 +129,11 @@ fun View.setViewBackground(
         shape_dashGap.toFloat()
     )
     background = drawable
+
+    //设置背景资源
+    if (background_res!=0){
+        setBackgroundResource(background_res)
+    }
 }
 
 
