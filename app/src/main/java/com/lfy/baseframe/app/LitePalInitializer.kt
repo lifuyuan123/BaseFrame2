@@ -58,9 +58,6 @@ class LitePalInitializer : Initializer<Unit> {
 
         //监听崩溃并收集日志
         CrashHandler.instance.init(context.applicationContext)
-        //bugly
-//        CrashReport.initCrashReport(context.applicationContext, "b18e0d6cf2", BuildConfig.LOG_DEBUG)
-
         //Timber初始化
         if (BuildConfig.LOG_DEBUG) {
             //Timber 是一个日志框架容器,外部使用统一的Api,内部可以动态的切换成任何日志框架(打印策略)进行日志打印
