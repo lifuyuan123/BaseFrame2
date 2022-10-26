@@ -29,6 +29,7 @@ object Tags {
     const val RESPONSE = "response"
     const val UUID = "UUID"
     const val IS_FIRST_COME = "IS_FIRST_COME"
+    const val PGYER = "PGYER"
 
     const val SELECT_DATE = "SELECT_DATE"
     const val START_DATE = "START_DATE"

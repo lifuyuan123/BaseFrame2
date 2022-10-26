@@ -7,4 +7,5 @@ package com.lfy.baselibrary
  */
 object Api {
     const val BASE_URL = "https://imgapi.cn/"
+    const val PGYER_URL = "https://www.pgyer.com"//蒲公英获取应用信息
 }

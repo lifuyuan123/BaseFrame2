@@ -1,7 +1,9 @@
 package com.lfy.baseframe.api
 
+import com.lfy.baseframe.entity.AppPackageBean
 import com.lfy.baseframe.entity.BaseBean
 import com.lfy.baseframe.entity.MeiZiBean
+import com.lfy.baseframe.utils.Tags
 import retrofit2.http.*
 
 
@@ -33,4 +35,15 @@ interface Service {
     suspend fun getimg(
         @Query("return") json: String,
     ): MeiZiBean
+
+    /**
+     * 获取最新app信息
+     */
+    @Headers("Domain-Name: ${Tags.PGYER}")
+    @POST("/apiv2/app/view")
+    @FormUrlEncoded
+    suspend fun getAppInfo(
+        @Field("_api_key") _api_key: String,
+        @Field("appKey") appKey: String
+    ): BaseBean<AppPackageBean>
 }

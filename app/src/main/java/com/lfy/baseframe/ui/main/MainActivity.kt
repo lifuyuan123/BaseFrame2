@@ -12,8 +12,15 @@ import com.lfy.baseframe.entity.TabEntity
 import com.lfy.baseframe.ui.test.TestFragment
 import com.flyco.tablayout.listener.CustomTabEntity
 import com.flyco.tablayout.listener.OnTabSelectListener
+import com.lfy.baseframe.app.launchAndRepeatWithViewLifecycle
+import com.lfy.baseframe.ui.view.dialog.updata.AppUpdataDialog
+import com.lfy.baseframe.utils.Tags
+import com.lfy.baselibrary.Api
+import com.lfy.baselibrary.showDialog
 import com.weikaiyun.fragmentation.SupportFragment
 import com.weikaiyun.fragmentation.SupportHelper
+import kotlinx.coroutines.flow.collectLatest
+import me.jessyan.retrofiturlmanager.RetrofitUrlManager
 import org.jetbrains.anko.toast
 import javax.inject.Inject
 
@@ -40,9 +47,25 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
     override fun getLayout() = R.layout.activity_main
 
     override fun initData(savedInstanceState: Bundle?) {
+        RetrofitUrlManager.getInstance().putDomain(Tags.PGYER, Api.PGYER_URL)
         binding.activity = this
         initFragment()
         initTab()
+        //获取最新应用信息
+        viewModel.getAppInfo()
+        //应用更新
+        launchAndRepeatWithViewLifecycle {
+            viewModel.updata.collectLatest {
+                if (it.code == 0) {
+                    val code = packageManager.getPackageInfo(packageName, 0).versionCode
+                    val name = packageManager.getPackageInfo(packageName, 0).packageName
+                    if (it.data.buildVersionNo.toInt() > code && name == it.data.buildIdentifier) {
+                        val dialog = AppUpdataDialog.newInstans(it.data)
+                        showDialog(dialog)
+                    }
+                }
+            }
+        }
     }
 
     private fun initFragment() {

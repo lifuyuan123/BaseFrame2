@@ -12,6 +12,7 @@ import com.lfy.baseframe.R
 import com.lfy.baseframe.databinding.DialogAppUpdataBinding
 import com.lfy.baseframe.entity.AppPackageBean
 import com.lfy.baseframe.utils.Tags
+import com.lfy.baselibrary.Api
 import com.lfy.baselibrary.ui.dialog.BaseDialogFragment
 import com.lfy.baselibrary.visible
 import timber.log.Timber
@@ -59,8 +60,8 @@ class AppUpdataDialog : BaseDialogFragment<DialogAppUpdataBinding>() {
         appBean = arguments?.getParcelable(Tags.DATA)
         binding.dialog = this
         binding.tvInfo.text =
-            "版本：${appBean?.versionName}\n包大小：${appBean?.packageSize}\n更新时间：${appBean?.createTime}"
-        binding.tvUpdata.text = "${appBean?.versionDescribe}"
+            "版本：${appBean?.buildVersion}\n包大小：${appBean?.getSize()}\n更新时间：${appBean?.buildUpdated}"
+        binding.tvUpdata.text = "${appBean?.buildUpdateDescription}"
 
     }
 
@@ -76,7 +77,8 @@ class AppUpdataDialog : BaseDialogFragment<DialogAppUpdataBinding>() {
         binding.linProgress.visible(true)
         Timber.e("删除旧包：$result")
         manager = DownloadManager.Builder(requireActivity()).run {
-            apkUrl(appBean?.downloadAddress ?: "")
+            //替换apikey和appkey
+            apkUrl("${Api.PGYER_URL}/apiv2/app/install?_api_key=da8226cb726c0f002baa5e8b31c126a9&appKey=f6eea5142d2c640e9698e2ba06d2867d")
             apkName(apkName)
             smallIcon(R.mipmap.ic_launcher)
             onDownloadListener(object : OnDownloadListenerAdapter() {
