@@ -80,7 +80,7 @@ class AppUpdataDialog : BaseDialogFragment<DialogAppUpdataBinding>() {
         Timber.e("删除旧包：$result")
         manager = DownloadManager.Builder(requireActivity()).run {
             //替换apikey和appkey
-            apkUrl("${Api.PGYER_URL}/apiv2/app/install?_api_key=da8226cb726c0f002baa5e8b31c126a9&appKey=f6eea5142d2c640e9698e2ba06d2867d")
+            apkUrl("${Api.PGYER_URL}/apiv2/app/install?_api_key=${Tags.PGYER_API_KEY}&appKey=${Tags.PGYER_APPKEY}")
             apkName(apkName)
             smallIcon(R.mipmap.ic_launcher)
             onDownloadListener(object : OnDownloadListenerAdapter() {
