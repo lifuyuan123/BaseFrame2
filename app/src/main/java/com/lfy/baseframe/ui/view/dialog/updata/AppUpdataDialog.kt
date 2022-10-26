@@ -73,7 +73,9 @@ class AppUpdataDialog : BaseDialogFragment<DialogAppUpdataBinding>() {
             requireContext(),
             "${requireActivity().externalCacheDir?.path}/$apkName"
         )
-
+        //这里需要提前设置，否则下载进度刚开始会不对
+        binding.progress.progress = 0
+        binding.tvProgress.text = "0%"
         binding.linProgress.visible(true)
         Timber.e("删除旧包：$result")
         manager = DownloadManager.Builder(requireActivity()).run {
