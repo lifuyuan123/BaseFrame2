@@ -9,8 +9,8 @@
         android:orientation="vertical"
         tools:context=".ui.main.MainFragment">
 
-        <FrameLayout
-            android:id="@+id/fl_container"
+        <com.lfy.baseframe.ui.view.NoScrollViewPager
+            android:id="@+id/vp"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1" />

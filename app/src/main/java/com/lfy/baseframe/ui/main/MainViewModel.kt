@@ -16,6 +16,15 @@ class MainViewModel @Inject constructor(private val repository: MainRepository) 
     private val _updata = MutableSharedFlow<BaseBean<AppPackageBean>>()
     val updata: SharedFlow<BaseBean<AppPackageBean>> = _updata
 
+    /**
+     * 首页所需tab数据
+     */
+    val iconUnselectedIds = repository.provideIconUnselectedIds()
+    val iconSelectIds = repository.provideIconSelectIds()
+    val tabEntities = repository.provideTabEntities()
+    val titles = repository.provideTitles()
+    val fragments = repository.provideFragments()
+
 
     /**
      * 获取app信息

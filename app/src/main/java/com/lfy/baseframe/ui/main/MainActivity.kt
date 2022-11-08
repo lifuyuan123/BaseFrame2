@@ -1,48 +1,28 @@
 package com.lfy.baseframe.ui.main
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentStatePagerAdapter
+import androidx.viewpager.widget.ViewPager
 import com.lfy.baseframe.databinding.ActivityMainBinding
 import com.lfy.baselibrary.ui.activity.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import com.lfy.baseframe.R
-import com.lfy.baseframe.di.BindSelectIds
-import com.lfy.baseframe.di.BindUnselectedIds
 import com.lfy.baseframe.entity.TabEntity
-import com.lfy.baseframe.ui.test.TestFragment
-import com.flyco.tablayout.listener.CustomTabEntity
 import com.flyco.tablayout.listener.OnTabSelectListener
 import com.lfy.baseframe.app.launchAndRepeatWithViewLifecycle
 import com.lfy.baseframe.ui.view.dialog.updata.AppUpdataDialog
 import com.lfy.baseframe.utils.Tags
 import com.lfy.baselibrary.Api
 import com.lfy.baselibrary.showDialog
-import com.weikaiyun.fragmentation.SupportFragment
-import com.weikaiyun.fragmentation.SupportHelper
 import kotlinx.coroutines.flow.collectLatest
 import me.jessyan.retrofiturlmanager.RetrofitUrlManager
 import org.jetbrains.anko.toast
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
-    @Inject
-    lateinit var mTitles: Array<String>
 
-    @Inject
-    @BindUnselectedIds
-    lateinit var mIconUnselectedIds: IntArray
-
-    @Inject
-    @BindSelectIds
-    lateinit var mIconSelectIds: IntArray
-
-    @Inject
-    lateinit var mTabEntities: ArrayList<CustomTabEntity>
-
-    private var homeFragment: Fragment? = null
-    private var findFragment: Fragment? = null
-    private var mineFragment: Fragment? = null
     private var currentTab = 0
     override fun getLayout() = R.layout.activity_main
 
@@ -69,75 +49,68 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
     }
 
     private fun initFragment() {
-        val fragment =
-            SupportHelper.findFragment(supportFragmentManager, TestFragment::class.java)
-        if (fragment != null) {
-            homeFragment = fragment
-            findFragment =
-                SupportHelper.findFragment(supportFragmentManager, TestFragment::class.java)
-            mineFragment =
-                SupportHelper.findFragment(supportFragmentManager, TestFragment::class.java)
+        @SuppressLint("WrongConstant")
+        binding.vp.adapter = object : FragmentStatePagerAdapter(
+            supportFragmentManager,
+            BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
+        ) {
+            override fun getCount(): Int {
+                return viewModel.fragments.size
+            }
+
+            override fun getPageTitle(position: Int): CharSequence? {
+                return viewModel.titles[position]
+            }
+
+            override fun getItem(position: Int): Fragment {
+                return viewModel.fragments[position]
+            }
         }
-        if (homeFragment == null) homeFragment = TestFragment.newInstance("1")
-        if (findFragment == null) findFragment = TestFragment.newInstance("2")
-        if (mineFragment == null) mineFragment = TestFragment.newInstance("3")
-
-
-        loadMultipleRootFragment(
-            R.id.fl_container,
-            currentTab,
-            homeFragment as SupportFragment,
-            findFragment as SupportFragment,
-            mineFragment as SupportFragment
-        )
     }
 
     private fun initTab() {
-        for (i in mTitles.indices) {
-            mTabEntities.add(TabEntity(mTitles[i], mIconSelectIds[i], mIconUnselectedIds[i]))
+        for (i in viewModel.titles.indices) {
+            viewModel.tabEntities.add(
+                TabEntity(
+                    viewModel.titles[i],
+                    viewModel.iconSelectIds[i],
+                    viewModel.iconUnselectedIds[i]
+                )
+            )
         }
-        binding.tab.setTabData(mTabEntities)
+        binding.vp.offscreenPageLimit = 2//防止内存泄露
+        binding.tab.setTabData(viewModel.tabEntities)
         binding.tab.setOnTabSelectListener(object : OnTabSelectListener {
             override fun onTabSelect(position: Int) {
-                showFragmentToIndex(position)
+                binding.vp.currentItem = position
                 currentTab = position
             }
 
             //消息数点击
             override fun onTabReselect(position: Int) {
 
-                toast("tab--  $position")
-                when (position) {
-                    0 -> {
 
-                    }
-                    1 -> {
-
-                    }
-                    2 -> {
-
-                    }
-                }
             }
+        })
+        binding.vp.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
+            }
+
+            override fun onPageSelected(position: Int) {
+                binding.vp.currentItem = position
+            }
+
+            override fun onPageScrollStateChanged(state: Int) {
+
+            }
+
         })
     }
 
-    /**
-     * 根据下标显示fragment
-     */
-    private fun showFragmentToIndex(index: Int) {
-        when (index) {
-            0 -> {
-                showHideFragment(homeFragment as SupportFragment)
-            }
-            1 -> {
-                showHideFragment(findFragment as SupportFragment)
-            }
-            2 -> {
-                showHideFragment(mineFragment as SupportFragment)
-            }
-        }
-    }
 
     override fun onBackPressedSupport() {
         exitApp()
