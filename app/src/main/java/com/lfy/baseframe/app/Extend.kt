@@ -38,7 +38,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import retrofit2.HttpException
 import timber.log.Timber
+import java.net.ConnectException
+import java.net.SocketTimeoutException
 import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
@@ -99,7 +102,21 @@ fun <T> BaseViewModel.flowRequest(
         } catch (e: Exception) {
             Timber.e("接口异常:$e")
             isShowLoading(false)
-            toastPlus(e.toString())
+            var msg = when (e) {
+                is ConnectException -> e.message
+                is SocketTimeoutException -> "请求网络超时"
+                is HttpException -> when (e.code()) {
+                    500 -> "服务器发生错误"
+                    404 -> "请求地址不存在"
+                    403 -> "请求被服务器拒绝"
+                    307 -> "请求被重定向到其他页面"
+                    else -> e.message()
+                }
+                else -> e?.message
+            }
+            if (e is SocketTimeoutException || e is HttpException || e is ConnectException) {
+                toastPlus(msg)
+            }
         } finally {
             if (showLoading) {
                 isShowLoading(false)

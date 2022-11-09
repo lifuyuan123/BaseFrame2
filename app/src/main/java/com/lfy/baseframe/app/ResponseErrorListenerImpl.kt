@@ -32,7 +32,9 @@ class ResponseErrorListenerImpl(private val context: Context) :
             }
             else -> t?.message
         }
-        toastPlus(msg)
+        if (t is SocketTimeoutException || t is HttpException || t is ConnectException) {
+            toastPlus(msg)
+        }
         Timber.e(msg)
     }
 }
