@@ -9,7 +9,9 @@ import androidx.databinding.ViewDataBinding
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.lfy.baselibrary.ActivityManager
 import com.lfy.baselibrary.singleClick
+import me.jessyan.autosize.AutoSize
 
 /**
  * @Author admin
@@ -26,6 +28,7 @@ abstract class BasePagingDataAdapter<T : Any> :
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        AutoSize.autoConvertDensity(ActivityManager.instance.mCurrentActivity, 375f, true)
         val binding = DataBindingUtil.inflate<ViewDataBinding>(
             LayoutInflater.from(parent.context),
             getLayout(), parent, false
@@ -115,13 +118,13 @@ abstract class BasePagingDataAdapter<T : Any> :
                     (adapter: BasePagingDataAdapter<out Any>, v: View, position: Int) -> Unit
 
         fun addChildClickOfId(ids: MutableList<Int>) {
-            for (id in ids){
+            for (id in ids) {
                 viewHolder.itemView.findViewById<View>(id)?.singleClick(this)
             }
         }
 
         fun addChildLongClickOfId(ids: MutableList<Int>) {
-            for (id in ids){
+            for (id in ids) {
                 viewHolder.itemView.findViewById<View>(id)?.setOnLongClickListener(this)
             }
         }
@@ -164,7 +167,7 @@ abstract class BasePagingDataAdapter<T : Any> :
     private val childIds by lazy { mutableListOf<Int>() }
     private val childLongIds by lazy { mutableListOf<Int>() }
 
-    fun addChildClickOfId( vararg id: Int) {
+    fun addChildClickOfId(vararg id: Int) {
         childIds.addAll(id.toMutableList())
     }
 

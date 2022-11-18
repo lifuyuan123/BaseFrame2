@@ -7,7 +7,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
+import com.lfy.baselibrary.ActivityManager
 import com.lfy.baselibrary.click
+import me.jessyan.autosize.AutoSize
 
 /**
  * @Author admin
@@ -24,6 +26,7 @@ abstract class BaseDataBindingAdapter<T, VB : ViewDataBinding> constructor(
         parent: ViewGroup,
         viewType: Int
     ): BaseDataBindingViewHolder<VB> {
+        AutoSize.autoConvertDensity(ActivityManager.instance.mCurrentActivity, 375f, true)
         val binding = DataBindingUtil.inflate<ViewDataBinding>(
             LayoutInflater.from(parent.context),
             layoutResId, parent, false
@@ -32,13 +35,13 @@ abstract class BaseDataBindingAdapter<T, VB : ViewDataBinding> constructor(
     }
 
     override fun convert(holder: BaseDataBindingViewHolder<VB>, item: T) {
-        convertOfVB(holder.getBinding(), holder,item)
+        convertOfVB(holder.getBinding(), holder, item)
     }
 
     /**
      * binding暴露给实现类
      */
-    abstract fun convertOfVB(binding: VB?,helper: BaseDataBindingViewHolder<VB>, item: T)
+    abstract fun convertOfVB(binding: VB?, helper: BaseDataBindingViewHolder<VB>, item: T)
 
     override fun setOnItemClick(v: View, position: Int) {
         click {
