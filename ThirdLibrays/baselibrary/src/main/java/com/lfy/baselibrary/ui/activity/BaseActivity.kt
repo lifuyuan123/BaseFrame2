@@ -11,12 +11,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.lfy.baselibrary.R
 import com.gyf.immersionbar.ImmersionBar
+import com.lfy.baselibrary.ActivityManager
 import com.lfy.baselibrary.ui.dialog.ProgresDialog
 import com.lfy.baselibrary.vm.BaseViewModel
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import com.weikaiyun.fragmentation.SupportActivity
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import me.jessyan.autosize.AutoSize
 import java.lang.reflect.ParameterizedType
 
 /**
@@ -32,6 +34,7 @@ abstract class BaseActivity<T:ViewDataBinding,VM : BaseViewModel> :SupportActivi
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        AutoSize.autoConvertDensity(this, 375f, true)
         lifecycle.addObserver(progresDialog)
         ImmersionBar.with(this)
             .navigationBarColor(R.color.color_bg)

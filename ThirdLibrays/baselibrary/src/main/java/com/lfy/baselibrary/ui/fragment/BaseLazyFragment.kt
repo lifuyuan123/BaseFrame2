@@ -40,8 +40,8 @@ abstract class BaseLazyFragment<T : ViewDataBinding, VM : BaseViewModel> : Suppo
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, getLayout(), container, false)
         AutoSize.autoConvertDensity(activity, 375f, true)
+        binding = DataBindingUtil.inflate(inflater, getLayout(), container, false)
         return binding.root
     }
 

@@ -33,8 +33,8 @@ abstract class BaseCommonDialog<T : ViewDataBinding> :DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding= DataBindingUtil.inflate(inflater,getLayoutId(),container,false)
         AutoSize.autoConvertDensity(activity, 375f, true)
+        binding= DataBindingUtil.inflate(inflater,getLayoutId(),container,false)
         return binding.root
     }
 

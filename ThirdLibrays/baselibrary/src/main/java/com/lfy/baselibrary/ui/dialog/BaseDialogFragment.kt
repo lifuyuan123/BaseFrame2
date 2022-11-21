@@ -55,8 +55,8 @@ abstract class BaseDialogFragment<T : ViewDataBinding> :DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding= DataBindingUtil.inflate(inflater,getLayout(),container,false)
         AutoSize.autoConvertDensity(activity, 375f, true)
+        binding= DataBindingUtil.inflate(inflater,getLayout(),container,false)
         return binding.root
     }
 
