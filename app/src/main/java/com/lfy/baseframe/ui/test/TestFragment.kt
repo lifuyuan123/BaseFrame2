@@ -15,7 +15,9 @@ import com.lfy.baseframe.ui.cameraX.CameraActivity
 import com.lfy.baseframe.ui.view.dialog.choice.ChoiceDialog
 import com.lfy.baseframe.ui.view.dialog.showImg.ShowPageImgDialog
 import com.lfy.baseframe.utils.ToastUtils.toast
+import com.lfy.baselibrary.entity.PermissType
 import com.lfy.baselibrary.loadImage
+import com.lfy.baselibrary.permiss
 import com.lfy.baselibrary.showDialog
 import com.lfy.baselibrary.singleClick
 import com.lfy.baselibrary.ui.fragment.BaseFragment
@@ -121,7 +123,9 @@ class TestFragment : BaseFragment<FragmentTestBinding, TestViewModel>() {
 
         binding.tv.singleClick {
             if (arguments?.getString("data") == "2") {
-                _mActivity.startActivityForResult<CaptureActivity>(100)
+                _mActivity.permiss(PermissType.PermissCamera){
+                    _mActivity.startActivityForResult<CaptureActivity>(100)
+                }
             } else if (arguments?.getString("data") == "1") {
 //                _mActivity.startActivityForResult<CameraActivity>(100)
                 val dialog=ChoiceDialog(list = mutableListOf(
