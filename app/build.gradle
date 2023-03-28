@@ -15,7 +15,7 @@ android {
         targetSdk rootProject.targetSdkVersion
         versionCode 1
         versionName "1.0"
-
+        generatedDensities = ['xxhdpi']//使用svg配置生成png的分辨率和数量,当前只会在xxhdpi下生成png
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         ndk {
