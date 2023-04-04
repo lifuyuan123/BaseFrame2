@@ -12,8 +12,8 @@ android {
         targetSdkVersion  rootProject.targetSdkVersion
         versionCode 1
         versionName "1.0"
-        vectorDrawables.useSupportLibrary = true
-
+        vectorDrawables.useSupportLibrary = true//兼容低版本svg
+        generatedDensities = []//兼容低版本svg，这里不生成png
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -39,7 +39,8 @@ dependencies {
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
-    
+
+    implementation "androidx.appcompat:appcompat:$supportLibVersion"
     api "androidx.core:core-ktx:$coreVersion"
     api "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
     api "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
