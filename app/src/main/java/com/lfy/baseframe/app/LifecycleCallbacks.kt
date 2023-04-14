@@ -44,9 +44,9 @@ object LifecycleCallbacks {
 
         override fun onActivityStopped(activity: Activity) {
             Timber.e("onActivityStopped:  ${activity.localClassName}")
-            if (ActivityManager.instance.mCurrentActivity == activity) {
-                ActivityManager.instance.mCurrentActivity = null
-            }
+//            if (ActivityManager.instance.mCurrentActivity == activity) {
+//                ActivityManager.instance.mCurrentActivity = null
+//            }
 
         }
 
