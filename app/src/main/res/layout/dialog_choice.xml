@@ -7,7 +7,7 @@
 
         <variable
             name="dialog"
-            type="com.lfy.baseframe.ui.view.dialog.choice.ChoiceDialog" />
+            type="com.company.baseframe.ui.view.dialog.choice.ChoiceDialog" />
     </data>
 
     <FrameLayout

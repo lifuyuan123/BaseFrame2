@@ -6,11 +6,11 @@
     <data>
         <variable
             name="bean"
-            type="com.lfy.baseframe.entity.Bean" />
+            type="com.company.baseframe.entity.Bean" />
 
         <variable
             name="fragment"
-            type="com.lfy.baseframe.ui.test.TestFragment" />
+            type="com.company.baseframe.ui.test.TestFragment" />
 
     </data>
 

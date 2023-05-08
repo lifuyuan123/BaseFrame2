@@ -6,7 +6,7 @@
     <data>
         <variable
             name="dialog"
-            type="com.lfy.baseframe.ui.view.dialog.updata.AppUpdataDialog" />
+            type="com.company.baseframe.ui.view.dialog.updata.AppUpdataDialog" />
 
     </data>
 

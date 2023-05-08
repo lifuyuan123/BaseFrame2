@@ -7,7 +7,7 @@
 
         <variable
             name="dialog"
-            type="com.lfy.baseframe.ui.view.dialog.ProtocolDialog" />
+            type="com.company.baseframe.ui.view.dialog.ProtocolDialog" />
     </data>
 
     <FrameLayout

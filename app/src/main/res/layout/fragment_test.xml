@@ -7,7 +7,7 @@
 
         <variable
             name="fragment"
-            type="com.lfy.baseframe.ui.test.TestFragment" />
+            type="com.company.baseframe.ui.test.TestFragment" />
     </data>
 
     <LinearLayout

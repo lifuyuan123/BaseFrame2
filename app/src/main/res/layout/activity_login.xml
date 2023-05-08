@@ -7,7 +7,7 @@
 
         <variable
             name="activity"
-            type="com.lfy.baseframe.ui.login.LoginActivity" />
+            type="com.company.baseframe.ui.login.LoginActivity" />
     </data>
 
     <LinearLayout

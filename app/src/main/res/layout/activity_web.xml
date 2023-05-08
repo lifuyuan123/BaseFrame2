@@ -4,7 +4,7 @@
     <data>
         <variable
             name="activity"
-            type="com.lfy.baseframe.ui.web.WebActivity" />
+            type="com.company.baseframe.ui.web.WebActivity" />
     </data>
 
     <LinearLayout
