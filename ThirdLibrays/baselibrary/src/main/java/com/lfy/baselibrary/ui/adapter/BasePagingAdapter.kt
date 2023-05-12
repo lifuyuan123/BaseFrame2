@@ -10,6 +10,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.lfy.baselibrary.ActivityManager
+import com.lfy.baselibrary.Tags
 import com.lfy.baselibrary.singleClick
 import me.jessyan.autosize.AutoSize
 
@@ -28,7 +29,7 @@ abstract class BasePagingDataAdapter<T : Any> :
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        AutoSize.autoConvertDensity(ActivityManager.instance.mCurrentActivity, 375f, true)
+        AutoSize.autoConvertDensity(ActivityManager.instance.mCurrentActivity, Tags.with, true)
         val binding = DataBindingUtil.inflate<ViewDataBinding>(
             LayoutInflater.from(parent.context),
             getLayout(), parent, false

@@ -8,6 +8,7 @@ import androidx.paging.LoadState
 import androidx.paging.LoadStateAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.lfy.baselibrary.ActivityManager
+import com.lfy.baselibrary.Tags
 import me.jessyan.autosize.AutoSize
 
 /**
@@ -30,7 +31,7 @@ abstract class BaseLoadStateAdapter<T : Any>(val data: T) :
         parent: ViewGroup,
         loadState: LoadState
     ): RecyclerView.ViewHolder {
-        AutoSize.autoConvertDensity(ActivityManager.instance.mCurrentActivity, 375f, true)
+        AutoSize.autoConvertDensity(ActivityManager.instance.mCurrentActivity, Tags.with, true)
         val binding = DataBindingUtil.inflate<ViewDataBinding>(
             LayoutInflater.from(parent.context),
             getLayout(), parent, false

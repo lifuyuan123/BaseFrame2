@@ -12,6 +12,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import com.gyf.immersionbar.ImmersionBar
 import com.lfy.baselibrary.R
+import com.lfy.baselibrary.Tags
 import com.lfy.baselibrary.getWidthAndHeight
 import me.jessyan.autosize.AutoSize
 
@@ -33,7 +34,7 @@ abstract class BaseCommonDialog<T : ViewDataBinding> :DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        AutoSize.autoConvertDensity(activity, 375f, true)
+        AutoSize.autoConvertDensity(activity, Tags.with, true)
         binding= DataBindingUtil.inflate(inflater,getLayoutId(),container,false)
         return binding.root
     }

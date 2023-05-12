@@ -8,6 +8,7 @@ import androidx.databinding.ViewDataBinding
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.lfy.baselibrary.ActivityManager
+import com.lfy.baselibrary.Tags
 import com.lfy.baselibrary.click
 import me.jessyan.autosize.AutoSize
 
@@ -26,7 +27,7 @@ abstract class BaseDataBindingAdapter<T, VB : ViewDataBinding> constructor(
         parent: ViewGroup,
         viewType: Int
     ): BaseDataBindingViewHolder<VB> {
-        AutoSize.autoConvertDensity(ActivityManager.instance.mCurrentActivity, 375f, true)
+        AutoSize.autoConvertDensity(ActivityManager.instance.mCurrentActivity, Tags.with, true)
         val binding = DataBindingUtil.inflate<ViewDataBinding>(
             LayoutInflater.from(parent.context),
             layoutResId, parent, false

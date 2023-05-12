@@ -14,9 +14,8 @@ import kotlinx.coroutines.launch
  */
 open class BaseViewModel : ViewModel() {
 
-    //用于load弹窗   replay=1,onBufferOverflow=BufferOverflow.DROP_LATES 传入这两个参数第一次发射才会成功
-    private val _loadEvent =
-        MutableSharedFlow<Boolean>(replay = 1, onBufferOverflow = BufferOverflow.DROP_LATEST)
+    //用于load弹窗
+    private val _loadEvent = MutableSharedFlow<Boolean>()
     val loadEvent: SharedFlow<Boolean> = _loadEvent
 
 

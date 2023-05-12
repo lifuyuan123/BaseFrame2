@@ -12,6 +12,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.lfy.baselibrary.R
 import com.gyf.immersionbar.ImmersionBar
 import com.lfy.baselibrary.ActivityManager
+import com.lfy.baselibrary.Tags
 import com.lfy.baselibrary.ui.dialog.ProgresDialog
 import com.lfy.baselibrary.vm.BaseViewModel
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
@@ -34,7 +35,7 @@ abstract class BaseActivity<T:ViewDataBinding,VM : BaseViewModel> :SupportActivi
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        AutoSize.autoConvertDensity(this, 375f, true)
+        AutoSize.autoConvertDensity(this, Tags.with, true)
         lifecycle.addObserver(progresDialog)
         ImmersionBar.with(this)
             .navigationBarColor(R.color.color_bg)

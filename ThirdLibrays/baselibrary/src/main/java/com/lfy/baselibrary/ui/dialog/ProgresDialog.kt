@@ -17,10 +17,6 @@ class ProgresDialog(context: Context) : Dialog(context, R.style.dialog_progress)
 
     private var animationView: LottieAnimationView
 
-    override fun show() {
-        super.show()
-        animationView.playAnimation()
-    }
 
     override fun dismiss() {
         animationView.cancelAnimation()

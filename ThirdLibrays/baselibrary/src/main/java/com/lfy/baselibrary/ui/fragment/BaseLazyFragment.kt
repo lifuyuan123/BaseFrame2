@@ -13,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.gyf.immersionbar.ImmersionBar
 import com.lfy.baselibrary.R
+import com.lfy.baselibrary.Tags
 import com.lfy.baselibrary.ui.dialog.ProgresDialog
 import com.lfy.baselibrary.visible
 import com.lfy.baselibrary.vm.BaseViewModel
@@ -40,7 +41,7 @@ abstract class BaseLazyFragment<T : ViewDataBinding, VM : BaseViewModel> : Suppo
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        AutoSize.autoConvertDensity(activity, 375f, true)
+        AutoSize.autoConvertDensity(activity, Tags.with, true)
         binding = DataBindingUtil.inflate(inflater, getLayout(), container, false)
         return binding.root
     }
