@@ -37,6 +37,7 @@ abstract class BaseDataBindingAdapter<T, VB : ViewDataBinding> constructor(
 
     override fun convert(holder: BaseDataBindingViewHolder<VB>, item: T) {
         convertOfVB(holder.getBinding(), holder, item)
+        holder.getBinding<VB>()?.executePendingBindings()
     }
 
     /**

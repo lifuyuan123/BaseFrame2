@@ -22,6 +22,5 @@ class ChoiceAdapter @Inject constructor() :
         item: ChoiceBean
     ) {
         binding?.bean = item
-        binding?.executePendingBindings()
     }
 }
