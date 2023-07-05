@@ -18,8 +18,7 @@ class TestAdapter @Inject constructor() : BasePagingDataAdapter<Bean>() {
 
     override fun bindData(binding: ViewDataBinding, bean: Bean, position: Int) {
         (binding as GankItemBinding).bean = bean
-        //这句代码放在  binding.bean=bean 前面会崩
-        binding.executePendingBindings()
+
         val width = AutoSizeConfig.getInstance().screenWidth
         val params: ViewGroup.LayoutParams = binding.cl.layoutParams
 
@@ -29,5 +28,7 @@ class TestAdapter @Inject constructor() : BasePagingDataAdapter<Bean>() {
             params.height = (width / 2.3 * 1.5).toInt()
         }
         binding.cl.layoutParams = params
+        //这句代码放在  binding.bean=bean 前面会崩
+        binding.executePendingBindings()
     }
 }
