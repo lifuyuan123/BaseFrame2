@@ -16,9 +16,11 @@ import com.company.baseframe.ui.view.dialog.updata.AppUpdataDialog
 import com.company.baseframe.utils.Tags
 import com.lfy.baselibrary.Api
 import com.lfy.baselibrary.showDialog
+import com.zy.devicelibrary.utils.FileUtils
 import kotlinx.coroutines.flow.collectLatest
 import me.jessyan.retrofiturlmanager.RetrofitUrlManager
 import org.jetbrains.anko.toast
+import timber.log.Timber
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
@@ -29,6 +31,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
     override fun initData(savedInstanceState: Bundle?) {
         RetrofitUrlManager.getInstance().putDomain(Tags.PGYER, Api.PGYER_URL)
         binding.activity = this
+        Timber.e("唯一标识：${FileUtils.getSDDeviceTxt()}")
         initFragment()
         initTab()
         //获取最新应用信息

@@ -3,6 +3,7 @@ package com.company.baseframe.app
 import android.app.Application
 import android.content.Context
 import androidx.multidex.MultiDex
+import com.zy.devicelibrary.UtilsApp
 import dagger.hilt.android.HiltAndroidApp
 
 /**
@@ -25,6 +26,7 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        UtilsApp.init(this)
         context = this
     }
 }

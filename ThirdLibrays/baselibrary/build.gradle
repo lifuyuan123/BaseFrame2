@@ -119,4 +119,7 @@ dependencies {
     api "com.github.CymChad:BaseRecyclerViewAdapterHelper:$BaseRecycler"
 
     api "com.google.android:flexbox:$flexbox"
+
+    //获取设备id
+    api "com.github.z244370114:DeviceLibray:$deviceLibray"
 }
