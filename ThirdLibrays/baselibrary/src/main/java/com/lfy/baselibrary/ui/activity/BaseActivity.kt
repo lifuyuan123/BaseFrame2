@@ -97,7 +97,7 @@ abstract class BaseActivity<T:ViewDataBinding,VM : BaseViewModel> :SupportActivi
                         progresDialog.show()
                     } else {
                         loadHide()
-                        progresDialog.hide()
+                        progresDialog.dismiss()
                         binding.root.findViewById<SmartRefreshLayout?>(R.id.smart)?.finishRefresh()
                         binding.root.findViewById<SmartRefreshLayout?>(R.id.smart)?.finishLoadMore()
                     }

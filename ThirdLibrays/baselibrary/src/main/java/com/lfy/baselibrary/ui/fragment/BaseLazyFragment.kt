@@ -114,7 +114,7 @@ abstract class BaseLazyFragment<T : ViewDataBinding, VM : BaseViewModel> : Suppo
                         loadShow()
                     }else{
                         loadHide()
-                        progresDialog.hide()
+                        progresDialog.dismiss()
                         binding.root.findViewById<SmartRefreshLayout?>(R.id.smart)?.finishRefresh()
                         binding.root.findViewById<SmartRefreshLayout?>(R.id.smart)?.finishLoadMore()
                     }

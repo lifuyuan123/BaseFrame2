@@ -103,7 +103,7 @@ abstract class BaseFragment<T : ViewDataBinding, VM : BaseViewModel> : SupportFr
                         loadShow()
                     }else{
                         loadHide()
-                        progresDialog.hide()
+                        progresDialog.dismiss()
                         binding.root.findViewById<SmartRefreshLayout?>(R.id.smart)?.finishRefresh()
                         binding.root.findViewById<SmartRefreshLayout?>(R.id.smart)?.finishLoadMore()
                     }
