@@ -77,8 +77,7 @@ dependencies {
     //日志打印
     api "com.jakewharton.timber:timber:$timber"
     //状态栏
-    api "com.gyf.immersionbar:immersionbar:$immersionbar"
-
+    api "com.geyifeng.immersionbar:immersionbar:$immersionbar"
     //图片选择
     api "io.github.lucksiege:pictureselector:$pictureselector"
     api "io.github.lucksiege:compress:$pictureselector"
