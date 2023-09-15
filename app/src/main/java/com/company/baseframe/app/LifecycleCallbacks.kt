@@ -2,11 +2,7 @@ package com.company.baseframe.app
 
 import android.app.Activity
 import android.app.Application
-import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import com.gyf.immersionbar.ImmersionBar
 import com.lfy.baselibrary.ActivityManager
 import timber.log.Timber
 
