@@ -53,6 +53,7 @@ abstract class BaseFragment<T : ViewDataBinding, VM : BaseViewModel> : SupportFr
         lifecycle.addObserver(progresDialog)
         ImmersionBar.with(this)
             .navigationBarColor(R.color.color_bg)
+            .keyboardEnable(true)
             .statusBarDarkFont(true, 0.2f)
             .autoStatusBarDarkModeEnable(true, 0.2f)//启用自动根据StatusBar颜色调整深色模式与亮色模式
             .autoNavigationBarDarkModeEnable(true, 0.2f)//启用自动根据NavigationBar颜色调整深色模式与亮色模式

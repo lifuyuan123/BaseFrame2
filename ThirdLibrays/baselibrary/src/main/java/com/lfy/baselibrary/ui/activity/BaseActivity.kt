@@ -38,6 +38,7 @@ abstract class BaseActivity<T:ViewDataBinding,VM : BaseViewModel> :SupportActivi
         AutoSize.autoConvertDensity(this, Tags.with, true)
         lifecycle.addObserver(progresDialog)
         ImmersionBar.with(this)
+            .keyboardEnable(true)
             .navigationBarColor(R.color.color_bg)
             .statusBarDarkFont(true, 0.2f)
             .autoStatusBarDarkModeEnable(true,0.2f)//启用自动根据StatusBar颜色调整深色模式与亮色模式

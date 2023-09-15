@@ -24,10 +24,10 @@ import me.jessyan.autosize.AutoSize
  * @describe:  BaseDialogFragment
  */
 
-abstract class BaseDialogFragment<T : ViewDataBinding> :DialogFragment() {
+abstract class BaseDialogFragment<T : ViewDataBinding> : DialogFragment() {
     private var mActivity: Activity? = null
     protected var mWindow: Window? = null
-    private var mWidthAndHeight: Array<Int?>?=null
+    private var mWidthAndHeight: Array<Int?>? = null
     protected lateinit var binding: T
 
 
@@ -57,15 +57,14 @@ abstract class BaseDialogFragment<T : ViewDataBinding> :DialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         AutoSize.autoConvertDensity(activity, Tags.with, true)
-        binding= DataBindingUtil.inflate(inflater,getLayout(),container,false)
+        binding = DataBindingUtil.inflate(inflater, getLayout(), container, false)
         return binding.root
     }
 
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.lifecycleOwner=this
+        binding.lifecycleOwner = this
         if (isImmersionBarEnabled()) {
             initImmersionBar()
         }
@@ -107,8 +106,8 @@ abstract class BaseDialogFragment<T : ViewDataBinding> :DialogFragment() {
     /**
      * 初始化沉浸式
      */
-     protected open fun initImmersionBar() {
-        ImmersionBar.with(this).navigationBarColor(R.color.color_bg).init()
+    protected open fun initImmersionBar() {
+        ImmersionBar.with(this).keyboardEnable(true).navigationBarColor(R.color.color_bg).init()
     }
 
 
@@ -120,7 +119,7 @@ abstract class BaseDialogFragment<T : ViewDataBinding> :DialogFragment() {
     /**
      * 布局
      */
-    abstract fun getLayout():Int
+    abstract fun getLayout(): Int
 
 
 }
