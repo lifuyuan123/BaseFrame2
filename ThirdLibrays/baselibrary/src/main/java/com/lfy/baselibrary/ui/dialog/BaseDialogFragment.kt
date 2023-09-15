@@ -107,7 +107,7 @@ abstract class BaseDialogFragment<T : ViewDataBinding> : DialogFragment() {
      * 初始化沉浸式
      */
     protected open fun initImmersionBar() {
-        ImmersionBar.with(this).keyboardEnable(true).navigationBarColor(R.color.color_bg).init()
+        ImmersionBar.with(this).navigationBarColor(R.color.color_bg).init()
     }
 
 

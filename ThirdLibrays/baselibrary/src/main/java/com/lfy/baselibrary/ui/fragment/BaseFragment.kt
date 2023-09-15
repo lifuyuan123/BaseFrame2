@@ -32,7 +32,7 @@ import java.lang.reflect.ParameterizedType
  */
 abstract class BaseFragment<T : ViewDataBinding, VM : BaseViewModel> : SupportFragment() {
 
-    protected val progresDialog by lazy {  ProgresDialog(requireContext()) }
+    protected val progresDialog by lazy { ProgresDialog(requireContext()) }
     protected lateinit var binding: T
     protected lateinit var viewModel: VM
 
@@ -53,7 +53,7 @@ abstract class BaseFragment<T : ViewDataBinding, VM : BaseViewModel> : SupportFr
         lifecycle.addObserver(progresDialog)
         ImmersionBar.with(this)
             .navigationBarColor(R.color.color_bg)
-            .keyboardEnable(true)
+            //            .keyboardEnable(true) 某些弹窗被软键盘覆盖可打开
             .statusBarDarkFont(true, 0.2f)
             .autoStatusBarDarkModeEnable(true, 0.2f)//启用自动根据StatusBar颜色调整深色模式与亮色模式
             .autoNavigationBarDarkModeEnable(true, 0.2f)//启用自动根据NavigationBar颜色调整深色模式与亮色模式
@@ -98,11 +98,11 @@ abstract class BaseFragment<T : ViewDataBinding, VM : BaseViewModel> : SupportFr
         //监听加载弹窗
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.loadEvent.collect{
-                    if (it){
+                viewModel.loadEvent.collect {
+                    if (it) {
                         progresDialog.show()
                         loadShow()
-                    }else{
+                    } else {
                         loadHide()
                         progresDialog.dismiss()
                         binding.root.findViewById<SmartRefreshLayout?>(R.id.smart)?.finishRefresh()
@@ -113,9 +113,9 @@ abstract class BaseFragment<T : ViewDataBinding, VM : BaseViewModel> : SupportFr
         }
     }
 
-    open fun loadHide(){}
+    open fun loadHide() {}
 
-    open fun loadShow(){}
+    open fun loadShow() {}
 
     abstract fun getLayout(): Int
 

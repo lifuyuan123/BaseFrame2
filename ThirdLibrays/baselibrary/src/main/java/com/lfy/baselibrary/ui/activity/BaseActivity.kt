@@ -27,9 +27,9 @@ import java.lang.reflect.ParameterizedType
  * @Date 2021/8/6-17:38
  * @describe:  activity基类
  */
-abstract class BaseActivity<T:ViewDataBinding,VM : BaseViewModel> :SupportActivity() {
+abstract class BaseActivity<T : ViewDataBinding, VM : BaseViewModel> : SupportActivity() {
 
-    protected val progresDialog by lazy { ProgresDialog(this)  }
+    protected val progresDialog by lazy { ProgresDialog(this) }
     protected lateinit var binding: T
     protected lateinit var viewModel: VM
 
@@ -38,22 +38,22 @@ abstract class BaseActivity<T:ViewDataBinding,VM : BaseViewModel> :SupportActivi
         AutoSize.autoConvertDensity(this, Tags.with, true)
         lifecycle.addObserver(progresDialog)
         ImmersionBar.with(this)
-            .keyboardEnable(true)
+//            .keyboardEnable(true) 某些弹窗被软键盘覆盖可打开
             .navigationBarColor(R.color.color_bg)
             .statusBarDarkFont(true, 0.2f)
-            .autoStatusBarDarkModeEnable(true,0.2f)//启用自动根据StatusBar颜色调整深色模式与亮色模式
-            .autoNavigationBarDarkModeEnable(true,0.2f)//启用自动根据NavigationBar颜色调整深色模式与亮色模式
+            .autoStatusBarDarkModeEnable(true, 0.2f)//启用自动根据StatusBar颜色调整深色模式与亮色模式
+            .autoNavigationBarDarkModeEnable(true, 0.2f)//启用自动根据NavigationBar颜色调整深色模式与亮色模式
             .init()
 
 
         vmProvider()
 
-        binding= DataBindingUtil.setContentView(this, getLayout())
-        binding.lifecycleOwner=this
+        binding = DataBindingUtil.setContentView(this, getLayout())
+        binding.lifecycleOwner = this
 
 
         //沉浸状态栏
-        binding.root.findViewById<View?>(R.id.status_bar_view)?.let{
+        binding.root.findViewById<View?>(R.id.status_bar_view)?.let {
             ImmersionBar.setStatusBarView(this, it)
         }
 
@@ -67,8 +67,8 @@ abstract class BaseActivity<T:ViewDataBinding,VM : BaseViewModel> :SupportActivi
 
         //设置标题
         findViewById<View>(R.id.toolbar_title)?.let {
-            if(it is TextView){
-                it.text=title
+            if (it is TextView) {
+                it.text = title
             }
         }
 
@@ -107,11 +107,11 @@ abstract class BaseActivity<T:ViewDataBinding,VM : BaseViewModel> :SupportActivi
         }
     }
 
-    open fun loadHide(){}
+    open fun loadHide() {}
 
-    open fun loadShow(){}
+    open fun loadShow() {}
 
     abstract fun initData(savedInstanceState: Bundle?)
 
-    abstract fun getLayout():Int
+    abstract fun getLayout(): Int
 }
