@@ -4,6 +4,9 @@ import com.company.baseframe.entity.AppPackageBean
 import com.company.baseframe.entity.BaseBean
 import com.company.baseframe.entity.MeiZiBean
 import com.company.baseframe.utils.Tags
+import com.lfy.baselibrary.Api
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.http.*
 
 
@@ -13,23 +16,6 @@ import retrofit2.http.*
  * @describe:  网络服务
  */
 interface Service {
-    //妹子图片
-    @GET("/api/v2/data/category/Girl/type/Girl/page/{pages}/count/{counts}")
-    suspend fun getGank(
-        @Path("counts") count: String?,
-        @Path("pages") page: String?
-    ): BaseBean<MutableList<Any>>
-
-    //干货文章
-    @GET("/api/v2/data/category/GanHuo/type/Android/page/{page}/count/{count}")
-    suspend fun getGanHuo(
-        @Path("count") count: Int,
-        @Path("page") page: Int
-    ): BaseBean<MutableList<Any>>
-
-    //banner
-    @GET("/api/v2/banners")
-    suspend fun getBanner(): BaseBean<MutableList<Any>>
 
     @GET("/cos2.php")
     suspend fun getimg(
@@ -39,11 +25,13 @@ interface Service {
     /**
      * 获取最新app信息
      */
-    @Headers("Domain-Name: ${Tags.PGYER}")
-    @POST("/apiv2/app/view")
-    @FormUrlEncoded
+    @POST
     suspend fun getAppInfo(
-        @Field("_api_key") _api_key: String,
-        @Field("appKey") appKey: String
+        @Url url: String = "${Api.PGYER_URL}/apiv2/app/view",
+        @Body requestBody: RequestBody = MultipartBody.Builder().apply {
+            setType(MultipartBody.FORM)
+            addFormDataPart("_api_key", Tags.PGYER_API_KEY)
+            addFormDataPart("appKey", Tags.PGYER_APPKEY)
+        }.build()
     ): BaseBean<AppPackageBean>
 }

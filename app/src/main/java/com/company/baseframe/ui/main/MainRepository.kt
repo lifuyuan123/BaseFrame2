@@ -7,12 +7,11 @@ import com.company.baseframe.api.Service
 import com.company.baseframe.entity.AppPackageBean
 import com.company.baseframe.entity.BaseBean
 import com.company.baseframe.ui.test.TestFragment
-import com.company.baseframe.utils.Tags
 import javax.inject.Inject
 
 class MainRepository @Inject constructor(private val service: Service) {
-    suspend fun getAppInfo(): BaseBean<AppPackageBean> =
-        service.getAppInfo(Tags.PGYER_API_KEY, Tags.PGYER_APPKEY)
+    suspend fun getAppInfo(): BaseBean<AppPackageBean> =  service.getAppInfo()
+
 
     fun provideIconUnselectedIds() = intArrayOf(
         R.mipmap.icon_home,
